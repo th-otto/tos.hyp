@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Der PMMU-Funktionshandler
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="010.html"><img src="udo_up.gif" alt="Anhang" title="Anhang" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="010005.html"><img src="udo_lf.gif" alt="Angabe der Quellen" title="Angabe der Quellen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="010007.html"><img src="udo_rg.gif" alt="TOS Liste" title="TOS Liste" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Der_20PMMU-Funktionshandler"></a>16.6 Der PMMU-Funktionshandler</h1>
+<p>Der Funktionshandler ist über den <a href="003007.html#Cookie_2C_20PMMU">PMMU-Cookie</a> erreichbar, und wird
+von Programmen wie <i>Outside</i> oder <i>VRAM</i> angelegt. Der
+Aufruf des Handlers ist nur im Supervisor-Modus erlaubt, und geschieht
+über eine Funktionsnummer, die im Datenregister D0 abgelegt wird.
+Eventuelle Rückgabewerte finden sich ebenfalls in diesem Register
+wieder. Andere Prozessorregister werden nicht verändert.</p>
+
+<p>Zur Zeit stehen die folgenden Funktionen zur Verfügung:</p>
+
+<ul>
+<li><a href="#ClearPageMode">ClearPageMode</a></li>
+<li><a href="#GetHdv_inuse">GetHdv_inuse</a></li>
+<li><a href="#GetPageSize">GetPageSize</a></li>
+<li><a href="#pmem_size">pmem_size</a></li>
+<li><a href="#PMMUversion">PMMUversion</a></li>
+<li><a href="#SetPageMode">SetPageMode</a></li>
+<li><a href="#vmem_size">vmem_size</a></li>
+</ul>
+
+<p><b>Wichtiger Hinweis:</b> Diese Funktionen sind nur für einige
+wenige Programme aus dem Bereich der Systemsoftware von Bedeutung, und
+haben in Anwenderprogrammen <i>nichts</i> zu suchen.</p>
+
+<p>Querverweis: <a href="00500e.html#Super">Super</a> &nbsp; <a href="004012.html#Supexec">Supexec</a></p>
+
+<h3><a name="ClearPageMode"></a>16.6.1 ClearPageMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»ClearPageMode« - PMMU Modus für einen Bereich löschen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">2</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">ULONG ClearPageMode ( ULONG mode, ULONG start_address, ULONG
+length );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion löscht den PMMU-Modus für einen bestimmten
+Speicherbereich. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>mode</i></td>
+  <td align="left" valign="top">Bit-Vektor analog <a href="#SetPageMode">SetPageMode</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>start_address</i></td>
+  <td align="left" valign="top">Anfangsadresse des Speicherbereichs</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>length</i></td>
+  <td align="left" valign="top">Länge des gewünschten Bereichs</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Alle anderen Bits sind für zukünftige Zwecke
+reserviert. Ein Programm darf nur die Bits löschen, die es vorher
+selbst gesetzt hat.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei fehlerfreier Ausführung den Wert Null
+zurück. Anderenfalls wird ein Wert zurückgeliefert, bei dem die Bits
+gesetzt sind, die nicht manipuliert werden konnten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="GetHdv_inuse"></a>16.6.2 GetHdv_inuse</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetHdv_inuse« - Aktivität des Plattentreibers ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">4</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">UWORD *GetHdv_inuse ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermöglicht es festzustellen, ob der
+Plattentreiber gerade dabei ist, eine Seite ein- oder auszuswappen.<br><br>
+
+<b>Hinweis:</b> Eine Überprüfung dieses Wortes muß erfolgen,
+bevor aus einer Interruptroutine heraus ein Zugriff auf das virtuelle
+RAM stattfindet. Der Plattentreiber darf nämlich nicht durch einen
+Zugriff auf eine nicht existente Speicherseite unterbrochen werden,
+falls gerade eine andere Seite ausgelagert wird. Ist das Statuswort
+ungleich Null, muß der Zugriff verschoben werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert einen Zeiger auf das hdv_inuse-Wort
+zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="GetPageSize"></a>16.6.3 GetPageSize</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetPageSize« - Größe der Speicherseiten ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">3</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">ULONG GetPageSize ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die aktuelle Größe einer
+Speicherseite.<br><br>
+
+<b>Hinweis:</b> Beim MC-68030 kann die Größe zwischen 256 Bytes
+und 32 Kbyte liegen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert Größe einer Speicherseite zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="pmem_size"></a>16.6.4 pmem_size</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»pmem_size« - Gesamtgröße des vom Speichermanagers
+verwalteten physikalischen Speichers ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">6</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">ULONG pmem_size ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Gesamtgröße des physikalischen
+Speichers, der vom Speichermanager verwaltet wird.<br><br>
+
+<b>Hinweis:</b> Diese Funktion steht erst ab Version 1.01 des
+PMMU-Cookies zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die genannte Größe zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="PMMUversion"></a>16.6.5 PMMUversion</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»PMMUversion« - ermittelt die Versionsnummer des Handlers</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">UWORD PMMUversion ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Versionsnummer des PMMU-Handlers.
+Dabei wird in den Bits 8..15 die Version, und in den Bits 0..7 die
+Revision abgelegt. Ein Wert von 0x102 steht demnach für Version 1.02</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Versionsnummer des Handlers im o.g.
+Format zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="SetPageMode"></a>16.6.6 SetPageMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»SetPageMode« - PMMU Modus für einen Bereich setzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">ULONG SetPageMode ( ULONG mode, ULONG start_address, ULONG
+length );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion setzt den PMMU-Modus für einen bestimmten
+Speicherbereich. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>mode</i></td>
+<td valign="top">Modus als Bit-Vektor<table>
+<tr><td nowrap="nowrap" valign="top">Bit 0 =</td>
+<td valign="top"><b>SwapInhabit</b>
+<br>Der Speicherbereich wird nicht ausgelagert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 1 =</td>
+<td valign="top"><b>WriteProtect</b>
+<br>Der Speicherbereich wird schreibgeschützt; Schreibversuche
+führen zu einem Busfehler.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 2 =</td>
+<td valign="top"><b>Used</b>
+<br>Der Speicherbereich wird als benutzt gekennzeichnet. Hierdurch
+erhält er temporär eine höhere Priorität, und wird vorerst nicht
+ausgelagert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 3 =</td>
+<td valign="top"><b>Modified</b>
+<br>Der Speicherbereich wird als verändert markiert. Dadurch wird
+dieser Bereich auf jeden Fall auf die Platte geschrieben, bevor neue
+Daten an seine physikalische Adresse eingelesen werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 4 =</td>
+<td valign="top"><b>CacheInhabit</b>
+<br>Die Prozessor-Caches werden für den angegebenen Bereich
+abgeschaltet.
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>start_address</i></td>
+<td valign="top">Anfangsadresse des Speicherbereichs</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>length</i></td>
+<td valign="top">Länge des gewünschten Bereichs
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die restlichen Bits sind reserviert und müssen
+auf Null gesetzt werden. Für die virtuelle <a href="00500c.html">Speicherverwaltung</a> ist in
+erster Linie das SwapInhabit-Bit von Bedeutung, da es die Möglichkeit
+bietet, bestimmte Speicherbereiche gegen Auslagern abzusichern.<br><br>
+
+Beim Schreibschützen von Speicherbereichen ist unbedingt zu
+beachten, daß der Speicher in Seiten unterteilt ist, die die kleinste
+Einheit für einen Schreibschutz darstellen. Es muß sichergestellt
+werden, daß sich der Schreibschutz nicht auch auf einen Bereich
+erstreckt, der nicht geschützt werden darf, weil er beispielsweise
+nicht zum eigenen Programm gehört.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei fehlerfreier Ausführung den Wert Null
+zurück. Anderenfalls wird ein Wert zurückgeliefert, bei dem die Bits
+gesetzt sind, die nicht manipuliert werden konnten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#PMMUversion">PMMUversion</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="vmem_size"></a>16.6.7 vmem_size</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»vmem_size« - Gesamtgröße des virtuellen Speichers
+erfragen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Nummer:</td>
+<td valign="top">5</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">ULONG vmem_size ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Gesamtgröße des virtuellen
+Speichers.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die genannte Größe zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Der_20PMMU-Funktionshandler">PMMU-Funktionshandler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#PMMUversion">PMMUversion</a> &nbsp; <a href="#SetPageMode">SetPageMode</a>
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="010.html"><img src="udo_up.gif" alt="Anhang" title="Anhang" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="010005.html"><img src="udo_lf.gif" alt="Angabe der Quellen" title="Angabe der Quellen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="010007.html"><img src="udo_rg.gif" alt="TOS Liste" title="TOS Liste" border="0" width="24" height="24"></a></body>
+</html>

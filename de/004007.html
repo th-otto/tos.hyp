@@ -1,0 +1,659 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Crazy-Dots-XBIOS-Erweiterung
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="CENTScreen_XBIOS_extension.html"><img src="udo_lf.gif" alt="CENTScreen-XBIOS-Erweiterung" title="CENTScreen-XBIOS-Erweiterung" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="004008.html"><img src="udo_rg.gif" alt="CT60-XBIOS-Erweiterung" title="CT60-XBIOS-Erweiterung" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Crazy-Dots-XBIOS-Erweiterung"></a>4.7 Crazy-Dots-XBIOS-Erweiterung</h1>
+<ul>
+<li><a href="#GetScreenDescriptor">GetScreenDescriptor</a></li>
+<li><a href="#ResetScreen">ResetScreen</a></li>
+<li><a href="#GetNumberofPModes">GetNumberofPModes</a></li>
+<li><a href="#GetPMode">GetPMode</a></li>
+<li><a href="#ReadMode">ReadMode</a></li>
+<li><a href="#CopyModeToActiveMode">CopyModeToActiveMode</a></li>
+<li><a href="#ActiveModeNumber">ActiveModeNumber</a></li>
+<li><a href="#GetActiveModeDesc">GetActiveModeDesc</a></li>
+<li><a href="#GetRegisterbase">GetRegisterbase</a></li>
+<li><a href="#GetFeatures">GetFeatures</a></li>
+<li><a href="#GetActiveFeatures">GetActiveFeatures</a></li>
+</ul>
+
+<p><b>Hinweis:</b>
+<br>Diese Funktionen stehen nur zur Verfügung, wenn der Treiber der
+Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich <i>nicht</i>
+um dokumentierte Routinen des Betriebssystems.</p>
+
+<h3><a name="GetScreenDescriptor"></a>4.7.1 GetScreenDescriptor</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetScreenDescriptor« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">194</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetScreenDescriptor">Bindings für GetScreenDescriptor</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">194L = <a href="004.html">XBIOS</a>-Call ist nicht installiert (keine Crazy-Dots
+Software installiert).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetScreenDescriptor">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetScreenDescriptor"></a>4.7.1.1 Bindings für GetScreenDescriptor</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="004015.html#SCREEN">SCREEN</a> <a href="004004.html#xbios">xbios</a>( 194 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #194,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="ResetScreen"></a>4.7.2 ResetScreen</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»ResetScreen« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">195</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ResetScreen">Bindings für ResetScreen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Initalisiert den Grafikcontroller mit den in
+"Screen->ModStruct" enthaltenen Daten neu. In der Regel also die
+aktuelle Auflösung. Eignet sich als gut als Notbremse für
+fehlgeschlagene eigene Versuche an den Registern.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">keines</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ResetScreen">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20ResetScreen"></a>4.7.2.1 Bindings für ResetScreen</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="004004.html#xbios">xbios</a>( 195 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #195,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetNumberofPModes"></a>4.7.3 GetNumberofPModes</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetNumberofPModes« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">196</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetNumberOfPModes">Bindings für GetNumberOfPModes</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Anzahl der verfügbaren phys. Auflösungen erfragen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Anzahl der verfügbaren phys. Auflösungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetNumberOfPModes">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetNumberOfPModes"></a>4.7.3.1 Bindings für GetNumberOfPModes</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="004004.html#xbios">xbios</a>( 196 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #196,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetPMode"></a>4.7.4 GetPMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetPMode« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">197</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetPMode">Bindings für GetPMode</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"><i>n</i>: Nummer des Modes (0 <= <i>n</i> <=
+<a href="#GetNumberofPModes">GetNumberofPModes</a>)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Pointer auf eine Struktur <a href="004015.html#MOD_DESC">MOD_DESC</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetPMode">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetPMode"></a>4.7.4.1 Bindings für GetPMode</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="004015.html#MOD_DESC">MOD_DESC</a> <a href="004004.html#xbios">xbios</a>( 197, int16_t n);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    n,-(sp)      ; Offset 2
+move.w    #197,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="ReadMode"></a>4.7.5 ReadMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»ReadMode« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">198</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ReadMode">Bindings für ReadMode</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">List den durch (<a href="004015.html#MOD_DESC">MOD_DESC</a> *) <a href="#GetPMode">GetPMode</a> beschriebenen Grafikmodus
+in einen Buffer (Struktur PMODE).<br><br>
+
+<i>n</i>: Nummer des Modes (0 <= <i>n</i> <= <a href="#GetNumberofPModes">GetNumberofPModes</a>)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Pointer auf eine Struktur <a href="004015.html#PMODE">PMODE</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ReadMode">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20ReadMode"></a>4.7.5.1 Bindings für ReadMode</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="004015.html#PMODE">PMODE</a> <a href="004004.html#xbios">xbios</a>( 198, int16_t n );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    n,-(sp)      ; Offset 2
+move.w    #198,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="CopyModeToActiveMode"></a>4.7.6 CopyModeToActiveMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»CopyModeToActiveMode« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">199</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20CopyModeToActiveMode">Bindings für CopyModeToActiveMode</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Macht den mit <a href="#ReadMode">ReadMode</a> geladenen Modus zum aktiven Modus.
+Anschließend muß er noch mit <a href="#ResetScreen">ResetScreen</a> in den Videocontroller
+geladen werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">keines</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20CopyModeToActiveMode">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20CopyModeToActiveMode"></a>4.7.6.1 Bindings für CopyModeToActiveMode</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="004004.html#xbios">xbios</a>( 199 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #199,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="ActiveModeNumber"></a>4.7.7 ActiveModeNumber</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»ActiveModeNumber« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">200</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ActiveModeNumber">Bindings für ActiveModeNumber</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Nummmer des aktuellen Videomodus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20ActiveModeNumber">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20ActiveModeNumber"></a>4.7.7.1 Bindings für ActiveModeNumber</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="004004.html#xbios">xbios</a>( 200 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #200,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetActiveModeDesc"></a>4.7.8 GetActiveModeDesc</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetActiveModeDesc« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">201</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetActiveModeDesc">Bindings für GetActiveModeDesc</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Zeiger auf die <a href="004015.html#PMODE">PMODE</a>-Struktur des aktuellen Grafikmodus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetActiveModeDesc">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetActiveModeDesc"></a>4.7.8.1 Bindings für GetActiveModeDesc</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="004015.html#PMODE">PMODE</a> <a href="004004.html#xbios">xbios</a>( 201 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #201,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetRegisterbase"></a>4.7.9 GetRegisterbase</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetRegisterbase« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">202</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetRegisterbase">Bindings für GetRegisterbase</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Basisadresse der Crazy-Dots Register</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetRegisterbase">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetRegisterbase"></a>4.7.9.1 Bindings für GetRegisterbase</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="004004.html#xbios">xbios</a>( 202 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #202,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetFeatures"></a>4.7.10 GetFeatures</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetFeatures« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">203</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetFeatures">Bindings für GetFeatures</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Liefert Informationen über installierte Crazy-Dots
+Erweiterungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="center" valign="top">Bit</td>
+  <td align="left" valign="top">Vorhandene Erweiterung</td>
+</tr>
+<tr>
+  <td align="center" valign="top">0</td>
+  <td align="left" valign="top">ECL-Interface (Pixeltakt bis 140 MHz monochrom)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">1</td>
+  <td align="left" valign="top">Genlock-Interface</td>
+</tr>
+<tr>
+  <td align="center" valign="top">2</td>
+  <td align="left" valign="top">12 Bit Pixel (4096 Farben)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">3</td>
+  <td align="left" valign="top">16 Bit Pixel (65536 Farben)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">4</td>
+  <td align="left" valign="top">24 Bit Pixel (True Color)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">5</td>
+  <td align="left" valign="top">32 Bit Pixel (True Color +  8 Bit Overlaybild)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">6</td>
+  <td align="left" valign="top">4 Bit Pixel (nibble Mode,</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top">bis 160 MHz Pixeltakt, Farbe)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">7-31</td>
+  <td align="left" valign="top">Reserviert</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetFeatures">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetFeatures"></a>4.7.10.1 Bindings für GetFeatures</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="004004.html#xbios">xbios</a>( 203 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #203,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="GetActiveFeatures"></a>4.7.11 GetActiveFeatures</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetActiveFeatures« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">204</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetActiveFeatures">Bindings für GetActiveFeatures</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Liefert Informationen über installierte und aktive Crazy-Dots
+Erweiterungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="center" valign="top">Bit</td>
+  <td align="left" valign="top">Vorhandene Erweiterung</td>
+</tr>
+<tr>
+  <td align="center" valign="top">0</td>
+  <td align="left" valign="top">ECL-Interface (Pixeltakt bis 140 MHz monochrom)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">1</td>
+  <td align="left" valign="top">Genlock-Interface</td>
+</tr>
+<tr>
+  <td align="center" valign="top">2</td>
+  <td align="left" valign="top">12 Bit Pixel (4096 Farben)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">3</td>
+  <td align="left" valign="top">16 Bit Pixel (65536 Farben)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">4</td>
+  <td align="left" valign="top">24 Bit Pixel (True Color)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">5</td>
+  <td align="left" valign="top">32 Bit Pixel (True Color +  8 Bit Overlaybild)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">6</td>
+  <td align="left" valign="top">4 Bit Pixel (nibble Mode,</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top">bis 160 MHz Pixeltakt, Farbe)</td>
+</tr>
+<tr>
+  <td align="center" valign="top">7-31</td>
+  <td align="left" valign="top">Reserviert</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktionen stehen nur zur Verfügung, wenn der Treiber
+der Grafikkarte Crazy-Dots gestartet wurde. Es handelt sich
+<i>nicht</i> um dokumentierte Routinen des Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Crazy-Dots-XBIOS-Erweiterung">Crazy-Dots-XBIOS-Erweiterung</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20GetActiveFeatures">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20GetActiveFeatures"></a>4.7.11.1 Bindings für GetActiveFeatures</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="004004.html#xbios">xbios</a>( 204 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #204,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="CENTScreen_XBIOS_extension.html"><img src="udo_lf.gif" alt="CENTScreen-XBIOS-Erweiterung" title="CENTScreen-XBIOS-Erweiterung" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="004008.html"><img src="udo_rg.gif" alt="CT60-XBIOS-Erweiterung" title="CT60-XBIOS-Erweiterung" border="0" width="24" height="24"></a></body>
+</html>

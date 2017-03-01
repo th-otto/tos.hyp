@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Erweiterte Grafikfunktionen
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008012.html"><img src="udo_lf.gif" alt="Shellfunktionen" title="Shellfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008014.html"><img src="udo_rg.gif" alt="Zeichensatzauswahl" title="Zeichensatzauswahl" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Erweiterte_20Grafikfunktionen"></a>8.19 Erweiterte Grafikfunktionen</h1>
+<p>Diese Bibliothek enthält Funktionen um sich bewegende
+(ausdehnende bzw. zusammenziehende) Rechtecke zu animieren; für
+diesen Zweck gibt es die folgenden Routinen:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#xgrf_2box">xgrf_2box</a></td>
+<td valign="top">Animation sich bewegender Rechtecke</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#xgrf_stepcalc">xgrf_stepcalc</a></td>
+<td valign="top">Parameter-Berechnung für Rechteck-Animation
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Diese Funktionen sind in erster Linie als Ersatz
+für die Funktionen <i>graf_growbox</i> und <i>graf_shrinkbox</i> zu verstehen,
+die in PC-<a href="002002.html">GEM</a> dem Rechtsstreit zwischen Apple und Digital Research zum
+Opfer gefallen sind.</p>
+
+<p>Querverweis: <a href="00800c.html#graf_growbox">graf_growbox</a> &nbsp; <a href="00800c.html#graf_shrinkbox">graf_shrinkbox</a> &nbsp; <a href="00a002.html">Style-Guidelines</a></p>
+
+<h3><a name="xgrf_2box"></a>8.19.1 xgrf_2box</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Animate Rectangles« - zeichnet eine Menge sich bewegender
+Rechtecke.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">131</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t xgrf_2box ( int16_t cx, int16_t cy, int16_t w, int16_t
+h, int16_t corners, int16_t cnt, int16_t xstep, int16_t ystep, int16_t
+doubled );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion zeichnet eine Reihe von Rechtecken, die sich über
+den Bildschirm bewegen. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cx</td>
+<td valign="top">Anfangsposition in x-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cy</td>
+<td valign="top">Anfangsposition in y-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">w</td>
+<td valign="top">Breite der Anfangsposition</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">h</td>
+<td valign="top">Höhe der Anfangsposition</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">corners</td>
+<td valign="top"><b>Zeichnung</b><table>
+<tr><td nowrap="nowrap" valign="top">0 =</td>
+<td valign="top">ganze Rechtecke zeichnen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1 =</td>
+<td valign="top">nur die Ecken zeichnen
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cnt</td>
+<td valign="top">Anzahl der Einzelschritte</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xstep</td>
+<td valign="top">Schrittweite in x-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ystep</td>
+<td valign="top">Schrittweite in y-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">doubled</td>
+<td valign="top"><b>Schrittweite</b><table>
+<tr><td nowrap="nowrap" valign="top">0 =</td>
+<td valign="top">normale Schrittweite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1 =</td>
+<td valign="top">Schrittweite verdoppeln
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion ist ein Ersatz für die in PC-<a href="002002.html">GEM</a>
+(aufgrund des Rechtstreits zwischen <i>Apple</i> und <i>Digital
+Research</i>) gestrichenen Funktionen der FORM und GRAF Bibliotheken.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. unbekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion ist nur ab PC-GEM 2.0, ab KAOS 1.4.2 und <a href="00b.html">MagiC</a>
+vorhanden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Erweiterte_20Grafikfunktionen">X-Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20xgrf_2box">Binding</a> &nbsp; <a href="#xgrf_stepcalc">xgrf_stepcalc</a> &nbsp; <a href="00b.html">MagiC</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20f_C3_BCr_20xgrf_2box"></a>8.19.2 Bindings für xgrf_2box</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#xgrf_2box">xgrf_2box</a> ( int16_t cx, int16_t cy, int16_t w, int16_t
+h, int16_t corners, int16_t cnt, int16_t xstep, int16_t ystep, int16_t
+doubled );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#xgrf_2box">xgrf_2box</a> ( int16_t cx, int16_t cy, int16_t w, int16_t h,
+                    int16_t corners, int16_t cnt,
+                    int16_t xstep, int16_t ystep, int16_t doubled )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = cnt;
+   <a href="008002.html#int_in">int_in</a>[1] = xstep;
+   <a href="008002.html#int_in">int_in</a>[2] = ystep;
+   <a href="008002.html#int_in">int_in</a>[3] = doubled;
+   <a href="008002.html#int_in">int_in</a>[4] = corners;
+   <a href="008002.html#int_in">int_in</a>[5] = cx;
+   <a href="008002.html#int_in">int_in</a>[6] = cy;
+   <a href="008002.html#int_in">int_in</a>[7] = w;
+   <a href="008002.html#int_in">int_in</a>[8] = h;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(131) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">131   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">9     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">cnt</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">xstep</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ystep</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">doubled</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">corners</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">cx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">cy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">w</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+16</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[8]</td>
+  <td align="left" valign="top">h</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="xgrf_stepcalc"></a>8.19.3 xgrf_stepcalc</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Stepcalc for XGraf« - Parameterberechnung für die Animation
+von Rechtecken.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">130</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t xgrf_stepcalc ( int16_t orgw, int16_t orgh, int16_t xc,
+int16_t yc, int16_t w, int16_t h, int16_t *pcx, int16_t *pcy, int16_t
+*pcnt, int16_t *pxstep, int16_t *pystep );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion berechnet alle Parameter für einen Aufruf von
+<a href="#xgrf_2box">xgrf_2box</a>. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">orgw</td>
+<td valign="top">anfängliche Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">orgh</td>
+<td valign="top">anfängliche Höhe</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xc</td>
+<td valign="top">Endposition in x-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">yc</td>
+<td valign="top">Endposition in y-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">w</td>
+<td valign="top">Breite der Endgröße</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">h</td>
+<td valign="top">Höhe der Endgröße</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">pcx</td>
+<td valign="top">zentrierte Position nach Ablauf des Vorgangs in x-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">pcy</td>
+<td valign="top">dto. für y-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">pcnt</td>
+<td valign="top">Anzahl der Einzelschritte</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">pxstep</td>
+<td valign="top">Schrittweite in x-Richtung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">pystep</td>
+<td valign="top">Schrittweite in y-Richtung
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Aus Anfangsgröße, Endgröße und Endposition
+des Rechtecks werden Endposition, Anzahl der Schritte sowie Größe
+der Schritte bestimmt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. unbekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion ist nur ab PC-<a href="002002.html">GEM</a> 2.0, ab KAOS 1.4.2 und <a href="00b.html">MagiC</a>
+vorhanden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Erweiterte_20Grafikfunktionen">X-Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20xgrf_stepcalc">Binding</a> &nbsp; <a href="#xgrf_2box">xgrf_2box</a> &nbsp; <a href="00b.html">MagiC</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20f_C3_BCr_20xgrf_stepcalc"></a>8.19.4 Bindings für xgrf_stepcalc</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#xgrf_stepcalc">xgrf_stepcalc</a> ( int16_t orgw, int16_t orgh, int16_t xc,
+int16_t yc, int16_t w, int16_t h, int16_t *pcx, int16_t *pcy, int16_t
+*pcnt, int16_t *pxstep, int16_t *pystep );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#xgrf_stepcalc">xgrf_stepcalc</a> ( int16_t orgw, int16_t orgh, int16_t xc,
+                        int16_t yc, int16_t w, int16_t h,
+                        int16_t *pcx, int16_t *pcy, int16_t *pcnt,
+                        int16_t *pxstep, int16_t *pystep )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = orgw;
+   <a href="008002.html#int_in">int_in</a>[1] = orgh;
+   <a href="008002.html#int_in">int_in</a>[2] = xc;
+   <a href="008002.html#int_in">int_in</a>[3] = yc;
+   <a href="008002.html#int_in">int_in</a>[4] = w;
+   <a href="008002.html#int_in">int_in</a>[5] = h;
+
+   <a href="008002.html#crys_if">crys_if</a> (130);
+
+   *pcx    = <a href="008002.html#int_out">int_out</a>[1];
+   *pcy    = <a href="008002.html#int_out">int_out</a>[2];
+   *pcnt   = <a href="008002.html#int_out">int_out</a>[3];
+   *pxstep = <a href="008002.html#int_out">int_out</a>[4];
+   *pystep = <a href="008002.html#int_out">int_out</a>[5];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">130   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">6     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">orgw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">orgh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">xc</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">yc</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">w</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">h</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">pcx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">pcy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">pcnt</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">pxstep</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[5]</td>
+  <td align="left" valign="top">pystep</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008012.html"><img src="udo_lf.gif" alt="Shellfunktionen" title="Shellfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008014.html"><img src="udo_rg.gif" alt="Zeichensatzauswahl" title="Zeichensatzauswahl" border="0" width="24" height="24"></a></body>
+</html>

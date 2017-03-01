@@ -1,0 +1,566 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Datum, Uhrzeit und Zeitgeber
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="004008.html"><img src="udo_lf.gif" alt="CT60-XBIOS-Erweiterung" title="CT60-XBIOS-Erweiterung" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00400a.html"><img src="udo_rg.gif" alt="Druckerfunktionen" title="Druckerfunktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Datum_2C_20Uhrzeit_20und_20Zeitgeber"></a>4.9 Datum, Uhrzeit und Zeitgeber</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#Gettime">Gettime</a></td>
+<td valign="top"> Datum und Uhrzeit ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#NVMaccess">NVMaccess</a></td>
+<td valign="top">Konfiguration des NVM der Echtzeituhr.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Settime">Settime</a></td>
+<td valign="top"> Datum und Uhrzeit einstellen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Xbtimer">Xbtimer</a></td>
+<td valign="top"> Systemzeitgeber initialisieren.
+
+</td></tr>
+</table>
+
+<h3><a name="Gettime"></a>4.9.1 Gettime</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»get time« - Zeit ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">23</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">uint32_t Gettime( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="004.html">XBIOS</a>-Routine Gettime ermittelt <a href="00500a.html">Datum und Uhrzeit</a> aus der
+Hardware-Uhr des Rechners.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert <a href="00500a.html">Datum und Uhrzeit</a>, welche wie folgt
+codiert sind:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="right" valign="top">Bit</td>
+  <td align="left" valign="top">Beschreibung</td>
+</tr>
+<tr>
+  <td align="right" valign="top">0-4</td>
+  <td align="left" valign="top">Sekunden in Einheiten von 2 (0-29)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">5-10</td>
+  <td align="left" valign="top">Minuten (0-59)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">11-15</td>
+  <td align="left" valign="top">Stunden (0-23)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">16-20</td>
+  <td align="left" valign="top">Tag im Monat (1-31)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">21-24</td>
+  <td align="left" valign="top">Monat (1-12)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">25-31</td>
+  <td align="left" valign="top">Jahr (0-119, 0 steht für 1980)</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Datum_2C_20Uhrzeit_20und_20Zeitgeber">Datum, Uhrzeit und Zeitgeber</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Gettime">Binding</a> &nbsp; <a href="#Settime">Settime</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Gettime"></a>4.9.1.1 Bindings für Gettime</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+uint32_t <a href="#Gettime">Gettime</a>( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #23,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="NVMaccess"></a>4.9.2 NVMaccess</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»NVMacess« - Konfiguration des "non volatile memory" der
+Echtzeituhr.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">46</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t NVMaccess( int16_t op, int16_t start, int16_t count,
+int8_t *buffer );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine NVMaccess ermöglicht die Konfiguration des
+NVM der Echtzeituhr. Diese verfügt über 50 Bytes nicht-flüchtiges
+RAM, wobei die letzten zwei Bytes als Prüfsumme verwendet werden. Es
+gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top">op</td>
+  <td align="left" valign="top">0 = NVM auslesen und Prüfsumme checken</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1 = NVM beschreiben, Prüfsumme checken</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;und neu setzen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">2 = NVM initialisieren und Prüfsumme setzen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top">start</td>
+  <td align="left" valign="top">Startbyte</td>
+</tr>
+<tr>
+  <td align="left" valign="top">count</td>
+  <td align="left" valign="top">Anzahl der zu übertragenden Bytes</td>
+</tr>
+<tr>
+  <td align="left" valign="top">buffer</td>
+  <td align="left" valign="top">Puffer aus bzw. in den geschrieben wird</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert den Wert 0, wenn kein Fehler aufgetreten
+ist. Ein Wert von -5 bedeutet, daß die Argumente nicht im erlaubten
+Bereich waren. Ein Rückgabewert von -12 kennzeichnet eine nicht
+konsistente Prüfsumme.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Atari TT (TOS 3.xx) und Falcon (TOS 4.xx)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Datum_2C_20Uhrzeit_20und_20Zeitgeber">Datum, Uhrzeit und Zeitgeber</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20NVMaccess">Binding</a> &nbsp; <a href="#Die_20Belegung_20des_20NVM_20der_20Echtzeit-Uhr">Belegung des NVM</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20NVMaccess"></a>4.9.2.1 Bindings für NVMaccess</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+int16_t <a href="#NVMaccess">NVMaccess</a>( int16_t op, int16_t start, int16_t count,
+int8_t *buffer );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       buffer       ; Offset 8
+move.w    count,-(sp)  ; Offset 6
+move.w    start,-(sp)  ; Offset 4
+move.w    op,-(sp)     ; Offset 2
+move.w    #46,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+lea       $C(sp),sp    ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Settime"></a>4.9.3 Settime</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»set time« - Zeit einstellen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">22</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Settime( uint32_t time );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine Settime stellt <a href="00500a.html">Datum und Uhrzeit</a> neu ein.
+Der 32-Bit Parameter <i>time</i> wird wie folgt aufgesplittet:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="right" valign="top">time</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="right" valign="top">0-4</td>
+  <td align="left" valign="top">Sekunden in Einheiten von 2 (0-29)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">5-10</td>
+  <td align="left" valign="top">Minuten (0-59)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">11-15</td>
+  <td align="left" valign="top">Stunden (0-23)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">16-20</td>
+  <td align="left" valign="top">Tag im Monat (1-31)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">21-24</td>
+  <td align="left" valign="top">Monat (1-12)</td>
+</tr>
+<tr>
+  <td align="right" valign="top">25-31</td>
+  <td align="left" valign="top">Jahr (1980 subtrahieren)</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert kein Ergebnis.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Datum_2C_20Uhrzeit_20und_20Zeitgeber">Datum, Uhrzeit und Zeitgeber</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Settime">Binding</a> &nbsp; <a href="#Gettime">Gettime</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Settime"></a>4.9.3.1 Bindings für Settime</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void <a href="#Settime">Settime</a>( uint32_t time );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    time,-(sp)   ; Offset 2
+move.w    #22,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Xbtimer"></a>4.9.4 Xbtimer</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»timer init« - initialisiert die Zeitgeber im MFP-Chip.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">31</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Xbtimer( int16_t timer, int16_t control, int16_t data,
+void(*vector)( ) );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine Xbtimer initialisiert einen von vier
+Zeitgebern (A-D) im Multifunktionsperipheriechip 68901. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top">timer</td>
+  <td align="left" valign="top">Nummer des Timers:</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">0 = A (für eigene Programme nutzbar)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1 = B (Horizontal Blank Interrupt)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">2 = C (Systemtimer (200 Hz))</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">3 = D (Generator für die Baudraten)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top">control</td>
+  <td align="left" valign="top">Wert für entsprechende Timer-Register</td>
+</tr>
+<tr>
+  <td align="left" valign="top">data</td>
+  <td align="left" valign="top">Wert für entsprechende Timer-Register</td>
+</tr>
+<tr>
+  <td align="left" valign="top">vector</td>
+  <td align="left" valign="top">Zeiger auf Interrupt-Routine</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert kein Ergebnis.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Datum_2C_20Uhrzeit_20und_20Zeitgeber">Datum, Uhrzeit und Zeitgeber</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Xbtimer">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Xbtimer"></a>4.9.4.1 Bindings für Xbtimer</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void <a href="#Xbtimer">Xbtimer</a>( int16_t timer, int16_t control, int16_t data,
+void(*vector)( ) );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       vector        ; Offset 8
+move.w    data,-(sp)    ; Offset 6
+move.w    <a href="008002.html#control">control</a>,-(sp) ; Offset 4
+move.w    timer,-(sp)   ; Offset 2
+move.w    #31,-(sp)     ; Offset 0
+trap      #14           ; <a href="004.html">XBIOS</a> aufrufen
+lea       $C(sp),sp     ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Die_20Belegung_20des_20NVM_20der_20Echtzeit-Uhr"></a>4.9.5 Die Belegung des NVM der Echtzeit-Uhr</h3>
+<a name="Non-Volatile-Memory_2C_20Belegung_20des"></a>
+<p>Die Echtzeit-Uhr im Atari-TT und Falcon030 verfügt über 50 Bytes
+nichtflüchtiges RAM, welches von Programmen zu Konfigurationszwecken
+benutzt werden kann. Es gilt folgende Belegung:</p>
+
+<pre>typedef struct
+{
+  unsigned int bootpref;
+  char reserved[4];
+  unsigned char language;
+  unsigned char keyboard;
+  unsigned char datetime;
+  char separator;
+  unsigned char bootdelay;
+  char reserved2[3];
+  unsigned int vmode;
+  unsigned char scsi;
+} NVM;
+</pre>
+<table>
+<tr><td nowrap="nowrap" valign="top">bootpref</td>
+<td valign="top">Bootpräferenz:
+<br>0x00 = keine Präferenz
+<br>0x08 = <a href="00b.html">MagiC</a>
+<br>0x10 = Linux
+<br>0x20 = NetBSD
+<br>0x40 = UNIX wird gebootet
+<br>0x80 = TOS wird gebootet</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">language</td>
+<td valign="top">Landessprache:
+<br>0 = Englisch
+<br>1 = Deutsch
+<br>2 = Französisch
+<br>3 = reserviert
+<br>4 = Spanisch
+<br>5 = Italienisch</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">keyboard</td>
+<td valign="top">Layout der Tastatur:
+<br>0 = USA
+<br>1 = Deutschland
+<br>2 = Frankreich
+<br>3 = England
+<br>4 = Spanien
+<br>5 = Italien
+<br>6 = Schweden
+<br>7 = (französische) Schweiz
+<br>8 = (deutsche) Schweiz</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">datetime</td>
+<td valign="top">Formatierung des Datum:<table>
+<tr><td nowrap="nowrap" valign="top">Bit 0..3</td>
+<td valign="top">0 = Format "MM-DD-YY" (Monat, Tag, Jahr)
+<br>1 = Format "DD-MM-YY" (Tag, Monat, Jahr)
+<br>2 = Format "YY-MM-DD" (Jahr, Monat, Tag)
+<br>3 = Format "YY-DD-MM" (Jahr, Tag, Monat)
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 4..7</td>
+<td valign="top">0 = 12-Stunden Darstellung
+<br>1 = 24-Stunden Darstellung
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">separator</td>
+<td valign="top">ASCII-Wert des Zeichens, das als Trenner für die Datumsangaben
+dienen soll.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">bootdelay</td>
+<td valign="top">Bootverzögerung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">vmode</td>
+<td valign="top">Videomode
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">scsi</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">Bit 0..2</td>
+<td valign="top">SCSI-ID (0-7)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 3..6</td>
+<td valign="top">0, reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 7</td>
+<td valign="top">Flag für Bus-<a href="010008.html#Arbitration">Arbitration</a>.
+<br>Es gilt:
+<br>0 = Arbitration ein
+<br>1 = Arbitration aus
+<br>
+
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<p>Alle weiteren Bytes sind z.Zt. nicht dokumentiert. Wie man sieht,
+läßt sich insbesondere die SCSI-ID von TT oder Falcon über das NVM
+festlegen.</p>
+
+<a name="NVM_2C_20im_20Milan"></a>
+<p>Beim Milan hat das NVM eine größe von 224 Bytes.</p>
+
+<p>Die folgende Struktur gilt nur für TOS 4.08 (2003-03-09) und
+Bootblock 1.02!</p>
+
+<pre>typedef struct
+{
+  unsigned int bootpref;
+  char reserved[4];
+  unsigned char language;
+  unsigned char keyboard;
+  unsigned char datetime;
+  char separator;
+  unsigned char bootdelay;
+  unsigned char ide_drives;
+  unsigned char scsi_drives;
+  char reserved2;
+  unsigned int vmode;
+  unsigned char scsi;
+  char reserved3[31];
+  unsigned char memory;
+  char INT1_2;
+  char INT3_4;
+  char reserved4[173];
+} NVM_Milan;
+</pre>
+<table>
+<tr><td nowrap="nowrap" valign="top">memory</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">Bit 0..1</td>
+<td valign="top">0 = 16MB ST-RAM
+<br>1 = &nbsp;4MB ST-RAM
+<br>2 = &nbsp;2MB ST-RAM</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 2</td>
+<td valign="top">ROMPORT-Emulation
+<br>
+
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<p>Querverweis: <a href="#NVMaccess">NVMaccess</a> &nbsp; <a href="010008.html#XHDI">XHDI-Spezifikation</a></p>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="004008.html"><img src="udo_lf.gif" alt="CT60-XBIOS-Erweiterung" title="CT60-XBIOS-Erweiterung" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00400a.html"><img src="udo_rg.gif" alt="Druckerfunktionen" title="Druckerfunktionen" border="0" width="24" height="24"></a></body>
+</html>

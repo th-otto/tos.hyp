@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Seedfill
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="006013.html"><img src="udo_lf.gif" alt="Copy raster form" title="Copy raster form" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="007.html"><img src="udo_rg.gif" alt="VDI" title="VDI" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Seedfill"></a>6.20 Seedfill</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Seedfill«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Line-A number:</td>
+<td valign="top"> $A00F</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top"><a href="#Bindings_20for_20seed_fill">See 'Bindings for seed_fill'</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">This Line-A function fills an area with a colour, and so
+corresponds to the VDI function <a href="007005.html#v_contourfill">v_contourfill</a>.<br><br>
+
+Passed in the first word of <a href="007003.html#ptsin">ptsin</a> (<a href="007003.html#ptsin">ptsin</a>[0] in C) is the
+X-coordinate and in the second word of <a href="007003.html#ptsin">ptsin</a> (<a href="007003.html#ptsin">ptsin</a>[1] in C) the
+Y-coordinate of the start point. Into the first word of <a href="007003.html#intin">intin</a>
+(<a href="007003.html#intin">intin</a>[0] in C) the mode word is written. If the mode word is greater
+than 0, it specifies the colour of the surround border up to which
+filling is to take place. If the mode word is smaller than 0, the
+surround border consists of all pixels that do not have the colour of
+the start point.<br><br>
+
+The following Line-A variables are used:<table>
+<tr><td nowrap="nowrap" valign="top">Variable</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fill_abort</td>
+<td valign="top">This is the address of a function that is called at the end of
+each line. If this function returns the value 0 in d0, then the
+filling will be continued, else it will be broken off.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">patptr</td>
+<td valign="top">Pointer to a field with 16-bit line patterns</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">patmsk</td>
+<td valign="top">Number of line patterns - 1. Depending on the y-coordinate one
+pattern will be selected now from the field of line patterns. The
+index of the line pattern used can be calculated with (y mod (patmsk +
+1)). By specifying several line patterns and using multiple calls of
+this function for consecutive lines, it is easy to draw complex
+patterns as well.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">multifill</td>
+<td valign="top">0 when the pattern has only one plane, and 1 for several planes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">wrt_mode</td>
+<td valign="top">Writing mode; the following modes are possible:<table>
+<tr><td nowrap="nowrap" valign="top">REPLACE 0</td>
+<td valign="top">Replace</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">TRANS 1</td>
+<td valign="top">Transparent (OR)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">XOR 2</td>
+<td valign="top">Inverse (XOR)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">INVERS 3</td>
+<td valign="top">Inverse Transparent (XOR with not(LN_MASK))
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">clip</td>
+<td valign="top">1 if <a href="VDI_fundamentals.html#Clipping">clipping</a> is desired, else 0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xmn_clip</td>
+<td valign="top">X-coordinate of the top left corner of the <a href="VDI_fundamentals.html#Clipping">clipping</a> region, if
+clipping is switched on</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ymn_clip</td>
+<td valign="top">Y-coordinate of the top left corner of the <a href="VDI_fundamentals.html#Clipping">clipping</a> region, if
+clipping is switched on</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xmx_clip</td>
+<td valign="top">X-coordinate of the bottom right corner of the <a href="VDI_fundamentals.html#Clipping">clipping</a> region,
+if clipping is switched on</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ymx_clip</td>
+<td valign="top">Y-coordinate of the bottom right corner of the <a href="VDI_fundamentals.html#Clipping">clipping</a> region,
+if clipping is switched on
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All TOS versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20seed_fill">Binding</a> &nbsp; <a href="007005.html#v_contourfill">v_contourfill</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20for_20seed_fill"></a>6.20.1 Bindings for seed_fill</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Pure-C:</td>
+<td valign="top">void seed_fill( void ); /* WARNING: NOT supported ! */</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top">It is assumed that the <a href="007003.html#intin">intin</a> and <a href="007003.html#ptsin">ptsin</a> fields have already been
+entered in the Line-A parameter block.<pre>movem.l   D0-D2/A0-A2,-(A7)  ; Save registers
+move.l    pParamblk,A0       ; Pointer parameter block <a href="006002.html">LINEA</a>
+move.l    (8,A0),A1          ; Address <a href="007003.html#intin">intin</a> to A1
+move.w    mode_wort,(A1)     ; Mode word to <a href="007003.html#intin">intin</a>[0]
+move.l    (12,A0),A1         ; Address <a href="007003.html#ptsin">ptsin</a> to A1
+move.w    x,(A1)             ; X-coordinate to <a href="007003.html#ptsin">ptsin</a>[0]
+move.w    y,(2,A1)           ; Y-coordinate to <a href="007003.html#ptsin">ptsin</a>[1]
+move.w    wmode,(36,A0)      ; Writing mode in <a href="006002.html">LINEA</a>.wrt_mode
+move.w    patptr,(44,A0)     ; Line pattern in <a href="006002.html">LINEA</a>.patptr
+move.w    patmsk,(48,A0)     ; Number of patterns in <a href="006002.html">LINEA</a>.patmsk
+move.w    multifill,(50,A0)  ; Plane flag in <a href="006002.html">LINEA</a>.multifill
+move.w    mode,(54,A0)       ; <a href="00f008.html#Clip">Clip</a> mode in <a href="006002.html">LINEA</a>.clip
+move.w    cx1,(56,A0)        ; Top left clip corner, X-coordinate in <a href="006002.html">LINEA</a>.xmn_clip
+move.w    cy1,(58,A0)        ; Top left clip corner, Y-coordinate in <a href="006002.html">LINEA</a>.ymn_clip
+move.w    cx2,(60,A0)        ; Bottom right clip corner, X-coordinate in <a href="006002.html">LINEA</a>.xmx_clip
+move.w    cy2,(62,A0)        ; Bottom right clip corner, Y-coordinate in <a href="006002.html">LINEA</a>.ymx_clip
+move.l    fill_abort,(118,A0); Abort function to <a href="006002.html">LINEA</a>.fill_abort
+dc.w      $A00F              ; <a href="006.html">Line-A</a> opcode
+movem.l   (A7)+,D0-D2/A0-A2  ; Restore registers
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="006013.html"><img src="udo_lf.gif" alt="Copy raster form" title="Copy raster form" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="007.html"><img src="udo_rg.gif" alt="VDI" title="VDI" border="0" width="24" height="24"></a></body>
+</html>

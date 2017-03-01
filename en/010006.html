@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: The PMMU functions-handler
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="010.html"><img src="udo_up.gif" alt="Appendix" title="Appendix" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="010005.html"><img src="udo_lf.gif" alt="Declaration of sources" title="Declaration of sources" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="010007.html"><img src="udo_rg.gif" alt="TOS list" title="TOS list" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="The_20PMMU_20functions-handler"></a>16.6 The PMMU functions-handler</h1>
+<p>The <b>P</b>aged <b>M</b>emory <b>M</b>anagement <b>U</b>nit
+functions-handler can be reached via the <a href="003007.html#Cookie_2C_20PMMU">PMMU-Cookie</a>, and is created by
+programs such as <i>Outside</i> or <i>VRAM</i> that can swap blocks
+of memory to and from a hard drive when insufficient RAM is available
+for a given task. These memory blocks will then lie in so-called
+'virtual RAM' divided into 'pages' on the drive.</p>
+
+<p>The handler can only be called in supervisor-mode, and works via a
+function number that is stored in data register d0. Possible return
+values will be found in this register as well. Other processor
+registers are not altered.</p>
+
+<p>The following functions are available at present:</p>
+
+<ul>
+<li><a href="#ClearPageMode">ClearPageMode</a></li>
+<li><a href="#GetHdv_inuse">GetHdv_inuse</a></li>
+<li><a href="#GetPageSize">GetPageSize</a></li>
+<li><a href="#pmem_size">pmem_size</a></li>
+<li><a href="#PMMUversion">PMMUversion</a></li>
+<li><a href="#SetPageMode">SetPageMode</a></li>
+<li><a href="#vmem_size">vmem_size</a></li>
+</ul>
+
+<p><b>Important note:</b> These functions only have meaning for a
+few programs in the region of system software, an have <i>no
+place</i> in user programs.</p>
+
+<p>See also: <a href="00500e.html#Super">Super</a> &nbsp; <a href="004012.html#Supexec">Supexec</a></p>
+
+<h3><a name="ClearPageMode"></a>16.6.1 ClearPageMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»ClearPageMode« - Clear PMMU mode for a memory block.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">2</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">ULONG ClearPageMode ( ULONG mode, ULONG start_address, ULONG
+length );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call ClearPagemode clears the PMMU mode for a given block
+of memory. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>mode</i></td>
+  <td align="left" valign="top">Bit-vector as in <a href="#SetPageMode">SetPageMode</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>start_address</i></td>
+  <td align="left" valign="top">Start address of memory segment</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>length</i></td>
+  <td align="left" valign="top">Length of desired segment</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> All other bits are reserved for future purposes. A
+program may only clear those bits that it has set itself previously.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns zero on error-free execution. Otherwise a
+value is returned in which the bits that could not be manipulated are
+set.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="GetHdv_inuse"></a>16.6.2 GetHdv_inuse</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetHdv_inuse« - Obtain the activity of the hard disk driver.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">4</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">UWORD *GetHdv_inuse ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call GetHdv_inuse enables one to check whether the hard
+disk driver is currently in the process of swapping a page from or to
+RAM.<br><br>
+
+<b>Note:</b> A check of this WORD <i>must</i> be made before the
+virtual RAM is accessed from an interrupt routine. This is because the
+hard disk driver may not be interrupted by an access to a non-existing
+memory page if it is currently offloading another page. If the status
+WORD is non-zero, the access has to be delayed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns a pointer to the hdv_inuse WORD.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="GetPageSize"></a>16.6.3 GetPageSize</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»GetPageSize« - Obtain size of a memory page.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">3</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">ULONG GetPageSize ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call GetPageSize obtains the current size of a memory page.<br><br>
+
+<b>Note:</b> With a MC-68030 the size can lie between 256 bytes
+and 32 kbytes.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the size of a memory page.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="pmem_size"></a>16.6.4 pmem_size</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»pmem_size« - Obtain total size of the physical memory
+handled by the memory manager.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">6</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">ULONG pmem_size ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call pmem_size obtains the total size of the physical
+memory that is being handled by the memory manager.<br><br>
+
+<b>Note:</b> This function is only available as of Version 1.01
+of the PMMU cookie.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the named size.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#PMMUversion">PMMUversion</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="PMMUversion"></a>16.6.5 PMMUversion</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»PMMUversion« - Obtains the version number of the handler.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">UWORD PMMUversion ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call PMMUversion obtains the version number of the PMMU
+handler. Here the bits 8..15 store the version, and the bits 0..7 the
+revision. A value of 0x102 thus represents Version 1.02.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the version number of the handler in the
+above-mentioned format.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#SetPageMode">SetPageMode</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="SetPageMode"></a>16.6.6 SetPageMode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»SetPageMode« - Set PMMU mode for a memory block.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">ULONG SetPageMode ( ULONG mode, ULONG start_address, ULONG
+length );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call SetPageMode sets the PMMU mode for a given block of
+memory. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>mode</i></td>
+<td valign="top">Mode as a bit-vector<table>
+<tr><td nowrap="nowrap" valign="top">Bit 0 =</td>
+<td valign="top"><b>SwapInhibit</b>
+<br>The memory block will not be offloaded</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 1 =</td>
+<td valign="top"><b>WriteProtect</b>
+<br>The memory block will be write-protected; attempts to write to it
+lead to a bus error</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 2 =</td>
+<td valign="top"><b>Used</b>
+<br>The memory block is marked as being in use; by this it temporarily
+gets a higher priority and is not offloaded at first</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 3 =</td>
+<td valign="top"><b>Modified</b>
+<br>The memory block is marked as having been modified; due to this
+the block is written to disk in any case before new data are read into
+its ophysical address</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit 4 =</td>
+<td valign="top"><b>CacheInhibit</b>
+<br>The processor caches are switched off for the specified block
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>start_address</i></td>
+<td valign="top">Start address of memory block</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><i>length</i></td>
+<td valign="top">Length of the desired block
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> The remaining bits are reserved and must be set to
+zero. For the virtual memory management the SwapInhibit bit is the
+most meaningful one, since it offers the possibility of protecting
+given memory blocks from being offloaded to disk.<br><br>
+
+With write-protection of memory blocks it is imperative to note
+that the memory is subdivided into pages, which form the smallest unit
+that can be write-protected. One has to ensure that the
+write-protection does not extend to a block that must not be
+protected, because it does not belong to the program in question, for
+instance.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns zero on error-free execution. Otherwise a
+value is returned in which the bits that could not be manipulated are
+set.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#PMMUversion">PMMUversion</a> &nbsp; <a href="#vmem_size">vmem_size</a>
+
+</td></tr>
+</table>
+
+<h3><a name="vmem_size"></a>16.6.7 vmem_size</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»vmem_size« - Inquire total size of the virtual memory.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Number:</td>
+<td valign="top">5</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Declaration:</td>
+<td valign="top">ULONG vmem_size ( VOID );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call vmem_size obtains the total size of the virtual
+memory.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the named size.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#The_20PMMU_20functions-handler">PMMU functions-handler</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#ClearPageMode">ClearPageMode</a> &nbsp; <a href="#GetHdv_inuse">GetHdv_inuse</a> &nbsp; <a href="#GetPageSize">GetPageSize</a> &nbsp; <a href="#pmem_size">pmem_size</a> &nbsp;
+<a href="#PMMUversion">PMMUversion</a> &nbsp; <a href="#SetPageMode">SetPageMode</a>
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="010.html"><img src="udo_up.gif" alt="Appendix" title="Appendix" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="010005.html"><img src="udo_lf.gif" alt="Declaration of sources" title="Declaration of sources" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="010007.html"><img src="udo_rg.gif" alt="TOS list" title="TOS list" border="0" width="24" height="24"></a></body>
+</html>

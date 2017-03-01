@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Document-History-Protokoll
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="00f.html"><img src="udo_up.gif" alt="Protokolle" title="Protokolle" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00f003.html"><img src="udo_lf.gif" alt="Drag&Drop-Protokoll" title="Drag&Drop-Protokoll" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00f005.html"><img src="udo_rg.gif" alt="Font-Protokoll" title="Font-Protokoll" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Document-History-Protokoll"></a>15.4 Document-History-Protokoll</h1>
+<a name="Protokoll_2C_20Document-History-Protokoll"></a>
+<a name="Protokoll_2C_20DHST"></a>
+<a name="DHST"></a>
+<p>Das Document-History-(DHST-) Protokoll dient dazu, eine globale
+Liste der zuletzt benutzten Dokumente zu verwalten (ähnlich dem
+Abruf-Menü in z.B. Texel) und an einer einheitlichen Stelle (hier:
+Start-Me-Up- Menü) schnell abrufbar zu machen.</p>
+
+<p>Dazu ein kurzer Auszug der Struktur in C-Notation:</p>
+
+<a name="DHST_ADD"></a>
+<a name="DHST_ACK"></a>
+<pre> #define DHST_ADD 0xdadd
+ #define DHST_ACK 0xdade
+
+typedef struct
+{
+   int8_t *appname,
+          *apppath,
+          *docname,
+          *docpath;
+} DHSTINFO;
+</pre>
+<p>Jedesmal wenn der Anwender eine Datei öffnet, sucht die
+Applikation nach dem Cookie 'DHST'. Ist dieser vorhanden, gibt das
+untere Word des Cookie-Wertes die AES-ID des DHST-Servers an, an
+den die Nachricht DHST_ADD geschickt wird. Die Applikation legt also
+im <b>globalen</b> Spei- cher eine DHSTINFO-Struktur an und füllt
+sie entsprechend auf:</p>
+
+<pre> appname:     Name der Applikation
+              (z.B. "Texel")
+
+ apppath:     absoluter Pfad der Applikation
+              (z.B. "c:\program\texel.app")
+
+ docname:     Name des Dokuments
+              (z.B. "balmer.txl")
+
+ docpath:     absoluter Pfad des Dokuments
+              (z.B. "d:\daten\balmer.txl")
+</pre>
+<p>Dann schickt sie dem DHST-Server folgende Nachricht:</p>
+
+<pre> msg[0]    DHST_ADD (0xdadd)
+ msg[1]    ap_id der Anwendung
+ msg[2]    0
+ msg[3]    und
+ msg[4]    Pointer auf DHSTINFO-Struktur
+ msg[5]    0
+ msg[6]    0
+ msg[7]    0
+</pre>
+<p>Als Antwort erhält die Applikation folgende <a href="00f00a.html#Message">Message</a>, mit der sie
+den globalen Speicher wieder freigeben kann:</p>
+
+<pre> msg[0]    DHST_ACK (0xdade)
+ msg[1]    ap_id des DHST-Servers
+ msg[2]    0
+ msg[3]    and
+ msg[4]    Pointer auf DHSTINFO-Struktur (wie bei DHST_ADD übergeben)
+ msg[5]    0
+ msg[6]    0
+ msg[7]    0=Fehler, sonst: OK
+</pre>
+<p>In der ST-Computer 10/98 findet sich ein ausführlicher Artikel zu
+diesem Thema.</p>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="00f.html"><img src="udo_up.gif" alt="Protokolle" title="Protokolle" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00f003.html"><img src="udo_lf.gif" alt="Drag&Drop-Protokoll" title="Drag&Drop-Protokoll" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00f005.html"><img src="udo_rg.gif" alt="Font-Protokoll" title="Font-Protokoll" border="0" width="24" height="24"></a></body>
+</html>

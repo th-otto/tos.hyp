@@ -1,0 +1,3965 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Editable object functions
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008005.html"><img src="udo_lf.gif" alt="Print dialogs" title="Print dialogs" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008007.html"><img src="udo_rg.gif" alt="Event library" title="Event library" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Editable_20object_20functions"></a>8.6 Editable object functions</h1>
+<p>This library makes functions available to undertake editing
+operations on an editable object.</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_close">edit_close</a></td>
+<td valign="top">Closes editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_create">edit_create</a></td>
+<td valign="top">Creates a new editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_cursor">edit_cursor</a></td>
+<td valign="top">Switches edit cursor on/off</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_delete">edit_delete</a></td>
+<td valign="top">Removes editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_evnt">edit_evnt</a></td>
+<td valign="top">Processes editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_buf">edit_get_buf</a></td>
+<td valign="top">Examines settings: Text buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_colour">edit_get_colour</a></td>
+<td valign="top">Examines settings: Colours</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_cursor">edit_get_cursor</a></td>
+<td valign="top">Examines settings: Absolute cursor position</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_dirty">edit_get_dirty</a></td>
+<td valign="top">Examines settings: Dirty flag</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_font">edit_get_font</a></td>
+<td valign="top">Examines settings: Font</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_format">edit_get_format</a></td>
+<td valign="top">Examines settings: Formating</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_pos">edit_get_pos</a></td>
+<td valign="top">Examines settings: Position</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_scrollinfo">edit_get_scrollinfo</a></td>
+<td valign="top">Examines settings: Scroll information</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_get_sel">edit_get_sel</a></td>
+<td valign="top">Examines settings: Selected region</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_open">edit_open</a></td>
+<td valign="top">Opens editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_resized">edit_resized</a></td>
+<td valign="top">Alters settings: Object size</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_scroll">edit_scroll</a></td>
+<td valign="top">Alters settings: Scroll positions</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_buf">edit_set_buf</a></td>
+<td valign="top">Alters settings: Text buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_colour">edit_set_colour</a></td>
+<td valign="top">Alters settings: Colours</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_cursor">edit_set_cursor</a></td>
+<td valign="top">Alters settings: Absolute positioning of cursor</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_dirty">edit_set_dirty</a></td>
+<td valign="top">Alters settings: Dirty flag</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_font">edit_set_font</a></td>
+<td valign="top">Alters settings: Font</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_format">edit_set_format</a></td>
+<td valign="top">Alters settings: Formating</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#edit_set_pos">edit_set_pos</a></td>
+<td valign="top">&nbsp;
+
+</td></tr>
+</table>
+
+<p><b>Hint:</b> The editable object is available from <a href="00b.html">MagiC</a> 5.20
+onwards. As it is implemented as part of the shared library (SLB or
+SharedLib), one only needs to open the library with:</p>
+
+<p><a href="00500e.html#Slbopen">Slbopen</a>("EDITOBJC.SLB", NULL, 0L, &slb, &slbexec);</p>
+
+<p>The library installs a new AES object-type <a href="008002.html#G_EDIT">G_EDIT</a>.</p>
+
+<p>See also: <a href="#Using_20G_EDIT_20objects">Using G_EDIT objects</a> &nbsp; <a href="008.html">AES</a> &nbsp; <a href="002002.html">GEM</a> &nbsp; <a href="008010.html">Object functions</a></p>
+
+<h3><a name="edit_close"></a>8.6.1 edit_close</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Close« - Close editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">212</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_close ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_close closes size-dependent management structures
+of an object and releases the memory used. The descriptor itself,
+though, will be preserved. Text management is now no longer possible.
+The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_close">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_close"></a>8.6.1.1 Bindings for edit_close</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_close">edit_close</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_close">edit_close</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = obj;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(212) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">212   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_create"></a>8.6.2 edit_create</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Create« - Create editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">210</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void *edit_create ( void )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_create creates a corresponding descriptor (memory
+is reserved), but the editor will not be opened yet. One can now alter
+several settings with one of the edit_set_xxx functions. The default
+settings are:<br><br>
+
+System font, 10 pt
+<br>Black on white
+<br>No line wrap
+<br>Tabulator width 64 pixels</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> Returns a descriptor for any further actions, or NULL if an
+error has occurred (not enough memory). The descriptor must be entered
+as <i>ob_spec</i> into the object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_create">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_create"></a>8.6.2.1 Bindings for edit_create</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void *<a href="#edit_create">edit_create</a> ( void )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void *<a href="#edit_create">edit_create</a> ( void )
+{
+    <a href="008002.html#crys_if">crys_if</a>(210);
+
+    return ( <a href="008002.html#addr_out">addr_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">210   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_cursor"></a>8.6.3 edit_cursor</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit object cursor« - Edit cursor on/off.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">214</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_cursor ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+int16_t show );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whdl</td>
+<td valign="top">Window handle or -1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">show</td>
+<td valign="top">The cursor is switched on (show == 1), switched off (show == 0)
+or examined (show == -1).
+
+</td></tr>
+</table>
+
+<br><br>
+
+The call can be nested.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> Return value is the cursor-off counter.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_cursor">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_cursor"></a>8.6.3.1 Bindings for edit_cursor</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_cursor">edit_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+int16_t show );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_cursor">edit_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+                   int16_t show )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = whdl;
+   <a href="008002.html#int_in">int_in</a>[2]  = show;
+
+   <a href="008002.html#crys_if">crys_if</a>( 214 );
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">214   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">whdl</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">show</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_delete"></a>8.6.4 edit_delete</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Delete« - Remove editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">213</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_delete ( void *editinfo );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_delete releases the descriptor <i>editinfo.</i>
+If the object is to be used further then the object type has to be
+placed back on <a href="008002.html#G_BOX">G_BOX</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_delete">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_delete"></a>8.6.4.1 Bindings for edit_delete</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_delete">edit_delete</a> ( void *editinfo );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_delete">edit_delete</a> ( void *editinfo )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = editinfo;
+
+   <a href="008002.html#crys_if">crys_if</a>( 213 );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">213   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">editinfo</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_evnt"></a>8.6.5 edit_evnt</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit object event« - Process editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">215</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_evnt ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+<a href="008016.html#EVNT">EVNT</a> *events, int32_t *errcode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_evnt causes events, i.e. mouse clicks and key
+presses, to be forwarded to the editable object and processed by it if
+appropriate. When an event has been processed, the corresponding bit
+in the <a href="00f00e.html#EVENT">EVENT</a> structure is cleared. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whdl</td>
+<td valign="top">Window handle or -1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">events</td>
+<td valign="top"><a href="00f00e.html#EVENT">EVENT</a> structure as for <a href="008008.html#wdlg_evnt">wdlg_evnt</a>, <a href="008014.html#fnts_evnt">fnts_evnt</a>; the events are
+processed by the dialog if they are intended for the associated window</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">errcode</td>
+<td valign="top">Error code (-200 = text buffer full)
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 0 in case of error. The exact
+error-code in this case is stored in the variable <i>errcode.</i></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_evnt">Binding</a> &nbsp; <a href="#Keyboard_20codes_20for_20G_EDIT">Keyboard codes</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_evnt"></a>8.6.5.1 Bindings for edit_evnt</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_evnt">edit_evnt</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+<a href="008016.html#EVNT">EVNT</a> *events, int32_t *errcode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_evnt">edit_evnt</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+                 <a href="008016.html#EVNT">EVNT</a> *events, int32_t *errcode )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = whdl;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = events;
+
+   <a href="008002.html#int_out">int_out</a>[1] = 0;          /* für alte SLB */
+   <a href="008002.html#int_out">int_out</a>[2] = 0;          /* für alte SLB */
+
+   <a href="008002.html#crys_if">crys_if</a>( 215 )
+
+   *errcode = <a href="008002.html#int_out">int_out</a>[1..2];
+
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">215   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">whdl</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">events</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1..2]</td>
+  <td align="left" valign="top">errcode</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<p>The error-code <i>errcode</i> is present only as of Version 7 of
+the SLB; the binding in MT_<a href="008.html">AES</a> ensures that old SLB versions always
+return NULLs. Vice versa, the new SLB versions recognize via
+contrl[2] whether an error-code was requested.</p>
+
+<h3><a name="edit_get_buf"></a>8.6.6 edit_get_buf</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Buffer« - Examine settings: Text buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_buf ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t **buf,
+int32_t *buflen, int32_t *txtlen );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_buf obtains the settings of the text buffer.
+The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>buf</i></td>
+  <td align="left" valign="top">Address of buffer</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>buflen</i></td>
+  <td align="left" valign="top">Buffer length</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>txtlen</i></td>
+  <td align="left" valign="top">Current text length without EOS</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> 0 for error, else 1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_buf">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_buf"></a>8.6.6.1 Bindings for edit_get_buf</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_buf">edit_get_buf</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t **buf,
+int32_t *buflen, int32_t *txtlen );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_buf">edit_get_buf</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t **buf,
+                       int32_t *buflen, int32_t *txtlen )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 0;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *buflen = <a href="008002.html#int_out">int_out</a>[1..2];
+   *txtlen = <a href="008002.html#int_out">int_out</a>[3..4];
+
+   *buf = <a href="008002.html#addr_out">addr_out</a>[0];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">0     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1..2]</td>
+  <td align="left" valign="top">buflen</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3..4]</td>
+  <td align="left" valign="top">txtlen</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">buf</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_colour"></a>8.6.7 edit_get_colour</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Colour« - Examine settings: Colours</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_colour ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*tcolour, int16_t *bcolour );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_colour obtains the colour of an object. The
+following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tcolour</i></td>
+  <td align="left" valign="top">Text colour</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>bcolour</i></td>
+  <td align="left" valign="top">Background colour</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 on successful execution, else
+the value 0 in case of error.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_colour">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_colour"></a>8.6.7.1 Bindings for edit_get_colour</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_colour">edit_get_colour</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*tcolour, int16_t *bcolour );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_colour">edit_get_colour</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                          int16_t *tcolour, int16_t  *bcolour )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 2;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *tcolour = <a href="008002.html#int_out">int_out</a>[1];
+   *bcolour = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">2     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">tcolour</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">bcolour</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_cursor"></a>8.6.8 edit_get_cursor</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Cursor« - Examine settings: Absolute cursor
+position</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 4)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_cursor ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t
+**cursorpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_cursor obtains the absolute position of the
+cursor in the text of an editable object. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cursorpos</i></td>
+  <td align="left" valign="top">Cursor position in text</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> 0 for error, else 1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_cursor">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_cursor"></a>8.6.8.1 Bindings for edit_get_cursor</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_cursor">edit_get_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t
+**cursorpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_cursor">edit_get_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                          int8_t **cursorpos )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 4;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *cursorpos = <a href="008002.html#addr_out">addr_out</a>[0];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">4     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">cursorpos</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_dirty"></a>8.6.9 edit_get_dirty</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Dirtyflag« - Examine settings: Dirty flag</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 7)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_dirty ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_dirty lets one ascertain whether the text was
+altered in the meantime. The flag can be cleared again with
+<a href="#edit_set_dirty">edit_set_dirty</a> or <a href="#edit_set_buf">edit_set_buf</a>. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 if the text was changed else
+0.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_dirty">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_dirty"></a>8.6.9.1 Bindings for edit_get_dirty</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_dirty">edit_get_dirty</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_dirty">edit_get_dirty</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 7;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">7     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_font"></a>8.6.10 edit_get_font</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Font« - Examine settings: Font</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 3)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_font ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*fontID, int16_t *fontH, int16_t *fontPix, int16_t *mono );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_font obtains information about the ID, size
+and type of font used in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontID</td>
+<td valign="top">Font ID</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontH</td>
+<td valign="top">Height for <a href="007004.html#vst_point">vst_point</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontPix</td>
+<td valign="top">0=points, 1=pixels
+<br>(available as of version 8 (3.5.98) of the SLB)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mono</td>
+<td valign="top">Flag for equidistant font
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 on successful execution, else
+the value 0 in case of error.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_font">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_font"></a>8.6.10.1 Bindings for edit_get_font</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_font">edit_get_font</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*fontID, int16_t *fontH, int16_t *fontPix, int16_t *mono );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_font">edit_get_font</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                        int16_t *fontID, int16_t *fontH,
+                        int16_t *fontPix, int16_t *mono )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 3;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#int_out">int_out</a>[4] = 0;      /* for old SLB         */
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *fontID  = <a href="008002.html#int_out">int_out</a>[1];
+   *fontH   = <a href="008002.html#int_out">int_out</a>[2];
+   *mono    = <a href="008002.html#int_out">int_out</a>[3];
+   *fontPix = <a href="008002.html#int_out">int_out</a>[4];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">3     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fontID</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">fontH</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">mono</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">fontPix</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_format"></a>8.6.11 edit_get_format</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Format« - Examine settings: Formating</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 1)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_get_format ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*tabwidth, int16_t *autowrap );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_format obtains information about the
+formatting of text in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tabwidth</td>
+<td valign="top">Tabulator width</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">autowrap</td>
+<td valign="top">> 0: Pixel width for auto line wrap (generally == object width)
+<br>= 0: No wrapping, but horiz. scrolling
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> 0 for error, else 1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_format">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_format"></a>8.6.11.1 Bindings for edit_get_format</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_get_format">edit_get_format</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*tabwidth, int16_t *autowrap );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_get_format">edit_get_format</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                          int16_t *tabwidth, int16_t *autowrap )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 1;      /* Sub-opcode für Funktion */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *tabwidth  = <a href="008002.html#int_out">int_out</a>[1];
+   *autowrap  = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">1     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">tabwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">autowrap</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_pos"></a>8.6.12 edit_get_pos</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get ?« - Obtain important information about an
+editable object.?</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 5)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_get_pos ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*xscroll, int32_t *yscroll, int8_t **cyscroll, int8_t **cursorpos,
+int16_t *cx, int16_t *cy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">Exactly what the function edit_get_pos does is not known, as it
+only turns up in the binding mt_edit.c. From the parameters it seems
+to obtain information about cursor position and scrolling functions in
+an editable object. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>xscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>yscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cyscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cursorpos</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cx</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cy</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_pos">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_pos"></a>8.6.12.1 Bindings for edit_get_pos</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_get_pos">edit_get_pos</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*xscroll, int32_t *yscroll, int8_t **cyscroll, int8_t **cursorpos,
+int16_t *cx, int16_t *cy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_get_pos">edit_get_pos</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                    int16_t *xscroll, int32_t *yscroll,
+                    int8_t **cyscroll, int8_t **cursorpos,
+                    int16_t *cx, int16_t *cy )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 5;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *xscroll = <a href="008002.html#int_out">int_out</a>[1];
+   *yscroll = <a href="008002.html#int_out">int_out</a>[2..3];
+   *cx      = <a href="008002.html#int_out">int_out</a>[4];
+   *cy      = <a href="008002.html#int_out">int_out</a>[5];
+
+   *cyscroll  = <a href="008002.html#addr_out">addr_out</a>[0];
+   *cursorpos = <a href="008002.html#addr_out">addr_out</a>[1];
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">6     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">5     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">undefined</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">xscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2..3]</td>
+  <td align="left" valign="top">yscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">cx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[5]</td>
+  <td align="left" valign="top">cy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">cyscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[1]</td>
+  <td align="left" valign="top">cursorpos</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_scrollinfo"></a>8.6.13 edit_get_scrollinfo</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Scrollinformation« - Examine settings:
+Scroll information</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 9)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_get_scrollinfo ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int32_t
+*nlines, int32_t *yscroll, int16_t *yvis, int16_t *yval, int16_t
+*ncols, int16_t *xscroll, int16_t *xvis );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_scrollinfo obtains information about
+scrollable text capabilities in an editable object. The following
+apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">nlines</td>
+<td valign="top">Number of lines in text</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">yscroll</td>
+<td valign="top">First visible line</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">yvis</td>
+<td valign="top">Number of max. visible lines</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">yval</td>
+<td valign="top">Number of currently visible lines</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ncols</td>
+<td valign="top">Number of columns, or -1 (unknown)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xscroll</td>
+<td valign="top">Horizontal scroll offset in pixels</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xvis</td>
+<td valign="top">Number of visible columns (in pixels)
+
+</td></tr>
+</table>
+
+<br><br>
+
+This information is required in order to set the horizontal and
+vertical scroll bars. As the editable object would have to make a
+vq_extend for each individual line, actually at each alteration of a
+line, the number of columns is currently not defined and the call
+returns -1.
+<br>MGEDIT here simply assumes a fixed width, in the same way as other
+programs e.g. VIEW.PRG and PC.PRG do as well. <i>yval</i> is always
+smaller or equal to <i>yvis.</i> If the text has fewer lines that
+<i>yvis</i>, then <i>yval</i> is always smaller.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_scrollinfo">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_scrollinfo"></a>8.6.13.1 Bindings for edit_get_scrollinfo</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_get_scrollinfo">edit_get_scrollinfo</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int32_t
+*nlines, int32_t *yscroll, int16_t *yvis, int16_t *yval, int16_t
+*ncols, int16_t *xscroll, int16_t *xvis );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_get_scrollinfo">edit_get_scrollinfo</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                           int32_t *nlines, int32_t *yscroll,
+                           int16_t *yvis, int16_t *yval,
+                           int16_t *ncols, int16_t *xscroll,
+                           int16_t *xvis )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 9;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *nlines   = <a href="008002.html#int_out">int_out</a>[1..2];
+   *yscroll  = <a href="008002.html#int_out">int_out</a>[3..4];
+   *yvis     = <a href="008002.html#int_out">int_out</a>[5];
+   *yval     = <a href="008002.html#int_out">int_out</a>[6];
+   *ncols    = <a href="008002.html#int_out">int_out</a>[7];
+   *xscroll  = <a href="008002.html#int_out">int_out</a>[8];
+   *xvis     = <a href="008002.html#int_out">int_out</a>[9];
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">10    # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">9     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">undefined</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1..2]</td>
+  <td align="left" valign="top">nlines</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3..4]</td>
+  <td align="left" valign="top">yscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[5]</td>
+  <td align="left" valign="top">yvis</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+11</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[6]</td>
+  <td align="left" valign="top">yval</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[7]</td>
+  <td align="left" valign="top">ncols</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+13</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[8]</td>
+  <td align="left" valign="top">xscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[9]</td>
+  <td align="left" valign="top">xvis</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+In mt_edit.c is control[2] set with 6 (?).
+
+</td></tr>
+</table>
+
+<h3><a name="edit_get_sel"></a>8.6.14 edit_get_sel</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Get Selection« - Examine settings: Selected
+region</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">216 (sub-opcode 8)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_get_sel ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t **bsel,
+int8_t **esel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_get_sel obtains information about a selected
+region in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">bsel</td>
+<td valign="top">Start of selected region</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">esel</td>
+<td valign="top">After the end of the selected region
+
+</td></tr>
+</table>
+
+<br><br>
+
+If no region is selected then bsel == NULL.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 on successful execution, else
+the value 0 in case of error.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_get_sel">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_get_sel"></a>8.6.14.1 Bindings for edit_get_sel</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_get_sel">edit_get_sel</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t **bsel,
+int8_t **esel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_get_sel">edit_get_sel</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                    int8_t **bsel, int8_t **esel )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 8;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 216 );
+
+   *bsel  = <a href="008002.html#addr_out">addr_out</a>[0];
+   *esel  = <a href="008002.html#addr_out">addr_out</a>[1];
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">216   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">8     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">bsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[1]</td>
+  <td align="left" valign="top">esel</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+In the original documentation this function is defined with an
+int16_t return value; however in mt_edit.c this is given as void.
+
+</td></tr>
+</table>
+
+<h3><a name="edit_open"></a>8.6.15 edit_open</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Open« - Open editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">211</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_open ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_open opens an editable object. The following
+apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index
+
+</td></tr>
+</table>
+
+<br><br>
+
+The number of lines and columns of text visible for the object
+size is calculated, and corresponding pointers are created. Memory is
+then requested for it.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 on successfull execution,
+else the value 0 in case of error.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_open">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_open"></a>8.6.15.1 Bindings for edit_open</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_open">edit_open</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_open">edit_open</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 211 );
+
+   return ( <a href="008002.html#int_out">int_out</a> [0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">211   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_resized"></a>8.6.16 edit_resized</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Resized« - Alter settings: Object size</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 6)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_resized ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*oldrh, int16_t *newrh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_resized alters the height of an editable object.
+The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">oldrh</td>
+<td valign="top">Old net height of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">newrh</td>
+<td valign="top">New net height of object
+
+</td></tr>
+</table>
+
+<br><br>
+
+For changes of the object size the editable object must release
+and reserve memory. Thus it is possible that in extreme circumstances
+the operation fails due to a shortage of memory. In that case the
+return value is 0. So that the calling program can execute a correct
+redraw, the previous and new actual height is returned. In fact it
+means here the number of visible lines multiplied by the line height,
+i.e. the object height without the unused bottom white border.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> 1 (OK) or 0 (error)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_resized">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_resized"></a>8.6.16.1 Bindings for edit_resized</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_resized">edit_resized</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+*oldrh, int16_t *newrh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_resized">edit_resized</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                       int16_t *oldrh, int16_t *newrh )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 6;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   *oldrh = <a href="008002.html#int_out">int_out</a>[1];
+   *newrh = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a> [0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">6     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">oldrh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">newrh</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_scroll"></a>8.6.17 edit_scroll</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Scroll« - Alter settings: Scroll positions</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 9)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t edit_scroll ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+int32_t yscroll, int16_t xscroll );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_scroll is used for altering the scroll position
+in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whdl</td>
+<td valign="top">Window handle or -1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">yscroll</td>
+<td valign="top">Vertical scroll offset in lines</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">xscroll</td>
+<td valign="top">Horizontal scroll offset in pixels
+
+</td></tr>
+</table>
+
+<br><br>
+
+With this one scrolls horizontally and vertically absolutely. This
+call is required when a scroll bar or arrow has been clicked on. The
+window handle is required so that the rectangle list is taken into
+consideration during scrolling.<br><br>
+
+An error-code will be returned if the number of lines has been
+exceeded.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> 1 (OK) or 0 (Error)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_scroll">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_scroll"></a>8.6.17.1 Bindings for edit_scroll</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#edit_scroll">edit_scroll</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+int32_t yscroll, int16_t xscroll );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#edit_scroll">edit_scroll</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t whdl,
+                      int32_t yscroll, int16_t xscroll )
+{
+   <a href="008002.html#int_in">int_in</a>[0]    = obj;
+   <a href="008002.html#int_in">int_in</a>[1]    = 9;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]    = whdl;
+   <a href="008002.html#int_in">int_in</a>[3..4] = yscroll;
+   <a href="008002.html#int_in">int_in</a>[5]    = xscroll;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return ( <a href="008002.html#int_out">int_out</a> [0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">9     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">whdl</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3..4]</td>
+  <td align="left" valign="top">yscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">xscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_buf"></a>8.6.18 edit_set_buf</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Buffer« - Alter settings: Text buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_buf ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t *buf,
+int32_t buflen );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_buf is used to alter the settings of the text
+buffer for an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">buf</td>
+<td valign="top">Text buffer. The text is present in DOS format with CR/LF as
+line-end identifier and is terminated by a Nullbyte.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">buflen</td>
+<td valign="top">Length of text buffer inclusive of closing Nullbyte.
+
+</td></tr>
+</table>
+
+<br><br>
+
+The buffer is allocated to the text object, the number of lines
+are determined. The cursor is set to the start of the text. This call
+clears the Dirty flag.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_buf">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_buf"></a>8.6.18.1 Bindings for edit_set_buf</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_buf">edit_set_buf</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t *buf,
+int32_t buflen );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_buf">edit_set_buf</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t *buf,
+                    int32_t buflen )
+{
+   <a href="008002.html#int_in">int_in</a>[0]    = obj;
+   <a href="008002.html#int_in">int_in</a>[1]    = 0;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2..3] = buflen;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = buf;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">0     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2..3]</td>
+  <td align="left" valign="top">buflen</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">buf</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_colour"></a>8.6.19 edit_set_colour</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Colour« - Alter settings: Colours</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_colour ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+tcolour, int16_t bcolour );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_colour is used to alter the colours in an
+editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tcolour</td>
+<td valign="top">Text colour</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">bcolour</td>
+<td valign="top">Background colour
+
+</td></tr>
+</table>
+
+<br><br>
+
+If one of the two attributes is to remain unchanged then -1 can be
+passed.<br><br>
+
+If the editable object was opened previously, then one should
+generally trigger a redraw when changing one of the attributes.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_colour">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_colour"></a>8.6.19.1 Bindings for edit_set_colour</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_colour">edit_set_colour</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+tcolour, int16_t bcolour );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_colour">edit_set_colour</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                       int16_t tcolour, int16_t bcolour )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 2;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]  = tcolour;
+   <a href="008002.html#int_in">int_in</a>[3]  = bcolour;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">2     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">tcolour</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">bcolour</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_cursor"></a>8.6.20 edit_set_cursor</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Cursor« - Alter settings: Absolute
+positioning of cursor</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 4)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_cursor ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t
+*cursorpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_cursor sets the absolute position of the
+cursor in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cursorpos</td>
+<td valign="top">Absolute cursor position
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_cursor">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_cursor"></a>8.6.20.1 Bindings for edit_set_cursor</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_cursor">edit_set_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int8_t
+*cursorpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_cursor">edit_set_cursor</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                       int8_t *cursorpos )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 4;      /* Sub-opcode for function */
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = cursorpos;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">4     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">cursorpos</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_dirty"></a>8.6.21 edit_set_dirty</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Dirtyflag« - Alter settings: Dirty flag</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 7)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_dirty ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t dirty
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_dirty changes the settings of the Dirty flag
+for an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">RSC-tree of object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object number</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dirty</td>
+<td valign="top">0 = clear, or 1 = set
+
+</td></tr>
+</table>
+
+<br><br>
+
+With this one can clear the Dirty flag when the text has been
+saved.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_dirty">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_dirty"></a>8.6.21.1 Bindings for edit_set_dirty</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_dirty">edit_set_dirty</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t dirty
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_dirty">edit_set_dirty</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                      int16_t dirty )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 7;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]  = dirty;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">7     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">dirty</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_font"></a>8.6.22 edit_set_font</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Font« - Alter settings: Font</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 3)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_font ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t fontID,
+int16_t fontH, int16_t fontPix, int16_t mono );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_font sets the ID, size and type of font used
+in an editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontID</td>
+<td valign="top">Font ID</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontH</td>
+<td valign="top">Character height in "points"</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fontPix</td>
+<td valign="top">0=points, 1=pixels (from 3.5.98 on)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mono</td>
+<td valign="top">'Equidistant' flag
+
+</td></tr>
+</table>
+
+<br><br>
+
+If the editable object was opened previously, then one should
+generally trigger a redraw when changing the font.<br><br>
+
+The <i>mono</i> flag is required to give the editable object the
+possibility to handle equidistant fonts (mono == 1) appreciably faster
+that proportional fonts (mono == 0).<br><br>
+
+<i>fontPix</i> is only available from version 8 of the SLB
+onwards. Older versions always assume fontPix=0, i.e. exclusively use
+<a href="007004.html#vst_point">vst_point</a>() for setting the character height. The SLB recognises from
+<a href="007003.html#contrl">contrl</a>[1] whether <i>fontPix</i> was passed. If not then 0 will be
+asumed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_font">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_font"></a>8.6.22.1 Bindings for edit_set_font</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_font">edit_set_font</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t fontID,
+int16_t fontH, int16_t fontPix, int16_t mono );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_font">edit_set_font</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                     int16_t fontID, int16_t fontH,
+                     int16_t fontPix, int16_t mono )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 3;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]  = fontID;
+   <a href="008002.html#int_in">int_in</a>[3]  = fontH;
+   <a href="008002.html#int_in">int_in</a>[4]  = mono;
+   <a href="008002.html#int_in">int_in</a>[5]  = fontPix;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">3     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">fontID</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">fontH</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">mono</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">fontPix</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_format"></a>8.6.23 edit_set_format</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit Object Set Format« - Alter settings: Formating</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 1)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_format ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+tabwidth, int16_t autowrap );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call edit_set_format sets the formatting of text in an
+editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">obj</td>
+<td valign="top">Object index</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tabwidth</td>
+<td valign="top">1 or tabulator width in pixels</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">autowrap</td>
+<td valign="top">&nbsp;-1: Do not change
+<br>> 0: Pixel width for auto line wrap
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generally == object width)
+<br>= 0: No wrapping, but horiz. scrolling
+
+</td></tr>
+</table>
+
+<br><br>
+
+If one of the two attributes is to remain unchanged then -1 can be
+passed.<br><br>
+
+If the editable object was opened previously then one should
+generally trigger a redraw when changing one of the attributes. From
+version 9 of the SLB the number of lines is recalculated when the
+<i>autowrap</i> setting is altered. In older versions this only
+happens with <a href="#edit_set_buf">edit_set_buf</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="edit_set_format.html#Bindings_20for_20edit_set_format">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_format"></a>8.6.23.1 Bindings for edit_set_format</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_format">edit_set_format</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t
+tabwidth, int16_t autowrap );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_format">edit_set_format</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                       int16_t tabwidth, int16_t autowrap )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = obj;
+   <a href="008002.html#int_in">int_in</a>[1]  = 1;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]  = tabwidth;
+   <a href="008002.html#int_in">int_in</a>[3]  = autowrap;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">1     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">tabwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">autowrap</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="edit_set_pos"></a>8.6.24 edit_set_pos</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Edit object set ?« - Set important information ? of an
+editable object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">217 (sub-opcode 5)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void edit_set_pos ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t xscroll,
+int32_t yscroll, int8_t *cyscroll, int8_t *cursorpos, int16_t cx,
+int16_t cy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">Exactly what the function edit_set_pos does is not known, as it
+only turns up in the binding mt_edit.c. From the parameters it seems
+to allow the setting of the cursor position and scrolling functions in
+an editable object. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">RSC-tree of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object index</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>xscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>yscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cyscroll</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cursorpos</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cx</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cy</i></td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 by means of a shared library.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Editable_20object_20functions">Editable object functions</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20edit_set_pos">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20edit_set_pos"></a>8.6.24.1 Bindings for edit_set_pos</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#edit_set_pos">edit_set_pos</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj, int16_t xscroll,
+int32_t yscroll, int8_t *cyscroll, int8_t *cursorpos, int16_t cx,
+int16_t cy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#edit_set_pos">edit_set_pos</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj,
+                    int16_t xscroll, int32_t yscroll,
+                    int8_t *cyscroll, int8_t *cursorpos,
+                    int16_t cx, int16_t cy )
+{
+   <a href="008002.html#int_in">int_in</a>[0]    = obj;
+   <a href="008002.html#int_in">int_in</a>[1]    = 5;      /* Sub-opcode for function */
+   <a href="008002.html#int_in">int_in</a>[2]    = xscroll;
+   <a href="008002.html#int_in">int_in</a>[3..4] = yscroll;
+   <a href="008002.html#int_in">int_in</a>[5]    = cx;
+   <a href="008002.html#int_in">int_in</a>[6]    = cy;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = cyscroll;
+   <a href="008002.html#addr_in">addr_in</a>[2] = cursorpos;
+
+   <a href="008002.html#crys_if">crys_if</a>( 217 );
+
+   return;
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">217   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">7     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">5     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">xscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3..4]</td>
+  <td align="left" valign="top">yscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">cx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">cy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">cyscroll</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">cursorpos</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="Using_20G_EDIT_20objects"></a>8.6.25 Using G_EDIT objects</h3>
+<a name="G_EDIT_20objects_2C_20Using"></a>
+<ul>
+<li>In the RSC file a white <a href="008002.html#G_BOX">G_BOX</a>, without border, is included</li>
+<li>In the program the SharedLib is loaded</li>
+<li>For each <a href="008002.html#G_EDIT">G_EDIT</a> object:<ul>
+<li>Create text buffer.</li>
+<li>Create editable object with <a href="#edit_create">edit_create</a>.</li>
+<li>Alter object type in <a href="008002.html#G_EDIT">G_EDIT</a> and place <i>ob_spec</i> on the
+editable object.</li>
+<li>Allocate the text buffer with <a href="#edit_set_buf">edit_set_buf</a>.</li>
+<li>If necessary alter the settings of the editable object with
+edit_set_xxx.</li>
+<li>Open editable object with <a href="#edit_open">edit_open</a>.</li>
+<li>Only then draw the tree with <a href="008010.html#objc_draw">objc_draw</a>.</li>
+</ul>
+
+</li>
+<li>In order to pass keyboard codes and mouse clicks to the
+editable object, one has to call <a href="#edit_evnt">edit_evnt</a>. The syntax is fully
+analogous to wdlg_evnt, fslx_evnt and fnts_evnt.</li>
+<li> When closing, the edit field must be closed with <a href="#edit_close">edit_close</a>,
+after which the memory reserved for the edit field is released again
+with <a href="#edit_delete">edit_delete</a>. No further <a href="008010.html#objc_draw">objc_draw</a> may be performed! If necessary,
+set the object type on G_BOX once more.</li>
+</ul>
+
+<p>See also: <a href="#Keyboard_20codes_20for_20G_EDIT">Keyboard codes for G_EDIT</a></p>
+
+<h3><a name="Keyboard_20codes_20for_20G_EDIT"></a>8.6.26 Keyboard codes for G_EDIT</h3>
+<p>These keyboard codes are evaluated by G_EDIT:</p>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Cursor</td>
+  <td align="left" valign="top">Corresponding cursor movements</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Ctrl-Cursor-up/down</td>
+  <td align="left" valign="top">Scrolling</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Ctrl-Cursor-left/right</td>
+  <td align="left" valign="top">Move cursor word by word</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Shift-Cursor-left/right</td>
+  <td align="left" valign="top">Cursor to start/end of line</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Esc</td>
+  <td align="left" valign="top">Nothing (yet)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Insert</td>
+  <td align="left" valign="top">Nothing (yet)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Shift-Insert</td>
+  <td align="left" valign="top">Nothing (yet)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Backspace</td>
+  <td align="left" valign="top">Delete character left of cursor</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Delete</td>
+  <td align="left" valign="top">Delete character right of cursor</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Ctrl-Delete</td>
+  <td align="left" valign="top">Nothing (yet)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Home</td>
+  <td align="left" valign="top">Cursor to start of text</td>
+</tr>
+<tr>
+  <td align="left" valign="top">Ende (MF-2) <u>and</u></td>
+  <td align="left" valign="top"></td>
+</tr>
+<tr>
+  <td align="left" valign="top">Ende (Mac) <u>and</u></td>
+  <td align="left" valign="top"></td>
+</tr>
+<tr>
+  <td align="left" valign="top">Shift-Clr/Home</td>
+  <td align="left" valign="top">End of text</td>
+</tr>
+<tr>
+  <td align="left" valign="top">PgUp (Mac) <u>and</u></td>
+  <td align="left" valign="top"></td>
+</tr>
+<tr>
+  <td align="left" valign="top">Shift-Cursor-up</td>
+  <td align="left" valign="top">Cursor one page up</td>
+</tr>
+<tr>
+  <td align="left" valign="top">PgUp (Mac) <u>and</u></td>
+  <td align="left" valign="top"></td>
+</tr>
+<tr>
+  <td align="left" valign="top">Shift-Cursor-down</td>
+  <td align="left" valign="top">Cursor one page down</td>
+</tr>
+<tr>
+  <td align="left" valign="top">^A</td>
+  <td align="left" valign="top">Select all (from 27.1.98 on)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">^C</td>
+  <td align="left" valign="top">Copy block to clipboard (leave it in text)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">^X</td>
+  <td align="left" valign="top">Cut block to clipboard (delete it from text)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">^V</td>
+  <td align="left" valign="top">Insert clipboard contents at cursor position</td>
+</tr>
+</table>
+</div>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008005.html"><img src="udo_lf.gif" alt="Print dialogs" title="Print dialogs" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008007.html"><img src="udo_rg.gif" alt="Event library" title="Event library" border="0" width="24" height="24"></a></body>
+</html>

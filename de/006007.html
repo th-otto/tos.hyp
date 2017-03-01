@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Get pixel
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="006006.html"><img src="udo_lf.gif" alt="Put pixel" title="Put pixel" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="006008.html"><img src="udo_rg.gif" alt="Arbitrary line" title="Arbitrary line" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Get_20pixel"></a>6.7 Get pixel</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Get pixel«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Line-A Nummer:</td>
+<td valign="top"> $A002</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20get_pixel">Bindings für get_pixel</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Diese <a href="006.html">Line-A</a> Funktion ermittelt die Farbe an den angegebenen
+Koordinaten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert in D0 die Farbe der angegebenen
+Koordinaten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="002.html">TOS</a>-Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20get_pixel">Binding</a> &nbsp; <a href="006002.html">LINEA</a> &nbsp; <a href="006006.html">Put Pixel</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20f_C3_BCr_20get_pixel"></a>6.7.1 Bindings für get_pixel</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Pure-C:</td>
+<td valign="top">int16_t get_pixel( int x, int y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>movem.l   D0-D2/A0-A2,-(A7)  ; Register retten
+move.l    pParamblk,A0       ; Zeiger Parameterblock <a href="006002.html">LINEA</a>
+move.l    (12,A0),A1         ; Adresse <a href="007003.html#ptsin">ptsin</a>
+move.w    x,(A1)             ; X-Koordinate in <a href="007003.html#ptsin">ptsin</a>[0]
+move.w    y,(2,A1)           ; Y-Koordinate in <a href="007003.html#ptsin">ptsin</a>[1]
+dc.w      $A002              ; <a href="006.html">Line-A</a> Opcode
+move.w    D0,color           ; D0 enthält Farbe
+movem.l   (A7)+,D0-D2/A0-A2  ; Register restaurieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="006006.html"><img src="udo_lf.gif" alt="Put pixel" title="Put pixel" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="006008.html"><img src="udo_rg.gif" alt="Arbitrary line" title="Arbitrary line" border="0" width="24" height="24"></a></body>
+</html>

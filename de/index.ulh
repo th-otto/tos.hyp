@@ -1,0 +1,38 @@
+This is UDO Version 7.04 (1296) for Linux
+Copyright (C) 1995-2001 by Dirk Hagedorn
+Copyright (C) 2001-2014 by The UDO Community
+UDO is Open Source (see http://www.udo-open-source.org/ for further information).
+
+######## errors, warnings and notes:
+
+
+######## information:
+
+source file: /home/travis/build/freemint/tos.hyp/tos_hyp.u
+
+Warnings:             0
+Notes:                0
+Errors:               0
+
+Nodes:                17
+Subnodes:             168
+Subsubnodes:          1381
+Subsubsubnodes:       1844
+Subsubsubsubnodes:    117
+Subsubsubsubsubnodes: 2
+Macros:               0
+Defines:              8
+Hyphens:              0
+
+started:  23:21:10
+finished: 23:21:36
+
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_hm.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_up.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_lf.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_rg.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_nohm.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_noup.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_nolf.gif
+GIF written to /home/travis/build/freemint/tos.hyp/gh-pages/de/udo_norg.gif
+Output written to /home/travis/build/freemint/tos.hyp/gh-pages/de/index.html

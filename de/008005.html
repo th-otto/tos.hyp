@@ -1,0 +1,2666 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Druckdialoge
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008004.html"><img src="udo_lf.gif" alt="Dateiauswahl" title="Dateiauswahl" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008006.html"><img src="udo_rg.gif" alt="Editobjekt-Funktionen" title="Editobjekt-Funktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Druckdialoge"></a>8.5 Druckdialoge</h1>
+<p>Die folgenden Routinen wurden mit <a href="00b.html">MagiC</a> eingeführt, und erlauben
+die Erstellung und Handhabung von Druckdialogen:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_add_printers">pdlg_add_printers</a></td>
+<td valign="top">Druckerbeschreibungen hinzufügen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_add_sub_dialogs">pdlg_add_sub_dialogs</a></td>
+<td valign="top">Erstellt Unterdialoge zum Druckdialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_close">pdlg_close</a></td>
+<td valign="top">Schließt das Fenster des Druckdialogs.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_create">pdlg_create</a></td>
+<td valign="top">Initialisiert den Druckdialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_delete">pdlg_delete</a></td>
+<td valign="top">Gibt den Speicher des Dialogs frei.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_dflt_settings">pdlg_dflt_settings</a></td>
+<td valign="top">Übernimmt die Default-Initialisierung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_do">pdlg_do</a></td>
+<td valign="top">Öffnet einen modalen Druckdialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_evnt">pdlg_evnt</a></td>
+<td valign="top">Übernimmt die Event-Verwaltung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_free_settings">pdlg_free_settings</a></td>
+<td valign="top">Speicher für Druckeinstellung freigeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_get_setsize">pdlg_get_setsize</a></td>
+<td valign="top">Ermittelt die Länge der PRN_SETTINGS Struktur.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_new_settings">pdlg_new_settings</a></td>
+<td valign="top">Fordert Speicher für Druckeinstellungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_open">pdlg_open</a></td>
+<td valign="top">Öffnet ein Fenster mit dem Dialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_remove_printers">pdlg_remove_printers</a></td>
+<td valign="top">Druckerbeschreibungen entfernen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_remove_sub_dialogs">pdlg_remove_sub_dialogs</a></td>
+<td valign="top">Entfernt Unterdialoge des Druckdialogs.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_save_default_settings">pdlg_save_default_settings</a></td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_update">pdlg_update</a></td>
+<td valign="top">Setzt einen neuen Fensternamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_use_settings">pdlg_use_settings</a></td>
+<td valign="top">Anwendung der Druckereinstellungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#pdlg_validate_settings">pdlg_validate_settings</a></td>
+<td valign="top">Überprüft die Druckereinstellungen.
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Die Existenz dieser Funktionen kann per <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7) festgestellt werden.</p>
+
+<p>Querverweis:
+<br><a href="#Druckauswahl_20im_20Fenster">Darstellung im Fenster</a> &nbsp; <a href="#Druckauswahl_20als_20Dialog">Darstellung als mod. Dialog</a> &nbsp; <a href="008.html">AES</a> &nbsp; <a href="002002.html">GEM</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a> &nbsp; <a href="00a002.html">Style-Guidelines</a></p>
+
+<h3><a name="pdlg_add_printers"></a>8.5.1 pdlg_add_printers</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Add Private Printers« - eigene
+Druckerbeschreibungen hinzufügen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_add_printers ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#DRV_INFO">DRV_INFO</a>
+*drv_info );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion erlaubt es, eigene Druckerbeschreibungen zum
+Druckdialog hinzuzufügen. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">prn_dialog</td>
+<td valign="top">Zeiger auf Verwaltungsstruktur</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">drv_info</td>
+<td valign="top">Zeiger auf die Liste der verfügbaren Drucker und
+Rasterverfahren
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Treibernummer sollte auf 0x7fff gesetzt
+werden, um den eigenen Treiber von denjenigen des Betriebssystems zu
+unterscheiden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei korrekter Ausführung den Wert 1 und
+im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_add_printers">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_add_printers"></a>8.5.1.1 Bindings für pdlg_add_printers</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_add_printers">pdlg_add_printers</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#DRV_INFO">DRV_INFO</a>
+*drv_info );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_add_printers">pdlg_add_printers</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                            <a href="008016.html#DRV_INFO">DRV_INFO</a> *drv_info )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = drv_info;
+   <a href="008002.html#int_in">int_in</a>[0] = 0;
+
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">drv_info</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">0     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_add_sub_dialogs"></a>8.5.2 pdlg_add_sub_dialogs</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Add Private Dialogs« - Unterdialoge zum
+Druckdialog hinzufügen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 3)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_add_sub_dialogs ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PDLG_SUB">PDLG_SUB</a>
+*sub_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion erlaubt das Hinzufügen eigener Unterdialoge zum
+Druckdialog.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>sub_dialog</i></td>
+  <td align="left" valign="top">Liste von Unterdialogen</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Nützlich ist diese Funktion etwa, um eigene Druckoptionen wie
+Marken oder Hintergrundbilder anzubieten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei korrekter Ausführung den Wert 1 und
+im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_add_sub_dialogs">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_add_sub_dialogs"></a>8.5.2.1 Bindings für pdlg_add_sub_dialogs</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_add_sub_dialogs">pdlg_add_sub_dialogs</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PDLG_SUB">PDLG_SUB</a>
+*sub_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_add_sub_dialogs">pdlg_add_sub_dialogs</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                               <a href="008016.html#PDLG_SUB">PDLG_SUB</a> *sub_dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = sub_dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 3;
+
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">sub_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">3     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_close"></a>8.5.3 pdlg_close</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Close Window« - Druckdialog schließen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">203</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_close ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int16_t *x,
+int16_t *y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion schließt das Fenster des Druckdialogs. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>x</i></td>
+  <td align="left" valign="top">x-Koordinate des Fensters</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>y</i></td>
+  <td align="left" valign="top">y-Koordinate des Fensters</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Bei den Parametern x und y handelt es sich um die
+letzte Position des Druckdialogs.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert stets den Wert 1 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_close">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_close"></a>8.5.3.1 Bindings für pdlg_close</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_close">pdlg_close</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int16_t *x,
+int16_t *y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_close">pdlg_close</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int16_t *x,
+                     int16_t *y )
+{
+   <a href="008002.html#int_out">int_out</a>[1] = -1;
+   <a href="008002.html#int_out">int_out</a>[2] = -1;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#crys_if">crys_if</a> (203);
+
+   *x = <a href="008002.html#int_out">int_out</a>[1];
+   *y = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">203   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_create"></a>8.5.4 pdlg_create</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Create« - Initialisiert den Druckdialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">200</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top"><a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *pdlg_create ( int16_t dialog_flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion initialisiert den Druckdialog. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;<a name="PDLG_3D"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dialog_flags</td>
+<td valign="top"><b>Diverse Flags:</b><table>
+<tr><td nowrap="nowrap" valign="top">PDLG_3D (1) =</td>
+<td valign="top">Auswahl im 3D-Look anzeigen
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Beim Aufruf der Funktion werden die vorhandenen
+Druckertreiber gescannt und Speicher für die Resource angefordert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert einen Zeiger auf eine <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> Struktur
+zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_create">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_create"></a>8.5.4.1 Bindings für pdlg_create</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *<a href="#pdlg_create">pdlg_create</a> ( int16_t dialog_flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre><a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *<a href="#pdlg_create">pdlg_create</a> ( int16_t dialog_flags )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = dialog_flags;
+   <a href="008002.html#crys_if">crys_if</a> (200);
+
+   return ( <a href="008002.html#addr_out">addr_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">200   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">dialog_flags</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_delete"></a>8.5.5 pdlg_delete</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Delete« - Speicher des Dialogs freigeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">201</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_delete ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion gibt den Speicher für einen Druckdialog an das
+Betriebssystem zurück. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf die <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a>-Struktur</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert stets den Wert 1 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_delete">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_delete"></a>8.5.5.1 Bindings für pdlg_delete</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_delete">pdlg_delete</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_delete">pdlg_delete</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#crys_if">crys_if</a> (201);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">201   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_dflt_settings"></a>8.5.6 pdlg_dflt_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Default Settings« - Defaultinitialisierung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 7)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_dflt_settings ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion übernimmt die Initialisierung der
+Default-Druckereinstellungen.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf die Druckereinstellungen</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Die Länge der <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>-Struktur kann durch einen Aufruf von
+<a href="#pdlg_get_setsize">pdlg_get_setsize</a> ermittelt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert stets den Wert 1 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_dflt_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_dflt_settings"></a>8.5.6.1 Bindings für pdlg_dflt_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_dflt_settings">pdlg_dflt_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_dflt_settings">pdlg_dflt_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                             <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 7;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">7     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_do"></a>8.5.7 pdlg_do</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Do« - Öffnen einen Druckdialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">207</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_do ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, int8_t *document_name, int16_t option_flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion öffnet einen modalen Druckdialog.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">prn_dialog</td>
+<td valign="top">Zeiger auf Verwaltungsstruktur</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">settings</td>
+<td valign="top">Zeiger auf Druckereinstellungen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">document_name</td>
+<td valign="top">Name des Dokumentes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">option_flags</td>
+<td valign="top"><b>Diverse Flags</b><table>
+<tr><td nowrap="nowrap" valign="top">0x0000 =</td>
+<td valign="top">Einstelldialog zeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0001 =</td>
+<td valign="top">Druckdialog zeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0010 =</td>
+<td valign="top">Kopien anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0020 =</td>
+<td valign="top">Querformat anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0040 =</td>
+<td valign="top">Skalierung anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0100 =</td>
+<td valign="top">Option für gerade und ungerade Seiten anbieten
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+Die Funktion kehrt erst dann zum Aufrufer zurück, wenn einer der
+Exit-Buttons betätigt wurde.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert den ausgewählten Button (1 = Abbruch, 2 =
+OK) oder im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_do">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_do"></a>8.5.7.1 Bindings für pdlg_do</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_do">pdlg_do</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, int8_t *document_name, int16_t option_flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_do">pdlg_do</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings,
+                  int8_t *document_name, int16_t option_flags )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+   <a href="008002.html#addr_in">addr_in</a>[2] = document_name;
+
+   <a href="008002.html#int_in">int_in</a>[0] = option_flags;
+   <a href="008002.html#crys_if">crys_if</a> (207);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">207   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">document_name</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">option_flags</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_evnt"></a>8.5.8 pdlg_evnt</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Handle Event« - Ereignisverwaltung des Druckdialoges.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">206</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_evnt ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, <a href="008016.html#EVNT">EVNT</a> *events, int16_t *button );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion übernimmt die Ereignisverwaltung für einen Druckdialog.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf Druckereinstellungen</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>events</i></td>
+  <td align="left" valign="top">Zeiger auf <a href="008016.html#EVNT">EVNT</a>-Struktur</td>
+</tr>
+<a name="PDLG_CANCEL"></a>
+<a name="PDLG_OK"></a>
+<tr>
+  <td align="left" valign="top"><i>button</i></td>
+  <td align="left" valign="top">ausgewählter Button (oder 0)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">PDLG_CANCEL (1) = Abbruch</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">PDLG_OK (2)&nbsp;&nbsp;&nbsp;&nbsp; = OK</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Die Funktion wertet die übergebene <a href="008016.html#EVNT">EVNT</a>-Struktur aus und ruft
+intern <a href="008008.html#wdlg_evnt">wdlg_evnt</a> auf. Falls der Dialog bestätigt wurde, wird im
+Parameter <i>settings</i> die neue Druckeinstellung zurückgeliefert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert den Wert 0 zurück, falls einer der
+<a href="008002.html#EXIT">EXIT</a>-Buttons angeklickt wurde, und anderenfalls den Wert 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_evnt">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_evnt"></a>8.5.8.1 Bindings für pdlg_evnt</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_evnt">pdlg_evnt</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, <a href="008016.html#EVNT">EVNT</a> *events, int16_t *button );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_evnt">pdlg_evnt</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings,
+                    <a href="008016.html#EVNT">EVNT</a> *events, int16_t *button )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+   <a href="008002.html#addr_in">addr_in</a>[2] = events;
+
+   <a href="008002.html#crys_if">crys_if</a> (206);
+
+   *button = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">206   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">events</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">button</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_free_settings"></a>8.5.9 pdlg_free_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Free Settings« - Speicher zurückgeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 6)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_free_settings ( <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion gibt den Speicherplatz frei, der durch einen
+Aufruf von <a href="#pdlg_new_settings">pdlg_new_settings</a> angefordert wurde. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf Druckereinstellungen</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. nicht bekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_free_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_free_settings"></a>8.5.9.1 Bindings für pdlg_free_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_free_settings">pdlg_free_settings</a> ( <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_free_settings">pdlg_free_settings</a> ( <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = settings;
+   <a href="008002.html#int_in">int_in</a>[0] = 6;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">6     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_get_setsize"></a>8.5.10 pdlg_get_setsize</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Get Setting Structure Size« - Länge der
+PRN_SETTINGS Struktur ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">204 (Unterfunktion 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t pdlg_get_setsize ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Länge der <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>-Struktur.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Länge der Struktur in Bytes zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_get_setsize">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_get_setsize"></a>8.5.10.1 Bindings für pdlg_get_setsize</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#pdlg_get_setsize">pdlg_get_setsize</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int32_t <a href="#pdlg_get_setsize">pdlg_get_setsize</a> ( void )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = 0;
+   <a href="008002.html#crys_if">crys_if</a> (204);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0..1] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">204   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">0     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0..1]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_new_settings"></a>8.5.11 pdlg_new_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - New Default Settings« - Default
+Druckereinstellungen setzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 5)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top"><a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *pdlg_new_settings ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion setzt die Default-Druckereinstellungen. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert einen Zeiger auf eine <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+Struktur zurück, in der die aktuellen Druckereinstellungen vermerkt
+sind.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_new_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_new_settings"></a>8.5.11.1 Bindings für pdlg_new_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *<a href="#pdlg_new_settings">pdlg_new_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre><a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *<a href="#pdlg_new_settings">pdlg_new_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 5;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#addr_out">addr_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">5     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_open"></a>8.5.12 pdlg_open</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Open Window« - Druckdialog im Fenster
+öffnen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">202</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_open ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, int8_t *document_name, int16_t option_flags, int16_t x,
+int16_t y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion öffnet ein Fenster mit dem Druckdialog. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">prn_dialog</td>
+<td valign="top">Zeiger auf die Verwaltungsstruktur</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">settings</td>
+<td valign="top">Zeiger auf Druckereinstellungen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">document_name</td>
+<td valign="top">Name des Dokumentes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">option_flags</td>
+<td valign="top"><b>Diverse Flags</b><table>
+<tr><td nowrap="nowrap" valign="top">0x0000 =</td>
+<td valign="top">Einstelldialog zeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0001 =</td>
+<td valign="top">Druckdialog zeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0010 =</td>
+<td valign="top">Kopien anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0020 =</td>
+<td valign="top">Querformat anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0040 =</td>
+<td valign="top">Skalierung anbieten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x0100 =</td>
+<td valign="top">Option für gerade und ungerade Seiten
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">x</td>
+<td valign="top">x-Koordinate des Fensters oder -1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">y</td>
+<td valign="top">y-Koordinate des Fensters oder -1
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Struktur <i>settings</i> enthält die
+Druckeinstellung die mit jedem Dokument gespeichert werden sollte.
+Wenn zu einem Dokument noch keine Einstellung existiert, kann sie
+entweder mit <a href="#pdlg_new_settings">pdlg_new_settings</a> erzeugt werden oder die Applikation
+kann <a href="00500c.html#Malloc">Malloc</a> und anschließend <a href="#pdlg_dflt_settings">pdlg_dflt_settings</a> aufrufen, um den
+Speicher zu initialisieren.<br><br>
+
+Im Parameter <i>option_flags</i> wird u.a. mitgeteilt, ob der
+Dialog als Einstell- oder Druckdialog angezeigt werden soll. Mit
+weiteren Flags kann außerdem festgelegt werden, daß Skalierung,
+Kopieroption und Querdruck auch dann angeboten werden, wenn ein
+Treiber sie nicht unterstützt, so daß die Applikation z.B. die Seite
+gedreht ausgeben muss.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Kennung des erzeugten Fensters oder im
+Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_open">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_open"></a>8.5.12.1 Bindings für pdlg_open</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_open">pdlg_open</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a>
+*settings, int8_t *document_name, int16_t option_flags, int16_t x,
+int16_t y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_open">pdlg_open</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings,
+                    int8_t *document_name, int16_t option_flags,
+                    int16_t x, int16_t y)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+   <a href="008002.html#addr_in">addr_in</a>[2] = document_name;
+
+   <a href="008002.html#int_in">int_in</a>[0] = option_flags;
+   <a href="008002.html#int_in">int_in</a>[1] = x;
+   <a href="008002.html#int_in">int_in</a>[2] = y;
+   <a href="008002.html#crys_if">crys_if</a> (202);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">202   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">document_name</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">option_flags</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_remove_printers"></a>8.5.13 pdlg_remove_printers</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Remove Private Printers« - eigene Drucker aus
+der Liste entfernen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 1)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_remove_printers ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion entfernt die mit <a href="#pdlg_add_printers">pdlg_add_printers</a> angemeldeten
+Drucker. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion muss <i>vor</i> <a href="#pdlg_delete">pdlg_delete</a>
+aufgerufen werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. nicht bekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_remove_printers">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_remove_printers"></a>8.5.13.1 Bindings für pdlg_remove_printers</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_remove_printers">pdlg_remove_printers</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_remove_printers">pdlg_remove_printers</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog_dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 1;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">1     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_remove_sub_dialogs"></a>8.5.14 pdlg_remove_sub_dialogs</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Remove Private Dialogs« - Unterdialoge aus
+dem Druckdialog entfernen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 4)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_remove_sub_dialogs ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion entfernt die applikationseigenen Unterdialoge aus
+dem Druckdialog. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. nicht bekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_remove_sub_dialogs">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_remove_sub_dialogs"></a>8.5.14.1 Bindings für pdlg_remove_sub_dialogs</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_remove_sub_dialogs">pdlg_remove_sub_dialogs</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_remove_sub_dialogs">pdlg_remove_sub_dialogs</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 4;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">4     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_save_default_settings"></a>8.5.15 pdlg_save_default_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print dialog - Save default settings«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 10)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_save_default_settings ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf Druckereinstellungen</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist z.Zt. nicht bekannt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_save_default_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_save_default_settings"></a>8.5.15.1 Bindings für pdlg_save_default_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_save_default_settings">pdlg_save_default_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_save_default_settings">pdlg_save_default_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                                     <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 10;
+
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">10     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_update"></a>8.5.16 pdlg_update</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Update Window« - neuen Fensternamen setzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_update ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int8_t
+*document_name );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion setzt einen neuen Fensternamen. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>document_name</i></td>
+  <td align="left" valign="top">neuer Name des Dokumentes</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion sollte aufgerufen werden, wenn der
+Fensterdialog im Hintergrund liegt und der Anwender ein neues
+Dokumentenfenster nach vorne bringt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei korrekter Ausführung den Wert 1 und
+im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_update">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_update"></a>8.5.16.1 Bindings für pdlg_update</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_update">pdlg_update</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int8_t
+*document_name );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_update">pdlg_update</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog, int8_t *document_name )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = 0;              /* reserviert (muß 0 sein!) */
+   <a href="008002.html#addr_in">addr_in</a>[2] = document_name;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 2;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">0</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">document_name</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">2     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_use_settings"></a>8.5.17 pdlg_use_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Use Settings« - Einstellungen anwenden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 9)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_use_settings ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion sorgt für eine Überprüfung der angegebenen
+Druckereinstellungen.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf Druckereinstellungen</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Die Funktion sollte aufgerufen werden, wenn ein Programm gleich
+ausdrucken möchte und es nicht möglich ist <a href="#pdlg_do">pdlg_do</a> oder <a href="#pdlg_open">pdlg_open</a>
+und <a href="#pdlg_evnt">pdlg_evnt</a> aufzurufen (etwa bei Calamus-Druckdialogen der Fall).
+Die übergebenen Druckereinstellungen werden überprüft, und bei
+alten Treibern gesichert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei korrekter Ausführung den Wert 1, und
+im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_use_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_use_settings"></a>8.5.17.1 Bindings für pdlg_use_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_use_settings">pdlg_use_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_use_settings">pdlg_use_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                            <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 9;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">9     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="pdlg_validate_settings"></a>8.5.18 pdlg_validate_settings</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Print Dialog - Validate Settings« - Überprüfung der
+Druckereinstellungen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">205 (Unterfunktion 8)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t pdlg_validate_settings ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion überprüft die angegebenen Druckereinstellungen.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>prn_dialog</i></td>
+  <td align="left" valign="top">Zeiger auf Verwaltungsstruktur</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>settings</i></td>
+  <td align="left" valign="top">Zeiger auf Druckereinstellungen</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Fehlerhafte Strukturinhalte werden von der
+Funktion ggfs. korrigiert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei korrekter Ausführung den Wert 1, und
+im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7)
+festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Druckdialoge">Druckdialoge</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20pdlg_validate_settings">Binding</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20pdlg_validate_settings"></a>8.5.18.1 Bindings für pdlg_validate_settings</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#pdlg_validate_settings">pdlg_validate_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+<a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#pdlg_validate_settings">pdlg_validate_settings</a> ( <a href="008016.html#PRN_DIALOG">PRN_DIALOG</a> *prn_dialog,
+                                 <a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a> *settings )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = prn_dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = settings;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 8;
+   <a href="008002.html#crys_if">crys_if</a> (205);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">205   # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">prn_dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">settings</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">8     # Sub-Opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="Druckauswahl_20im_20Fenster"></a>8.5.19 Druckauswahl im Fenster</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Programmstart:</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top"><a href="#pdlg_create">pdlg_create</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Aufruf des Druckdialogs:</td>
+<td valign="top"><a href="#pdlg_open">pdlg_open</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Event-Loop:</td>
+<td valign="top"><a href="#pdlg_evnt">pdlg_evnt</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Schließen des Druckdialogs:</td>
+<td valign="top"><a href="#pdlg_close">pdlg_close</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top"><a href="#pdlg_delete">pdlg_delete</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Programmende:</td>
+<td valign="top">&nbsp;
+
+</td></tr>
+</table>
+
+<h3><a name="Druckauswahl_20als_20Dialog"></a>8.5.20 Druckauswahl als Dialog</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Programmstart:</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top"><a href="#pdlg_create">pdlg_create</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Aufruf des Druckdialogs:</td>
+<td valign="top"><a href="#pdlg_do">pdlg_do</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">.</td>
+<td valign="top"><a href="#pdlg_delete">pdlg_delete</a>()</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Programmende:</td>
+<td valign="top">&nbsp;
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008004.html"><img src="udo_lf.gif" alt="Dateiauswahl" title="Dateiauswahl" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008006.html"><img src="udo_rg.gif" alt="Editobjekt-Funktionen" title="Editobjekt-Funktionen" border="0" width="24" height="24"></a></body>
+</html>

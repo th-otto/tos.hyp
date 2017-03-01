@@ -1,0 +1,1855 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Systemfunktionen
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="005.html"><img src="udo_up.gif" alt="GEMDOS" title="GEMDOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00500d.html"><img src="udo_lf.gif" alt="Netzwerkfunktionen" title="Netzwerkfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00500f.html"><img src="udo_rg.gif" alt="Verzeichnisfunktionen" title="Verzeichnisfunktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Systemfunktionen"></a>5.14 Systemfunktionen</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#Salert">Salert</a>&nbsp;&nbsp;&nbsp;</td>
+<td valign="top">Warnung bzw. Fehlermeldung ausgeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Sconfig">Sconfig</a>&nbsp;&nbsp;</td>
+<td valign="top">Betriebssystem-Konfiguration ermitteln/setzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Shutdown">Shutdown</a>&nbsp;</td>
+<td valign="top">Kills all processes, syncs filesystems then halts or reboots
+the system.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Slbclose">Slbclose</a>&nbsp;</td>
+<td valign="top"> Schließt eine <a href="00b017.html">Shared Library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Slbopen">Slbopen</a>&nbsp;&nbsp;</td>
+<td valign="top"> Öffnet eine Shared Library</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Srealloc">Srealloc</a>&nbsp;</td>
+<td valign="top"> Bildschirmspeicher reservieren.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Ssync">Ssync</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td valign="top"> Synchronisation der gemounteten Dateisysteme.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Ssystem">Ssystem</a>&nbsp;&nbsp;</td>
+<td valign="top"> Controlling Cookie Jar, memory access and various system
+settings.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#STEFcntrl">STEFcntrl</a></td>
+<td valign="top"> <a href="00e003.html">STEmulator</a> Kontrollfunktionen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Super">Super</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td valign="top"> Supervisor-Modus ermitteln oder ändern.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Suptime">Suptime</a>&nbsp;&nbsp;</td>
+<td valign="top"> Returns the current uptime and load averages from the system.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Sversion">Sversion</a>&nbsp;</td>
+<td valign="top"> Versionsnummer von GEMDOS ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Syield">Syield</a>&nbsp;&nbsp;&nbsp;</td>
+<td valign="top"> CPU für andere Prozesse freigeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Sysconf">Sysconf</a>&nbsp;&nbsp;</td>
+<td valign="top"> Betriebssystem-Konfiguration überprüfen.
+
+</td></tr>
+</table>
+
+<p>Querverweis: <a href="005009.html">Dateifunktionen</a> &nbsp; <a href="00500b.html">Prozessfunktionen</a></p>
+
+<h3><a name="Salert"></a>5.14.1 Salert</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Salert« - Warnung bzw. Fehlermeldung ausgeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">316</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Salert ( int8_t *msg );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion gibt eine Fehler- bzw. Warnmeldung aus, die in die
+Alert-Pipeline U:\PIPE\ALERT geschrieben wird.<br><br>
+
+Die Meldung <i>msg</i> sollte keine Steuerzeichen, Linefeeds etc.
+enthalten. Sie sollte eine einfache einzeilige Warn- oder
+Fehlermeldung sein.<br><br>
+
+Die Funktion formatiert die Meldung selbständig und sendet sie
+dem Benutzer. Die genaue Form des Outputs hängt jedoch von der
+verwendeten Systemkonfiguration ab.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion hat kein direktes Ergebnis.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Verfügbar, wenn ein 'MiNT' Cookie mit einer Versionsnummer von
+mindestens 0.98 existiert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Salert">Binding</a> &nbsp; <a href="005010.html#Cconws">Cconws</a> &nbsp; <a href="00b00b.html#Pipes">Test auf Pipes</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Salert"></a>5.14.1.1 Bindings für Salert</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#Salert">Salert</a> ( int8_t *msg );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       msg          ; Offset 2
+move.w    #316,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Sconfig"></a>5.14.2 Sconfig</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Sconfig« - erlaubt die Konfigurierung von Teilen des
+Betriebssystems.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">51</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Sconfig ( int16_t mode, int32_t flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion erlaubt die Konfigurierung von Teilen des
+Betriebssystems. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mode</td>
+<td valign="top"><b>Aktion</b><table>
+<tr><td nowrap="nowrap" valign="top">0 =</td>
+<td valign="top">Konfiguration ermitteln</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1 =</td>
+<td valign="top">Konfiguration setzen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">2 =</td>
+<td valign="top">Zeiger auf <a href="005014.html#DOSVARS">DOSVARS</a>-Struktur ermitteln</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">3 =</td>
+<td valign="top">reserviert; <a href="00b.html">MagiC</a> 3.00</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">4 =</td>
+<td valign="top">für <a href="00b013.html#WBDAEMON">WBDAEMON</a>; <a href="00b.html">MagiC</a> 4.01</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">5 =</td>
+<td valign="top">reserviert; <a href="00b.html">MagiC</a> 4.01</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">6 =</td>
+<td valign="top">reserviert; <a href="00b.html">MagiC</a> 4.01
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">flags</td>
+<td valign="top"><b>Konfiguration als Bitvektor</b><table>
+<tr><td nowrap="nowrap" valign="top">Bit-0 =</td>
+<td valign="top">Pfadüberprüfung ein</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-1 =</td>
+<td valign="top">Einfügemodus für <a href="005.html">GEMDOS</a> und Dialogboxen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-2 =</td>
+<td valign="top">reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-3 =</td>
+<td valign="top">reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-4 =</td>
+<td valign="top"><a href="00b013.html#Fastload">Fastload</a> für Diskette aus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-5 =</td>
+<td valign="top"><a href="00b013.html#TOS-Kompatibilit_C3_A4t">TOS-Kompatibilität</a> ein</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-6 =</td>
+<td valign="top"><a href="00b00f.html#Smart-Redraw">Smart-Redraw</a> aus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-7 =</td>
+<td valign="top">Grow-/Shrinkboxen aus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-8 =</td>
+<td valign="top">kein Halt nach <a href="002.html">TOS</a>-Programmen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-9 =</td>
+<td valign="top">reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-10 =</td>
+<td valign="top">Pulldown-Menüs</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-11 =</td>
+<td valign="top">Floppy-Hintergrundbetrieb
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Gesetzte Bits schalten die jeweilige Funktion
+ein, nicht gesetzte Bits schalten sie wieder aus.
+<br>Bit-11 steht erst ab MagiC 3.0 zur Verfügung. Das Setzen der
+Konfiguration ist nur bei <i>abgeschalteter</i> <a href="00b013.html#TOS-Kompatibilit_C3_A4t">TOS-Kompatibilität</a>
+möglich.<br><br>
+
+Die Funktion ist auch in KAOS vorhanden, allerings mit einer etwas
+anderen Belegung des Bitvektors. Als <i>mode</i> kennt KAOS 1.2 nur
+die ersten beiden Unterfunktionen.<table>
+<tr><td nowrap="nowrap" valign="top">Bit-0 =</td>
+<td valign="top">Pfadüberprüfung ein</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-1 =</td>
+<td valign="top">Diskwechsel-Simulation im Desktop ein</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-2 =</td>
+<td valign="top">Break ein; CTRL-C Abfrage bei jedem DOS-Aufruf</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-3 =</td>
+<td valign="top">CTRL-C Abfrage aus; für zeichenorientierte Funktionen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-4 =</td>
+<td valign="top"><a href="00b013.html#Fastload">Fastload</a> für Diskette aus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-5 =</td>
+<td valign="top"><a href="00b013.html#TOS-Kompatibilit_C3_A4t">TOS-Kompatibilität</a> ein (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-6 =</td>
+<td valign="top"><a href="00b00f.html#Smart-Redraw">Smart-Redraw</a> aus (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-7 =</td>
+<td valign="top">Grow-/Shrinkboxen aus (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-8 =</td>
+<td valign="top">kein Halt nach <a href="002.html">TOS</a>-Programmen (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-9 =</td>
+<td valign="top">reserviert (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-10 =</td>
+<td valign="top">Pulldown-Menüs (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-11..30 =</td>
+<td valign="top">reserviert (seit KAOS 1.4.2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Bit-31 =</td>
+<td valign="top">muß unbedingt 0 sein, sonst Fehler! (seit KAOS 1.4.2)
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert, in Abhängigkeit des Parameters
+<i>mode</i>, die aktuell gültige Konfiguration oder einen Zeiger auf
+eine <a href="005014.html#DOSVARS">DOSVARS</a>-Struktur zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">seit KAOS Version 1.2 und <a href="00b.html">MagiC</a> ab Version 1.0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"> <a href="#Bindings_20f_C3_BCr_20Sconfig">Binding</a> &nbsp; <a href="#Sysconf">Sysconf</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Sconfig"></a>5.14.2.1 Bindings für Sconfig</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Sconfig">Sconfig</a> ( int16_t mode, int32_t flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    flags,-(sp)  ; Offset 4
+move.w    mode,-(sp)   ; Offset 2
+move.w    #51,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #8,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Shutdown"></a>5.14.3 Shutdown</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Shutdown« - kills all processes, syncs filesystems then
+halts or reboots the system.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">337 (0x0151)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Shutdown ( int32_t mode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">This function kills all processes, syncs filesystems then halts
+or reboots the system.<a name="SHUT_HALT"></a>
+<br><br>
+
+On <i>mode</i> equal to SHUT_HALT (0L), the system will shutdown
+then enter a halted condition.<a name="SHUT_BOOT"></a>
+<br><br>
+
+On <i>mode</i> equal to SHUT_BOOT (1L), the system will reboot
+the machine after shutting everything down.<a name="SHUT_COLD"></a>
+<br><br>
+
+On <i>mode</i> equal to SHUT_COLD (2L), the system will act the
+same as with the SHUT_BOOT mode, except that a cold start rather than
+the warm start will be performed.
+<br>SHUT_COLD mode is recognized as of FreeMiNT version 1.15.5, older
+versions of the kernel will treat the SHUT_COLD as SHUT_BOOT.<a name="SHUT_POWER"></a>
+<br><br>
+
+On <i>mode</i> equal to SHUT_POWER (3L), the system will turn
+power off. The only hardware that supports it is atm. CT60. If
+hardware does not support it, SHUT_HALT will be performed.
+<br>SHUT_POWER mode is recognized as of FreeMiNT version 1.16a, older
+versions of the kernel will treat the SHUT_POWER as SHUT_COLD.<br><br>
+
+All other values of mode are reserved for future definition.<br><br>
+
+Older versions of MiNT contained a bug that might cause the system
+to crash, if you called Shutdown() while both <a href="002002.html">GEM</a> <a href="008.html">AES</a> and virtual
+console daemon were present.<br><br>
+
+You need root privileges to shut the system down.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Returns a negative <a href="005.html">GEMDOS</a> error code, if failed. On success
+this call obviously never returns.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Seit der ersten in MultiTOS integrierten MiNT Version 1.04.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Shutdown">Binding</a> &nbsp; <a href="#Ssync">Sync</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Shutdown"></a>5.14.3.1 Bindings für Shutdown</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#Shutdown">Shutdown</a> ( int32_t mode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    mode,-(sp)   ; Offset 2
+move.w    #337,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Slbclose"></a>5.14.4 Slbclose</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Slbclose« - schließt eine "shared lib".</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">23 (0x017)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Slbclose( SHARED_LIB *sl );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion schließt eine Shared Lib<br><br>
+
+Der Parameter <i>sl</i> ist der Deskriptor welcher bei Slbclose
+ermittelt wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><a href="005003.html#E_OK">E_OK</a> = Alles OK, Versionsnummer der Bibliothek oder negative
+<a href="005.html">GEMDOS</a>-Fehlernummer.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Sie steht ab MagiC 5.20 und FreeMiNT 1.15.4 zu Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Slbclose">Binding</a> &nbsp; <a href="#Slbopen">Slbopen</a> &nbsp; <a href="00b017.html">Shared Libraries</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Slbclose"></a>5.14.4.1 Bindings für Slbclose</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Slbclose">Slbclose</a>( SHARED_LIB *sl );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       sl           ; Offset 2
+move.w    #23,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Slbopen"></a>5.14.5 Slbopen</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Slbopen« - Öffnet eine "shared lib"</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">22 (0x016)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Slbopen( int8_t *name, int8_t *path, int32_t min_ver,
+SHARED_LIB *sl, SLB_EXEC *fn );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion öffnet eine Shared Lib<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">name</td>
+<td valign="top">Der Name der Bibliothek, in Großschrift, inkl. Extension
+(".SLB"). Der Bibliotheksname ist gleichzeitig Dateiname.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">path</td>
+<td valign="top">Pfad bei dem zuerst nach der Bibliothek gesucht (der Pfad muß
+in MagiC 5.20 mit '\' abgeschlossen sein; dies ist in MagiC 6
+nicht mehr nötig).(!nl) Wenn der Parameter NULL ist oder die
+Bibliothek im angegebenen Pfad nicht gefunden wurde, wird im
+XTENSION-Ordner gesucht.(!nl) Ab MagiC 6 wird die
+Environment-Variable SLBPATH ausgewertet. Sie enthält wie PATH eine
+Liste der Suchpfade, jeweils durch ';' getrennt. st die Variable
+definiert, wird nicht mehr extra im XTENSION-Ordner gesucht.<br><br>
+
+Bei FreeMiNT wird versucht die Bibliothek aus dem aktuelle
+Verzeichnis zuladen, falls <i>path</i> NULL ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">min_ver</td>
+<td valign="top">Minimal notwendige Versionsnummer der Bibliothek.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">sl</td>
+<td valign="top">Zeiger auf den Deskriptor.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fn</td>
+<td valign="top">Zeiger auf den Funktionszeiger.
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">>= 0</td>
+<td valign="top">Alles OK, Versionsnummer der Bibliothek.
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="005003.html#ERANGE">ERANGE</a></td>
+<td valign="top">Versionsnummer zu niedrig
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="005003.html#EACCDN">EACCDN</a></td>
+<td valign="top">Bibliothek schon von diesem Prozeß geöffnet
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="005003.html#EFILNF">EFILNF</a></td>
+<td valign="top">Bibliothek nicht gefunden
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="005003.html#ENSMEM">ENSMEM</a></td>
+<td valign="top">zuwenig Speicher
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Sie steht ab MagiC 5.20 und FreeMiNT 1.15.4 zu Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Slbopen">Binding</a> &nbsp; <a href="#Slbclose">Slbclose</a> &nbsp; <a href="00b017.html">Shared Libraries</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Slbopen"></a>5.14.5.1 Bindings für Slbopen</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Slbopen">Slbopen</a>( int8_t *name, int8_t *path, int32_t min_ver,
+SHARED_LIB *sl, SLB_EXEC *fn );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       fn           ; Offset 18
+pea       sl           ; Offset 14
+move.l    minver,-(sp) ; Offset 10
+pea       path         ; Offset 6
+pea       name         ; Offset 2
+move.w    #22,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #22,sp       ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Srealloc"></a>5.14.6 Srealloc</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Srealloc« - Bildschirmspeicher allozieren.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">21</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Srealloc ( int32_t len );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Srealloc alloziert für den
+Bildschirmspeicher einen Bereich der Länge <i>len</i> Bytes.<br><br>
+
+Der Bildschirmspeicher ist ein Block des ST-RAM, dessen Eigner der
+Bootprozeß ist. Die Adresse des Bildschirmspeichers (logbase oder
+physbase) wird von dieser Funktion nicht beeinflußt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert (falls <i>len</i> den Wert -1 besitzt)
+die maximal mögliche Größe des Bildschirmspeichers zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">ab <a href="005.html">GEMDOS</a> 0.30 (<a href="002.html">TOS</a> 4).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"> <a href="#Bindings_20f_C3_BCr_20Srealloc">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Srealloc"></a>5.14.6.1 Bindings für Srealloc</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Srealloc">Srealloc</a> ( int32_t len );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    len,-(sp)    ; Offset 2
+move.w    #21,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Ssync"></a>5.14.7 Ssync</h3>
+<a name="Sync"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Ssync« - synchronisiert alle gemounteten Dateisysteme.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">336 (0x0150)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Ssync ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion synchronisiert alle gemounteten Dateisysteme.<br><br>
+
+<b>Achtung:</b> In MiNT wird diese Funktion mit Sync bezeichnet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert kein Ergebnis zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top"><a href="00b.html">MagiC</a> ab Version 4.01 und seit der ersten in MultiTOS
+integrierten MiNT Version 1.04.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Ssync">Binding</a> &nbsp; <a href="#Shutdown">Shutdown</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Ssync"></a>5.14.7.1 Bindings für Ssync</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#Ssync">Ssync</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #336,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Ssystem"></a>5.14.8 Ssystem</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Ssystem« - controlling Cookie Jar, memory access and various
+system settings.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">340 (0x0154)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Ssystem ( int16_t mode, int32_t arg1, int32_t arg2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">The Ssystem call has been designed to make your life easier.
+Using this you can get some closer control on the system and the
+kernel itself. Via this call the kernel now supports e.g. an easy
+Cookie Jar management and provides a safe access to supervisor memory.
+It's strictly encouraged to access <a href="005.html">GEMDOS</a> variables and system vectors
+via the Ssystem(), because this way is considered safe for multiuser
+setups.<br><br>
+
+<i>arg1</i> and <i>arg2</i> are long parameters specific for a
+particular mode. If a mode doesn't use a parameter, it is usually
+ignored, but should be set to a zero for future compatibility. mode
+specifies a particular action as follows:<table>
+<tr><td nowrap="nowrap" valign="top">mode</td>
+<td valign="top">meaning<a name="S_INQUIRE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_INQUIRE(0xffff)</td>
+<td valign="top">Retunrs a zero if the kernel supports Ssystem. You can expect
+the function to be present if MiNT version at least 1.15 is detected.<a name="S_OSNAME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSNAME(0x0000)</td>
+<td valign="top">Identifies the operating system type. Returned longword
+contains a 32-bit positive number, which interpreted as an ASCII
+string gives a 4-character id. For MiNT the returned value is
+0x4d694e54 ('MiNT').<a name="S_OSXNAME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSXNAME(0x0001)</td>
+<td valign="top">Identifies the subtype of the operating system. If this call
+returns a zero or a negative value, that means, that no subtype is
+available. Otherwise the returned value, when interpreted as an ASCII
+string gives a 4-character subtype id. For FreeMiNT, being a
+derivative of the MiNT, the returned value is 0x46726565 ('Free').<br><br>
+
+If a subtype id is less than 4 characters long, it should be
+padded with zeros.<a name="S_OSVERSION"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSVERSION(0x0002)</td>
+<td valign="top">Identifies the exact operating system version. Returned
+longword contains a 32 bit positive version number encoded as follows:<table>
+<tr><td nowrap="nowrap" valign="top">bits</td>
+<td valign="top">meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0-7</td>
+<td valign="top">some printable character to characterize the current version,
+e.g.<table>
+<tr><td nowrap="nowrap" valign="top">0x61</td>
+<td valign="top">(`a') if alpha release,</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0x62</td>
+<td valign="top">(`b') if beta release.
+</td></tr>
+</table>
+
+<br>
+
+For official releases you will always find a value of 0 here.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">8-15</td>
+<td valign="top">patchlevel (0x55 for pl 88)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">16-23</td>
+<td valign="top">minor version number (0x0e for x.14)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">24-31</td>
+<td valign="top">major version number (0x01 for 1.xx)
+
+</td></tr>
+</table>
+
+<br><br>
+
+Definition of an official release: every release for which in bits
+0-7 a value of 0 is returned...<a name="S_OSHEADER"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSHEADER(0x0003)</td>
+<td valign="top">Allows to access the <a href="002.html">TOS</a> header in order to get some
+information from. Current implementation allows to access the first
+256 longwords of the header. The address of the required longword,
+relative to the begin address of the <a href="002.html">TOS</a> header, has to be specified
+as arg1. Only even values are allowed (bit 0 of the arg1 is masked out
+by the kernel). Always a whole longword is returned.<a name="S_OSBUILDDATE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSBUILDDATE(0x0004)</td>
+<td valign="top">Returns a 32 bit positive value with the build date encoded as
+follows:<table>
+<tr><td nowrap="nowrap" valign="top">bits</td>
+<td valign="top">meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0-15</td>
+<td valign="top">binary year (0x07dd for 1998)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">16-23</td>
+<td valign="top">binary month (0x0c for the December)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">24-31</td>
+<td valign="top">binary day of the month
+
+</td></tr>
+</table>
+
+<a name="S_OSBUILDTIME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSBUILDTIME(0x0005)</td>
+<td valign="top">Returns a 32 bit positive value with the build time encoded as
+follows:<table>
+<tr><td nowrap="nowrap" valign="top">bits</td>
+<td valign="top">meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0-7</td>
+<td valign="top">binary seconds</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">8-15</td>
+<td valign="top">binary minutes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">16-23</td>
+<td valign="top">binary hours</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">24-31</td>
+<td valign="top">day of week
+
+</td></tr>
+</table>
+
+<br><br>
+
+day of week has 1 for Monday, 2 for Tuesday... 7 for Sunday.<br><br>
+
+The call should never return a zero in these bits, but if it does,
+it should be interpreted as Sunday.<a name="S_OSCOMPILE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSCOMPILE(0x0006)</td>
+<td valign="top">Returns a 32-bit positive value specifying the primary CPU type
+the kernel has been compiled for. Encoding:<table>
+<tr><td nowrap="nowrap" valign="top">bits</td>
+<td valign="top">meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0-7</td>
+<td valign="top">binary minor CPU ID</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">8-15</td>
+<td valign="top">binary major CPU ID</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">16-31</td>
+<td valign="top">reserved for future definition.
+
+</td></tr>
+</table>
+
+<br><br>
+
+The major ID identifies a particular series of processors.
+Currently only a value of 0x00 is defined and it is assigned to
+Motorola 68k series. Other values of this field are reserved for
+future definition.<br><br>
+
+The minor CPU ID interpretation depends on the major ID. For 68k
+series, values are as follows:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0x00</td>
+  <td align="left" valign="top">68000</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x0a</td>
+  <td align="left" valign="top">68010</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x14</td>
+  <td align="left" valign="top">68020</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x1e</td>
+  <td align="left" valign="top">68030</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x28</td>
+  <td align="left" valign="top">68040</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x3c</td>
+  <td align="left" valign="top">68060</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+This is not the same as the _CPU cookie value. The _CPU cookie
+specifies the CPU physically present in the machine, while the
+S_OSCOMPILE indicates the processor type selected at the time when the
+system was compiled. In other words, running a 68000 compiled kernel
+will return a 0x00 here, even if the machine is running 68040 or
+something.<a name="S_OSFEATURES"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_OSFEATURES(0x0007)</td>
+<td valign="top">Returns a 32-bit positive value specifying the state of kernel
+features. Encoding:<table>
+<tr><td nowrap="nowrap" valign="top">bits</td>
+<td valign="top">meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">memory protection (1 = turned on)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1</td>
+<td valign="top">virtual memory (1 = turned on)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">2-31</td>
+<td valign="top">reserved for future usage
+
+</td></tr>
+</table>
+
+<br><br>
+
+This call has an informative purpose only and you cannot toggle
+anything with it.<a name="S_GETCOOKIE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_GETCOOKIE(0x0008)</td>
+<td valign="top">Fetches required information from the Cookie Jar.</p>
+<ol>
+<li><p>If arg1 is a value bigger than 65535 (0xffff), it is
+interpreted as a tag id. The Cookie Jar is searched for such a tag,
+then if the tag is found, the corresponding slot value is returned or
+-1 otherwise.</p></li>
+<li><p>If arg1 is a value between 1 and 65535, it is interpreted as a
+slot number, not a tag id.Then the corresponding tag id is fetched and
+returned or a value of -1 if the specified slot is free or does not
+exist at all (a slot number past the end of the Cookie Jar was
+specified). The first slot in the Cookie Jar is considered number 1.</p></li>
+<li><p>If arg1 is equal to a zero, then the Cookie Jar is searched for
+the NULL cookie, then the corresponding slot value is returned.</p></li>
+</ol>
+
+<br><br>
+
+The place where the value fetched from the Cookie Jar will be
+returned is defined by the arg2. If this is a zero, the call returns
+its values in the <a href="005.html">GEMDOS</a> return value (d0). If the arg2 is not a zero,
+it is interpreted as a pointer to a memory location, where the slot
+tag or its value should be written to. The return value is 0 (<a href="005003.html#E_OK">E_OK</a>)
+then, if everything went OK, or -1 otherwise.<br><br>
+
+This behaviour (where arg2 != NULL) is not implemented in MiNT
+versions below 1.14.8.<a name="S_SETCOOKIE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SETCOOKIE(0x0009)</td>
+<td valign="top">Places a tag id specified by the arg1 with the value of the
+arg2 in the Cookie Jar. If a slot with the specified tag id already
+exists, it will be replaced with the new value. NULL cookie is
+reallocated automatically and its value is adjusted. If there are no
+more free slots, no action is performed and <a href="005003.html#ENOMEM">ENOMEM</a> is returned
+instead.<br><br>
+
+S_SETCOOKIE requires root euid, <a href="005003.html#EACCES">EACCES</a> is returned otherwise and
+no action is performed.<br><br>
+
+The call refuses to place a cookie (a value of -1 is returned)
+whose tag ID contains a zero-byte.<a name="S_GETLVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_GETLVAL(0x000a)</td>
+<td valign="top">Fetches and returns a LONGword from the address of supervisor
+area specified as a 16-bit, even, unsigned integer value passed as
+<i>arg1</i>. Bit 0 and bits 16-31 are masked out (ignored). The call
+returns a zero if the value at the specified address has to be
+"hidden" from reading. Currently the hidden values are the initial PC
+value and the initial stack pointer value stored at 0x00000000 and
+0x00000004 respectively. Reading a hidden value may require root euid.<br><br>
+
+If the desired address is LONGword aligned, LONGwords can be also
+retrieved from the supervisor area using <a href="About_the_BIOS.html#Setexc">Setexc</a>.<a name="S_GETWVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_GETWVAL(0x000b)</td>
+<td valign="top">Fetches and returns a word from the address of supervisor area
+specified as a 16-bit, even, unsigned integer value passed as
+<i>arg1</i>. Bit 0 and bits 16-31 are masked out (ignored). The call
+returns a zero if the value at the specified address has to be
+"hidden" from reading. Currently the hidden values are the initial PC
+value and the initial stack pointer value stored at 0x00000000 and
+0x00000004 respectively. Reading a hidden value may require root euid.<a name="S_GETBVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_GETBVAL(0x000c)</td>
+<td valign="top">Fetches and returns a byte from the address of supervisor area
+specified as a 16-bit unsigned integer value passed as <i>arg1</i>.
+Bits 16-31 are masked out (ignored). The call returns a zero if the
+value at the specified address has to be "hidden" from reading.
+Currently the hidden values are the initial PC value and the initial
+stack pointer value stored at 0x00000000 and 0x00000004 respectively.
+Reading a hidden value may require root euid.<a name="S_SETLVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SETLVAL(0x000d)</td>
+<td valign="top">Places a LONGword value specified by <i>arg2</i> at address
+specified as 16-bit integer by <i>arg1</i>. Bit 0 and bits 16-31 of
+the <i>arg1</i> are masked out (ignored). Since this call is designed
+to manipulate operating system variables located within the supervisor
+area (first 32k), it is restricted to root euid and returns <a href="005003.html#EACCES">EACCES</a> if
+called by an unprivileged process.<a name="S_SETWVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SETWVAL(0x000e)</td>
+<td valign="top">Places a word value specified by <i>arg2</i> at address
+specified as 16-bit integer by <i>arg1</i>. Bit 0 and bits 16-31 of
+the <i>arg1</i> are masked out (ignored). Since this call is designed
+to manipulate operating system variables located within the supervisor
+area (first 32k), it is restricted for root euid and returns <a href="005003.html#EACCES">EACCES</a> if
+called by an unprivileged process.<a name="S_SETBVAL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SETBVAL(0x000f)</td>
+<td valign="top">Places a byte value specified by <i>arg2</i> at address
+specified as 16-bit integer by <i>arg1</i>. Bits 16-31 of the
+<i>arg1</i> are masked out (ignored). Since this call is designed to
+manipulate operating system variables located within the supervisor
+area (first 32k), it is restricted for root euid and returns <a href="005003.html#EACCES">EACCES</a> if
+called by an unprivileged process.<a name="S_SECLEVEL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SECLEVEL(0x0010)</td>
+<td valign="top">Resets the current security level to a value specified by
+<i>arg1</i>. Valid levels are as follows:<br><br>
+
+0: none of hardware specific system calls are restricted. This is
+a 'MultiTOS compatibility' mode.<br><br>
+
+1: BIOS and XBIOS calls require root privileges; any call
+except <a href="004012.html#Supexec">Supexec</a> and <a href="#Super">Super</a> returns <a href="005003.html#EACCES">EACCES</a> if called by an unprivileged
+process. This does not apply to <a href="About_the_BIOS.html#Setexc">Setexc</a>, which sends <a href="005007.html#SIGSYS">SIGSYS</a> to the
+caller if a change of an exception vector was attempted.<br><br>
+
+2: as above, with except that Supexec and Super generates
+SIGSYS in order to kill the calling process.<br><br>
+
+On values bigger than 2, <a href="005003.html#EACCES">EACCES</a> is returned. If <i>arg1</i> is
+equal to -1, the current security level value is returned.<br><br>
+
+The call absolutely needs root privileges - user processes cannot
+even inquire the current security level value.<a name="S_RUNLEVEL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_RUNLEVEL(0x0011)</td>
+<td valign="top">Reserved for future definition.<a name="S_TSLICE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_TSLICE(0x0012)</td>
+<td valign="top">Allows setting/interrogating the global timeslice value.
+Values are exactly the same as for SLICES keyword in mint.cnf. If
+<i>arg1</i> is equal to -1, the call returns the current global
+timeslice value.<br><br>
+
+Setting the timeslice requires root privileges.<a name="S_FORCEFASTLOAD"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_FORCEFASTLOAD(0x0013)</td>
+<td valign="top">Allows changing the interpretation of the FASTLOAD bit in the
+program header.<br><br>
+
+On Ssystem(S_FORCEFASTLOAD, 0L, 0L); the program header bit will
+be used as before, this is actually equal to FASTLOAD=NO in mint.cnf.<br><br>
+
+On Ssystem(S_FORCEFASTLOAD, 1L, 0L); , the program header bit will
+be ignored and fastload will be forced for all programs.<br><br>
+
+<i>arg1</i> = -1 allows interrogation of the current state of
+this variable.<br><br>
+
+You need root privileges to toggle the FASTLOAD mode.<a name="S_SYNCTIME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_SYNCTIME(0x0014)</td>
+<td valign="top">Allows interrogation or changing the global file-system sync
+time. The default value is 5 sec.<br><br>
+
+If <i>arg1</i> is a positive value, it is interpreted as a new
+sync time value.<br><br>
+
+If <i>arg1</i> is equal to -1, the current sync time value will
+be returned.<br><br>
+
+To be able to change the file-system sync time you must have root
+privileges.<a name="S_BLOCKCACHE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_BLOCKCACHE(0x0015)</td>
+<td valign="top">A positive value of <i>arg1</i> ranging from 0 to 100
+specifies the percentage of file-system cache to be filled with linear
+reads, as in the PERCENTAGE keyword in the mint.cnf file. A negative
+value of <i>arg1</i> returns the currently set percentage value.<br><br>
+
+Root privileges are required to use this mode.<a name="S_FLUSHCACHE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_FLUSHCACHE(0x0016)</td>
+<td valign="top">Invalidates CPU cache entries. <i>arg1</i> is a pointer to the
+memory area whose cache entries should be invalidated, <i>arg2</i> is
+the size of the area in bytes. Passing -1 as <i>arg2</i> invalidates
+all cache entries. If the CPU features separate instruction and data
+caches, both are flushed.<br><br>
+
+This call automatically recognizes caches in 68020/030/040/060 and
+handles them as appropriate. The 68060 branch cache is automatically
+invalidated too. On 68000/68010 calling this mode has no effect. This
+mode is in fact just an interface to the MiNT function cpush used
+internally by the system.<br><br>
+
+Root privileges are NOT required to use this mode.<a name="S_CTRLCACHE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CTRLCACHE(0x0017)</td>
+<td valign="top">Provides an universal (among 68k family members) way of
+controlling the CPU on-chip caches. <i>arg1</i>, referenced as Cache
+Control Word (CCW), is a bit-field where each bit enables (if 1) or
+disables (if 0) a particular function of CPU caches. <i>arg2</i>,
+referenced as Cache Control Mask (CCM), is a bit-mask where you define
+(by setting appropriate bits to 1) which bits of the Cache Control
+Word should be actually taken into account and written into the Cache
+Control Register (CACR). This is the control mode of the S_CTRLCACHE.<br><br>
+
+In inquire mode you can pass -1 as either argument. If the CCW is
+-1, the call returns a LONGword reflecting the actual state of the
+caches.<br><br>
+
+If the CCM is -1, a default bit-mask is returned, where any bit
+set indicates that a cache function defined by the same bit in the
+Cache Control Word is valid for the processor the MiNT is currently
+running on.<br><br>
+
+If both arguments are negative, the call simply returns <a href="005003.html#E_OK">E_OK</a> if it
+is valid at all, or <a href="005003.html#ENOSYS">ENOSYS</a> otherwise. This is the acknowledge mode of
+the S_CTRLCACHE.<br><br>
+
+Bits in either argument are defined as follows:<table>
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">Enable instruction cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1</td>
+<td valign="top">Enable data cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">2</td>
+<td valign="top">Enable branch cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">3</td>
+<td valign="top">Freeze instruction cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">4</td>
+<td valign="top">Freeze data cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">5</td>
+<td valign="top">Instruction burst enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">6</td>
+<td valign="top">Data burst enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">7</td>
+<td valign="top">Enable write allocate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">8</td>
+<td valign="top">Instruction cache full mode enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">9</td>
+<td valign="top">Instruction cache read/write allocate enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">10</td>
+<td valign="top">Data cache full mode enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">11</td>
+<td valign="top">Data cache read/write allocate enable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">12</td>
+<td valign="top">Invalidate branch cache</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">13</td>
+<td valign="top">Invalidate branch cache user entries</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">14</td>
+<td valign="top">Enable CPUSH invalidate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">15</td>
+<td valign="top">Enable store buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">16-31</td>
+<td valign="top">Reserved for future definition
+
+</td></tr>
+</table>
+
+<br><br>
+
+Note that no processor currently supports all of these functions
+and some (68000 and 68010) have no on-chip caches at all. To figure
+out what functions are valid for the actual CPU used, you should first
+request the default bit-mask using the inquire mode described above.
+Your program should save this mask, logically AND the <i>arg2</i>
+with it, then pass the result as the Cache Control Mask for a control
+mode call.<br><br>
+
+Also note that the above bit definition does not exactly reflect
+the function and even position of actual bits in the physical Cache
+Control Register. The bits of either argument are arbitrarily assigned
+to particular cache functions, but their position and state are
+converted by the system before the Cache Control Register is written
+and after it is read, so that the user program can see always the same
+functions assigned to bits as above regardless of the physical
+configuration of the Cache Control Register.<br><br>
+
+Since changing cache configuration is global and may severely
+affect system performance, root privileges are needed to use
+S_CTRLCACHE control mode.<a name="S_INITIALTPA"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_INITIALTPA(0x0018)</td>
+<td valign="top">A positive non-zero value of <i>arg1</i> defines the default
+amount of memory (in bytes) allocated for TPA space, as in the
+INITIALMEM keyword of the mint.cnf file. A negative value allows one
+to interrogate the value currently set. A value of 0 is illegal and
+will cause the call to fail and return <a href="005003.html#EBADARG">EBADARG</a>. Note that even if you
+define a very small value, like 1 or 2 bytes, the system will round
+this up to the smallest size of a memory block possible to allocate.<br><br>
+
+Root privileges are required to use this mode.<a name="S_CAD"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CAD(0x0019)</td>
+<td valign="top">Reserved for future definition.<a name="S_CLOCKMODE"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CLOCKMODE(0x0064)</td>
+<td valign="top">S_CLOCKMODE(0x0064) S_CLOCKMODE called with an <i>arg1</i> of
+-1 inquires the kernel's notion of the hardware system clock. If the
+command returns a zero, the hardware clock is considered to tick in
+UTC; if it returns a positive non-zero value, it is considered to tick
+in local time. Any other positive value of <i>arg1</i> sets the
+current clock mode. On a 0 it is reset to UTC, or to local time
+otherwise.<br><br>
+
+Although this call will never really change the setting of the
+hardware clock, due to the changed interpretation the clock seems to
+warp; don't play around too much with it.<a name="S_KNAME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_KNAME(0x0384)</td>
+<td valign="top"><i>arg1</i> and <i>arg2</i> specify the address and length in
+bytes, respectively, of a memory buffer where a NULL-terminated ASCII
+string will be written identifying the full name and version of the
+system kernel. If the memory buffer is not long enough to hold the
+entire string, the string is truncated down to the buffer size.<a name="S_CNAME"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CNAME(0x038e)</td>
+<td valign="top"><i>arg1</i> and <i>arg2</i> specify the address and length in
+bytes, respectively, of a memory buffer where a NULL-terminated ASCII
+string will be written identifying the full name of the compiler used
+to compile the system kernel. If the memory buffer is not long enough
+to hold the entire string, the string is truncated down to the buffer
+size.<a name="S_CVERSION"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CVERSION(0x038f)</td>
+<td valign="top"><i>arg1</i> and <i>arg2</i> specify the address and length in
+bytes, respectively, of a memory buffer where a NULL-terminated ASCII
+string will be written identifying the version of the compiler used to
+compile the system kernel. If the memory buffer is not long enough to
+hold the entire string, the string is truncated down to the buffer
+size.<a name="S_CDEFINES"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_CDEFINES(0x0390)</td>
+<td valign="top"><i>arg1</i> and <i>arg2</i> specify the address and length in
+bytes, respectively, of a memory buffer where a NULL-terminated ASCII
+string will be written containing the compile time definitions
+(switches) used while compiling the system kernel. If the memory
+buffer is not long enough to hold the entire string, the string is
+truncated down to the buffer size.<a name="S_COPTIM"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_COPTIM(0x0391)</td>
+<td valign="top"><i>arg1</i> and <i>arg2</i> specify the address and length in
+bytes, respectively, of a memory buffer where a NULL-terminated ASCII
+string will be written containing the compile time optimization
+options used while compiling the system kernel. If the memory buffer
+is not long enough to hold the entire string, the string is truncated
+down to the buffer size.<a name="S_DEBUGLEVEL"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_DEBUGLEVEL(0x03e8)</td>
+<td valign="top">S_DEBUGLEVEL called with an <i>arg1</i> of -1 inquires the
+kernel's current debug level. Any other positive value will set the
+current debug level. If it is a zero, the kernel will not output any
+debugging information, except for fatal error-messages. The higher the
+debug level, the more MiNT will spew about what it is doing.<br><br>
+
+Note that special debug kernels will output more information than
+an ordinary distribution kernel.<br><br>
+
+Root privileges are needed to change the debug level.<a name="S_DEBUGDEV"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_DEBUGDEV(0x03e9)</td>
+<td valign="top">S_DEBUGDEV called with an <i>arg1</i> of -1 inquires the
+current BIOS device to output the debug information to. The order
+of defined BIOS devices is as follows:<ul>
+<li>0, printer</li>
+<li>1, AUX:</li>
+<li>2, console (default)</li>
+<li>3, MIDI</li>
+<li>4, keyboard</li>
+<li>5, raw screen</li>
+</ul>
+
+<br><br>
+
+Any positive value of <i>arg1</i>, ranging from 0 to 9, will
+redirect the debug information output to an appropriate BIOS
+device. Notice however, that setting device 4 (keyboard) as a debug
+device does not make much sense and may produce undesired results. The
+system does not restrict this in any way though, just assuming that
+you know what you're doing.<br><br>
+
+Root privileges are needed to change the debug device.<a name="S_TIOCMGET"></a>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">S_TIOCMGET(0x54f8)</td>
+<td valign="top">This mode is reserved for the internal and exclusive usage of
+the MiNT Library.
+
+</td></tr>
+</table>
+
+<br><br>
+
+Ssystem was first introduced as of MiNT version 1.14.6, but it is
+considered fully functional as of MiNT version 1.15.0 release.<br><br>
+
+The S_OSHEADER opcode should be only used for fetching the TOS
+version number when running MiNT versions below 1.15.0 release.<br><br>
+
+The S_FLUSHCACHE, S_CTRLCACHE, S_DEBUGLEVEL and S_DEBUGDEV are
+supported as of MiNT version 1.15.1 release.<br><br>
+
+You should never use Ssystem(S_TIOCMGET, ...); in your own
+programs.<br><br>
+
+The Ssystem behaviour does not depend on the S_SECLEVEL settings.<br><br>
+
+Any values returned by the kernel on reserved fields should be
+considered undocumented and no software should rely on them.<br><br>
+
+It's strictly encouraged to access GEMDOS variables and system
+vectors via the Ssystem, because this way is considered safe for
+multi-user setups. For example, you can access the cookie jar pointer
+using the call Ssystem(S_GETLVAL, 0x05a0, NULL), though if
+TOS-compatibility is the issue you should rather use (2, -1).<br><br>
+
+Prior to any further Ssystem usage, your application should first
+check if the kernel supports this call. If it does, the Ssystem(-1,
+0L, 0L); should return a zero.<br><br>
+
+Ssystem is used and supported by the MiNT Library as of patchlevel
+48.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Available when a 'MiNT' cookie with a version of at least 1.15
+exists.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Ssystem">Binding</a> &nbsp; <a href="00500a.html#Tgettimeofday">Tgettimeofday</a> &nbsp; <a href="00500a.html#Tsettimeofday">Tsettimeofday</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Ssystem"></a>5.14.8.1 Bindings für Ssystem</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Ssystem">Ssystem</a> ( int16_t mode, int32_t arg1, int32_t arg2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    arg2,-(sp)   ; Offset 8
+move.l    arg1,-(sp)   ; Offset 4
+move.w    mode,-(sp)   ; Offset 2
+move.w    #340,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+lea       $0c(sp),sp   ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="STEFcntrl"></a>5.14.9 STEFcntrl</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»STEFcntrl« - <a href="00e003.html">STEmulator</a> Kontrollfunktionen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">24000 (0x5DC0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t STEFcntrl ( int16_t func, int32_t special1, int32_t
+special2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top"><br><br>
+
+SET_INFOTEXT (1)
+<br>special1 = (int8_t *) Zeiger auf neue Infozeile
+<br>special2 = (int8_t *) Zeiger auf alte Infozeile<br><br>
+
+Der String auf den <i>special1</i> zeigt, wird als neue Infozeile
+in die Status-Zeile des <a href="00e003.html">STEmulator</a> übernommen. Ein Wert von NULL
+schaltet wieder auf die Standard-Anzeige zurück.<br><br>
+
+Wenn in <i>special2</i> ein gültiger Zeiger auf einen Buffer
+übergeben wird, enthält dieser nach dem Funktionsaufruf den alten
+Text der Infozeile. Bei NULL, passiert nichts.<br><br>
+
+SET_WINDOWTITLE (2)
+<br>special1 = (int8_t *) Zeiger auf neue Titelzeile
+<br>special2 = (int8_t *) Zeiger auf alte Titelzeile<br><br>
+
+Der String auf den <i>special1</i> zeigt, wird als neue Titel
+des <a href="00e003.html">STEmulator</a>-Fenster übernommen.<br><br>
+
+Wenn in <i>special2</i> ein gültiger Zeiger auf einen Buffer
+übergeben wird, enthält dieser nach dem Funktionsaufruf den alten
+Fenstertitel. Bei NULL, passiert nichts.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><a href="005003.html#EINVFN">EINVFN</a> = Unbekannte Funktion
+<br><a href="005003.html#ERANGE">ERANGE</a> = ungültiger Parameter</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top"><a href="00e003.html">STEmulator</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"> <a href="#Bindings_20f_C3_BCr_20STEFcntrl">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20STEFcntrl"></a>5.14.9.1 Bindings für STEFcntrl</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#STEFcntrl">STEFcntrl</a> ( int16_t func, int32_t special1, int32_t
+special2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    special2,-(sp)   ; Offset 8
+move.l    special1,-(sp)   ; Offset 4
+move.w    func,-(sp)       ; Offset 2
+move.w    #24000,-(sp)     ; Offset 0
+trap      #1               ; <a href="005.html">GEMDOS</a> aufrufen
+lea       $0c(sp),sp       ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Super"></a>5.14.10 Super</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»supervisor« - Supervisor-Modus umschalten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">32 (0x0020)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Super ( void *stack );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Super schaltet zwischen User- und
+Supervisor-Modus um bzw. fragt den aktuellen Betriebsmodus ab.<br><br>
+
+Die Adresse des Supervisor-Stacks kann beim Umschalten verändert
+werden. übergibt man für den Parameter <i>stack</i> den Wert 1, so
+wird der aktuelle Betriebsmodus erfragt. Der Wert 0 schaltet zwischen
+User und Supervisor-Modus um. Alle anderen Werten werden als neue
+Adresse für den Supervisor-Stack betrachtet. Im Supervisor-Modus kann
+auf alle geschützten Speicherstellen zugegriffen werden.<br><br>
+
+<b>Hinweis:</b> Im Hinblick auf zukünftige
+Betriebssystemversionen sollten Sie den Einsatz der Super-Funktion
+vermeiden. Diese Funktion verursacht im Zusammenhang mit virtuellem
+Speicher und unterbrechbaren (und reentranten) Dateisystemen in einem
+Multitaskingsystem große Probleme. Stellen Sie ggf. Ihren Code so um,
+daß Sie die <a href="003.html">BIOS</a>-Funktion <a href="004012.html#Supexec">Supexec</a> verwenden können.<br><br>
+
+Für MiNT gilt:
+<br>If you are in SECURELEVEL > 1, you must have root privileges to
+get into supervisor mode. If you don't have them and call Super, the
+<a href="005007.html#SIGSYS">SIGSYS</a> signal (12) will be raised.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Sollte der Zustand ermittelt werden, erhält man als Resultat 0
+für den User- und -1 für den Supervisor-Modus. Ansonsten liefert die
+Funktion als Ergebnis die Adresse des alten Supervisor-Stacks, sofern
+in den Supervisor-Modus umgeschaltet wurde.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle GEMDOS Versionen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="Super.html#Bindings_20f_C3_BCr_20Super">Binding</a> &nbsp; <a href="004012.html#Supexec">Supexec</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Super"></a>5.14.10.1 Bindings für Super</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Super">Super</a> ( void *stack );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       stack        ; Offset 2
+move.w    #32,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h4><a name="Hinweis_20zur_20Verwendung_20der_20GEMDOS-Funktion_20Super"></a>5.14.10.2 Hinweis zur Verwendung der GEMDOS-Funktion Super</h4>
+<p>Die Funktion Super setzt bei der Umschaltung in den
+Supervisor-Modus den Super-Stackpointer auf den User-Stack des
+Programms. Das kann fatal sein, da das Programm nicht wissen kann, wie
+groß ein Super-Stackbereich sein muß. Ein zu kleiner Stack kann zu
+Fehlverhalten, Abstürzen o.ä. führen. Der Super-Stack liegt nicht
+mehr in einem möglicherweise durch Speicherschutzmechanismen
+gesicherten Bereich, kann also durch das Programm zerstört werden.</p>
+
+<p>Ein Teil des User-Stacks könnte durch virtuelle
+Speichermechanismen ausgelagert worden sein. Ein ausgelagerter
+Super-Stack bedeutet Prozessorhalt, da der MC-680x0 Prozessor seine
+bei Exceptions übliche Sicherung des CPU-Status auf den Super-Stack
+nicht mehr durchführen kann und dann absichtlich stehenbleibt. Kein
+Anwendungsprogrammierer sollte es sich anmaßen, dem System irgendeine
+Beschränkung der Supervisor-Stackgröße aufzuerlegen.</p>
+
+<p>Querverweis: <a href="005.html">GEMDOS</a> &nbsp; <a href="004012.html#Supexec">Supexec</a></p>
+
+<h3><a name="Suptime"></a>5.14.11 Suptime</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Suptime« - returns the current uptime and load averages from
+the system.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">319 (0x013f)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Suptime ( int32_t *uptime, int32_t *loadaverage );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">This function returns the current uptime and load averages from
+the system.<br><br>
+
+<i>uptime</i> is a pointer to a LONG value that will be filled
+with the current amount of seconds elapsed since last reboot.<br><br>
+
+<i>loadaverage</i> is a pointer to a three longword array, that
+will be filled with the current load averages (for last 1, 5 and 15
+minutes).<br><br>
+
+The load average value is calculated using the following formula:<br><br>
+
+sum += (new_load - old_load) * LOAD_SCALE;
+<br>load_avg = sum / MAX_SIZE;<br><br>
+
+where LOAD_SCALE is 2048, MAX_SIZE is the number of 5 second
+periods in the specified amount of time (12 for 1 min., 60 for 5 min.
+and 180 for 15 min). new_load is the number of currently running
+processes, old_load is the number of processes running previous time.
+A 'running' process is considered the one which is put onto run or
+ready queue.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Returns <a href="005003.html#E_OK">E_OK</a> or a negative <a href="005.html">GEMDOS</a> error code otherwise
+(actually it may be only <a href="005003.html#ENOSYS">ENOSYS</a> if the call is not supported...).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Available when a 'MiNT' cookie with a version of at least 1.11
+exists.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"> <a href="#Bindings_20f_C3_BCr_20Suptime">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Suptime"></a>5.14.11.1 Bindings für Suptime</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Suptime">Suptime</a> ( int32_t *uptime, int32_t *loadaverage );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       loadaverage  ; Offset 6
+pea       uptime       ; Offset 4
+move.w    #48,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+lea       $0a(sp),sp   ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Sversion"></a>5.14.12 Sversion</h3>
+<a name="GEMDOS_2C_20Versionsnummer"></a>
+<a name="Versionsnummer_20des_20GEMDOS"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»operating system version« - ermittelt die Nummer der
+GEMDOS-Version.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">48</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">uint16_t Sversion ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Sversion ermittelt die Versionsnummer des
+GEMDOS. Zur Zeit sind folgende Versionen bekannt:<table>
+<tr><td nowrap="nowrap" valign="top">Version</td>
+<td valign="top">Erklärung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.13</td>
+<td valign="top">Findet sich in <a href="002.html">TOS</a> 1.00 und 1.02. Diese Version zeichnet sich
+durch etliche Fehler aus, sollte daher nicht mehr benutzt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.14</td>
+<td valign="top">Nummer des Turbo-DOS, welches für eine kurze Zeit von Atari
+mit Festplatten ausgeliefert wurde. Schnell, aber auch sehr unsicher.
+Auch KAOS 1.2.x besitzt diese Versionsnummer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.15</td>
+<td valign="top">Findet sich in <a href="002.html">TOS</a> 1.04 und 1.06. Diese Version ist relativ
+schnell und stabil.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.16</td>
+<td valign="top">KAOS 1.4.x</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.17</td>
+<td valign="top">Findet sich in <a href="002.html">TOS</a> 1.62. Der Unterschied zur Version 0.15 liegt
+lediglich darin, daß das Patchprogramm POOLFIX3.PRG nicht mehr
+benötigt wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.19</td>
+<td valign="top">Findet sich in TOS 2.01, 2.05, 2.06, 3.01, 3.05, 3.06.
+Diese Version wurde im wesentlichen um Funktionen zur Verwaltung des
+Alternate-Memory erweitert, und wird auch von MagiC bis Version 6.10
+angezeigt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.20</td>
+<td valign="top"> <a href="002.html">TOS</a> 2.06 bis <a href="002.html">TOS</a> 2.95 und <a href="002.html">TOS</a> 3.06 haben die GEMDOS-Version
+0.20. Einzige bislang bekannte Änderung: Medien mit nur einer FAT
+werden unterstützt.
+<br>MagiC 6.20 gibt ebenfalls 0.20 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.30</td>
+<td valign="top"> <a href="002.html">TOS</a> 4.00 bis 4.04, auch MultiTOS 1.00 und 1.08.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.31</td>
+<td valign="top">Milan-<a href="002.html">TOS</a> 4.05. <a href="00500c.html#Mxalloc">Mxalloc</a>() ignoriert Bit 2 bis 15 von mode.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.32</td>
+<td valign="top">Milan-<a href="002.html">TOS</a> 4.08, Release 08.07.1999</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.33</td>
+<td valign="top">Milan-<a href="002.html">TOS</a> 4.08, Release 15.06.2001</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0.40</td>
+<td valign="top">FreeMiNT
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die genannte Versionsnummer, und zwar wie
+folgt:<table>
+<tr><td nowrap="nowrap" valign="top">Low-Byte :</td>
+<td valign="top">Haupt-Versionsnummer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">High-Byte :</td>
+<td valign="top">Neben-Versionsnummer
+
+</td></tr>
+</table>
+
+<br><br>
+
+Der Wert wird im BCD Format geliefert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle GEMDOS Versionen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Sversion">Binding</a> &nbsp; <a href="#Sysconf">Sysconf</a> &nbsp; <a href="010007.html">TOS Liste</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Sversion"></a>5.14.12.1 Bindings für Sversion</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">uint16_t <a href="#Sversion">Sversion</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #48,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Syield"></a>5.14.13 Syield</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Syield« - CPU für andere Prozesse freigeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">255</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Syield ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Durch den Aufruf dieser Funktion, gibt ein Prozeß die CPU ab,
+so daß anderen Prozessen diese (möglicherweise früher als geplant)
+zugeteilt werden kann.<br><br>
+
+<b>Hinweis:</b> Unter MagiC ruft diese Funktion direkt die
+AES-Routine <a href="Application.html#appl_yield">appl_yield</a> auf, und wird im Auto-Ordner ignoriert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert kein Ergebnis.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Sie steht in MagiC ab Version 3.0 und wenn der MiNT Cookie
+vorhanden ist zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"> <a href="#Bindings_20f_C3_BCr_20Syield">Binding</a> &nbsp; <a href="00500b.html#Pause">Pause</a> &nbsp; <a href="005009.html#Fselect">Fselect</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Syield"></a>5.14.13.1 Bindings für Syield</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#Syield">Syield</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #255,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Sysconf"></a>5.14.14 Sysconf</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Sysconf« - Informationen über die Konfiguration des
+Betriebssystems ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">290</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Sysconf ( int16_t n );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion liefert Informationen über die Möglichkeiten
+(bzw. die Konfiguration) des Betriebssystems. Über den Parameter
+<i>n</i> lassen sich die verschiedenen Werte abfragen:<table>
+<tr><td nowrap="nowrap" valign="top">n</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">-1</td>
+<td valign="top">max. legaler Wert für n selbst.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;0</td>
+<td valign="top">max. Wert von Speicherbereichen pro Prozeß.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;1</td>
+<td valign="top">max. Länge der Kommandozeile für <a href="00500b.html#Pexec">Pexec</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;2</td>
+<td valign="top">max. Anzahl offener Dateien pro Prozess.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;3</td>
+<td valign="top">max. Anzahl der Supplementary-Groups pro Prozess.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;4</td>
+<td valign="top">max. Anzahl der Prozesse je Benutzer.
+
+</td></tr>
+</table>
+
+<br><br>
+
+Ein Rückgabewert von 0xfffffff (2^31 - 1) bedeutet, daß der
+entsprechende Wert unbegrenzt ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die durch den Parameter <i>n</i>
+spezifizierte Information zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Seit der ersten in MultiTOS integrierten MiNT Version 1.04.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Systemfunktionen">Systemfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="Sysconf.html#Bindings_20f_C3_BCr_20Sysconf">Binding</a> &nbsp; <a href="00500f.html#Dpathconf">Dpathconf</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Sysconf"></a>5.14.14.1 Bindings für Sysconf</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Sysconf">Sysconf</a> ( int16_t n );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    n,-(sp)      ; Offset 2
+move.w    #290,-(sp)   ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="005.html"><img src="udo_up.gif" alt="GEMDOS" title="GEMDOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00500d.html"><img src="udo_lf.gif" alt="Netzwerkfunktionen" title="Netzwerkfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00500f.html"><img src="udo_rg.gif" alt="Verzeichnisfunktionen" title="Verzeichnisfunktionen" border="0" width="24" height="24"></a></body>
+</html>

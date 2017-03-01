@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Test for MagiC
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="00b.html"><img src="udo_up.gif" alt="MagiC" title="MagiC" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00b010.html"><img src="udo_lf.gif" alt="The task-manager of MagiC" title="The task-manager of MagiC" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00b012.html"><img src="udo_rg.gif" alt="Threads in MagiC" title="Threads in MagiC" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Test_20for_20MagiC"></a>11.17 Test for MagiC</h1>
+<pre>/*  The following code tess whether <a href="00b.html">MagiC</a> is <a href="004011.html#installed">installed</a>, and returns
+    one of the following values:
+
+    -1 = No <a href="00b.html">MagiC</a> present
+    -2 = <a href="00b.html">MagiC</a> <a href="004011.html#installed">installed</a>, but <a href="00b.html">MagiC</a>-<a href="008.html">AES</a> inactive, i.e. <a href="00b.html">MagiC</a> is only
+         being used as a fast filesystem
+    >0 = <a href="00b.html">MagiC</a> present and <a href="00b.html">MagiC</a>-<a href="008.html">AES</a> active. The return value contains
+         the BCD-coded version number  */
+
+GLOBAL WORD InqMagX (VOID)
+{
+    <a href="003007.html#MAGX_COOKIE">MAGX_COOKIE</a> *cv;
+
+    if (get_cookie ("MagX", (LONG) &cv))
+    {
+        if (cv->aesvars)
+            return (cv->aesvars->version);
+        else
+           return (-2);
+    }
+    else
+       return (-1);
+} /* InqMagX */
+</pre>
+<p><b>Note:</b> Programs launched from the AUTO folder can
+<i>not</i> obtain MagiC's version number with the aid of this
+routine, since the AES is not yet initialized at boot-time. In
+this case one should fall back on the function DoMagixAESVars.</p>
+
+<p>See also: <a href="003007.html">Cookie jar</a> &nbsp; <a href="003007.html#Cookie_20and_20XBRA_20list">Cookie and XBRA list</a></p>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="00b.html"><img src="udo_up.gif" alt="MagiC" title="MagiC" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00b010.html"><img src="udo_lf.gif" alt="The task-manager of MagiC" title="The task-manager of MagiC" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00b012.html"><img src="udo_rg.gif" alt="Threads in MagiC" title="Threads in MagiC" border="0" width="24" height="24"></a></body>
+</html>

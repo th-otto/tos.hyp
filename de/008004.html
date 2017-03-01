@@ -1,0 +1,611 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Dateiauswahl
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="Application.html"><img src="udo_lf.gif" alt="Applikationsfunktionen" title="Applikationsfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008005.html"><img src="udo_rg.gif" alt="Druckdialoge" title="Druckdialoge" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Dateiauswahl"></a>8.4 Dateiauswahl</h1>
+<p>Die Funktionen dieser Bibliothek stellen eine Dateiauswahl zur
+Verfügung, mit deren Hilfe sich Dateien laden bzw. abspeichern
+lassen. Für diesen Zweck sind die folgenden Routinen vorhanden:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_boxinput">fsel_boxinput</a></td>
+<td valign="top">Dateinamen per File-Selektor auswählen (Boxkite)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_exinput">fsel_exinput</a></td>
+<td valign="top">Dateinamen per File-Selektor auswählen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_input">fsel_input</a></td>
+<td valign="top">Dateinamen per File-Selektor auswählen.
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Leider werden alternative Dateisysteme
+(Stichwort: lange Dateinamen) nicht unterstützt; ab <a href="00b.html">MagiC</a> 4 wird dies
+jedoch von den Funktionen der FSLX-Library übernommen.</p>
+
+<p>Querverweis: <a href="00800a.html">Fileselektoren</a> &nbsp; <a href="00a002.html">Style-Guidelines</a></p>
+
+<h3><a name="fsel_boxinput"></a>8.4.1 fsel_boxinput</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File Selection Extended Input« - selektiert Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">91</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t fsel_boxinput ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+int8_t *fs_einsel, int16_t *fs_eexbutton, int8_t *elabel,
+<a href="008004.html#FSEL_CALLBACK">FSEL_CALLBACK</a> callback );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt eine Dateiauswahlbox zur Verfügung, der
+auch ein Titel-String übergeben werden kann. Es handelt sich hierbei um
+eine erweiterte Version der <a href="#Dateiauswahl">Dateiauswahl</a> BoxKite.<br><br>
+
+<b>Der Funktion werden folgende Parameter übergeben:</b><table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einpath</td>
+<td valign="top">Name des Default-Zugriffspfades (absolut) mit angehängter
+Suchmaske. Enthält nach dem Aufruf den neuen Pfadnamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einsel</td>
+<td valign="top">Name der Default-Datei. Enthält nach dem Aufruf den neuen
+Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_eexbutton</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Abbruch gewählt</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Ok gewählt</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_elabel</td>
+<td valign="top">Titelzeile</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">callback</td>
+<td valign="top">Adresse einer Funktion, welche von BoxKite aufgerufen wird
+falls eine <a href="002002.html">GEM</a>-<a href="00f00a.html#Message">Message</a> an die Hauptapplikation übergeben werden soll.
+<br>Es handelt sich dabei nicht nur um die <a href="00f00a.html#Message">Message</a> <a href="008007.html#WM_REDRAW">WM_REDRAW</a>. Sondern
+z.B. auch um <a href="008007.html#WM_MOVED">WM_MOVED</a>, da es immerhin Betriebssystemversionen gibt,
+die das Verschieben von hintenliegenden Fenstern ermöglichen.
+Messages, die implizit neue Fenster öffnen oder vorhandene nach oben
+bringen, sollten dagegen ignoriert oder aufgehoben und erst nach der
+Rückkehr aus dem Fileselector behandelt werden. <a href="008007.html#WM_TOPPED">WM_TOPPED</a>-Messages
+werden nicht an den <a href="00f00a.html#Message">Message</a>-Callback durchgereicht.
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> BoxKite stellt ab Version 2.00 auch die
+Funktionen der <a href="00b.html">MagiC</a> 4 <a href="00800a.html">Dateiauswahl</a> zur Verfügung. Das Vorhandensein
+dieser Funktionen kann per <a href="Application.html#_25apgi_7">appl_getinfo</a> (Opcode 7) festgestellt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion (0 = Fehler) sollte unbedingt
+beachtet werden, da z.B. bei Speichermangel kein Fileselektor mehr
+benutzt werden kann.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Wenn der BoxKite ab Version 1.71 installiert ist. Dazu kann der
+Cookie HBFS auf des vorhandensein geprüft werden. Allerdings ist
+dieser auch schon vor der Version 1.71 vorhanden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Dateiauswahl">Dateiauswahl</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20fsel_boxinput">Binding</a> &nbsp; <a href="00b015.html">XFS-Konzept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20fsel_boxinput"></a>8.4.1.1 Bindings für fsel_boxinput</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a name="FSEL_CALLBACK"></a>
+<br><br>
+
+/* Prototyp des <a href="00f00a.html#Message">Message</a>-Handlers. */
+<br>typedef void cdecl (* FSEL_CALLBACK)(int16_t *msg);<br><br>
+
+int16_t <a href="#fsel_boxinput">fsel_boxinput</a> ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+int8_t *fs_einsel, int16_t *fs_eexbutton, int8_t *elabel,
+FSEL_CALLBACK callback );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_boxinput">fsel_boxinput</a> ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+                        int8_t *fs_einsel, int16_t *fs_eexbutton,
+                        int8_t *elabel, FSEL_CALLBACK callback )
+{
+  void *aespb[6], *addrin[6], *addrout[6];
+  int <a href="007003.html#contrl">contrl</a>[5], <a href="007003.html#intin">intin</a>[16], <a href="007003.html#intout">intout</a>[7];
+
+  aespb[0] = <a href="007003.html#contrl">contrl</a>;
+  aespb[1] = <a href="008002.html#global">global</a>;
+  aespb[2] = <a href="007003.html#intin">intin</a>;
+  aespb[3] = <a href="007003.html#intout">intout</a>;
+  aespb[4] = addrin;
+  aespb[5] = addrout;
+
+  <a href="007003.html#contrl">contrl</a>[0] = 91;
+  <a href="007003.html#contrl">contrl</a>[1] = 0;
+  <a href="007003.html#contrl">contrl</a>[2] = 2;
+  <a href="007003.html#contrl">contrl</a>[3] = 4;
+  <a href="007003.html#contrl">contrl</a>[4] = 0;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_einpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_einsel;
+   <a href="008002.html#addr_in">addr_in</a>[2] = elabel;
+   <a href="008002.html#addr_in">addr_in</a>[3] = callback;
+
+  _crystal((<a href="008002.html#AESPB">AESPB</a> *)aespb);
+
+   *fs_eexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">91    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_einpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_einsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">elabel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[3]</td>
+  <td align="left" valign="top">callback</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_eexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<p><b>Achtung</b> BoxKite benötigt Informationen aus dem
+'global'-Array der Hauptapplikation. Die mitgelieferten <a href="002002.html">GEM</a>-Bindings
+von Entwicklungssystemen übergeben dieses normalerweise automatisch.</p>
+
+<h3><a name="fsel_exinput"></a>8.4.2 fsel_exinput</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File Selection Extended Input« - selektiert Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">91</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t fsel_exinput ( int8_t *fs_einpath, int8_t *fs_einsel,
+int16_t *fs_eexbutton, int8_t *elabel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt eine Dateiauswahlbox zur Verfügung, der
+auch ein Titel-String übergeben werden kann.<p><img src="bilder/gif/f_select.gif" alt="" title="" border="0" width="328" height="311"></p>
+<br><br>
+
+<b>Der Funktion werden folgende Parameter übergeben:</b><table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einpath</td>
+<td valign="top">Name des Default-Zugriffspfades (absolut) mit angehängter
+Suchmaske. Enthält nach dem Aufruf den neuen Pfadnamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einsel</td>
+<td valign="top">Name der Default-Datei. Enthält nach dem Aufruf den neuen
+Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_eexbutton</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Abbruch gewählt</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Ok gewählt</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_elabel</td>
+<td valign="top">Titelzeile
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion sollte mit <a href="008009.html#wind_update">wind_update</a> (<a href="008009.html#BEG_MCTRL">BEG_MCTRL</a>
+bzw. <a href="008009.html#END_MCTRL">END_MCTRL</a>) geschachtelt werden, um zu verhindern, daß
+Doppelklicks an darunter liegende Fenster weitergereicht werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion (0 = Fehler) sollte unbedingt
+beachtet werden, da z.B. bei Speichermangel kein Fileselektor mehr
+benutzt werden kann.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Diese Funktion ist erst ab AES 1.4 verfügbar.<br><br>
+
+This is also present in FreeGEM. To check for this feature, use
+<a href="Application.html#appl_init">appl_init</a> and check that xbuf.arch is nonzero.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Dateiauswahl">Dateiauswahl</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20fsel_exinput">Binding</a> &nbsp; <a href="#fsel_input">fsel_input</a> &nbsp; <a href="00b015.html">XFS-Konzept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20fsel_exinput"></a>8.4.2.1 Bindings für fsel_exinput</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#fsel_exinput">fsel_exinput</a> ( int8_t *fs_einpath, int8_t *fs_einsel,
+int16_t *fs_eexbutton, int8_t *elabel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_exinput">fsel_exinput</a> (int8_t *fs_einpath, int8_t *fs_einsel,
+                      int16_t *fs_eexbutton, int8_t *elabel)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_einpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_einsel;
+   <a href="008002.html#addr_in">addr_in</a>[2] = elabel;
+
+   <a href="008002.html#crys_if">crys_if</a> (91);
+
+   *fs_eexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">91    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_einpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_einsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">elabel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_eexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="fsel_input"></a>8.4.3 fsel_input</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File Selection Input« - selektiert Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">90</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t fsel_input ( int8_t *fs_iinpath, int8_t *fs_iinsel,
+int16_t *fs_iexbutton );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt eine Dateiauswahlbox zur Verfügung. Es
+gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iinpath</td>
+<td valign="top">Name des Default-Zugriffspfades (absolut) mit angehängter
+Suchmaske. Enthält nach dem Aufruf den neuen Pfadnamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iinsel</td>
+<td valign="top">Name der Default-Datei. Enthält nach dem Aufruf den neuen
+Dateinamen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iexbutton</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Abbruch gewählt</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">es wurde Ok gewählt</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion sollte mit <a href="008009.html#wind_update">wind_update</a> (<a href="008009.html#BEG_MCTRL">BEG_MCTRL</a>
+bzw. <a href="008009.html#END_MCTRL">END_MCTRL</a>) geschachtelt werden, um zu verhindern, daß
+Doppelklicks an darunter liegende Fenster weitergereicht werden.<br><br>
+
+In AES-Versionen kleiner als 1.4 können übrigens nur maximal
+100 Dateien angezeigt werden; dort wird dann mit einem
+'Ping'-Geräusch gewarnt, wenn nicht alle Dateien angezeigt werden
+konnten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion (0 = Fehler) sollte unbedingt
+beachtet werden, da z.B. bei Speichermangel kein Fileselektor mehr
+benutzt werden kann.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions, not present in ViewMAX/3, and will crash
+ViewMAX/2.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Dateiauswahl">Dateiauswahl</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20fsel_input">Binding</a> &nbsp; <a href="#fsel_exinput">fsel_exinput</a> &nbsp; <a href="00b015.html">XFS-Konzept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20fsel_input"></a>8.4.3.1 Bindings für fsel_input</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#fsel_input">fsel_input</a> ( int8_t *fs_iinpath, int8_t *fs_iinsel,
+int16_t *fs_iexbutton );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_input">fsel_input</a> (int8_t *fs_iinpath, int8_t *fs_iinsel,
+                    int16_t *fs_iexbutton)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_iinpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_iinsel;
+
+   <a href="008002.html#crys_if">crys_if</a> (90);
+
+   *fs_iexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">90    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_iinpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_iinsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_iexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="Application.html"><img src="udo_lf.gif" alt="Applikationsfunktionen" title="Applikationsfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008005.html"><img src="udo_rg.gif" alt="Druckdialoge" title="Druckdialoge" border="0" width="24" height="24"></a></body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Das AES
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008.html"><img src="udo_lf.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008002.html"><img src="udo_rg.gif" alt="Grundlagen des AES" title="Grundlagen des AES" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Das_20AES"></a>8.1 Das AES</h1>
+<p>Das AES (Application Environment Services) ist der Teil des <a href="002002.html">GEM</a>,
+der die direkte (grafische) Schnittstelle zum Benutzer realisiert. Mit
+Hilfe des AES lassen sich verschiedene Konzepte wie
+Bildschirmfenster, Menüzeilen, Drop-Down oder Pop-Up Menüs,
+<a href="00a002.html#Dialogboxen">Dialogboxen</a> usw. komfortabel handhaben. Dazu dienen die folgenden
+Bibliotheken:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="Application.html">Applikationsverwaltung</a></td>
+<td valign="top"> (appl_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008004.html">Dateiauswahl</a></td>
+<td valign="top">(fsel_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008005.html">Druckdialoge</a></td>
+<td valign="top">(pdlg_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008006.html">Editobjekt-Funktionen</a></td>
+<td valign="top">(edit_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008007.html">Ereignisverwaltung</a></td>
+<td valign="top">(evnt_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008008.html">Fensterdialoge</a></td>
+<td valign="top">(wdlg_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008009.html">Fensterverwaltung</a></td>
+<td valign="top">(wind_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800a.html">Fileselektoren</a></td>
+<td valign="top">(fslx_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800b.html">Formulare</a></td>
+<td valign="top"> (form_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800c.html">Grafikfunktionen</a></td>
+<td valign="top"> (graf_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800e.html">Listboxen</a></td>
+<td valign="top"> (lbox_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800f.html">Menüs</a></td>
+<td valign="top"> (menu_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008010.html">Objekte</a></td>
+<td valign="top"> (objc_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008011.html">Resourceorganisation</a></td>
+<td valign="top"> (rsrc_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008012.html">Shell-Kommunikation</a></td>
+<td valign="top"> (shel_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008013.html">X-Grafikfunktionen</a></td>
+<td valign="top"> (xgrf_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="008014.html">Zeichensatzauswahl</a></td>
+<td valign="top"> (fnts_...)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="00800d.html">Zwischenspeicher</a></td>
+<td valign="top"> (scrp_...)
+
+</td></tr>
+</table>
+
+<a name="AES_2C_20Entstehung_20des"></a>
+<p>Die Entwicklung des AES reicht bis in das Jahr 1984 zurück,
+als es von <i>Digital Research</i> zunächst für MS-DOS-Rechner
+entwickelt, und später auf die Apple Lisa (unter CP/M 68K) portiert
+wurde. Diese Version wurde dann anschließend auf den Atari-ST (unter
+<a href="005.html">GEMDOS</a>) portiert.</p>
+
+<p>In der Version 4.0 wurde das AES stark überarbeitet, und
+stellt nun viele neue und erweiterte Routinen zur Verfügung. Über
+die Funktion <a href="Application.html#appl_getinfo">appl_getinfo</a> kann leicht festgestellt werden, ob (bzw.
+welche) neue(n) Möglichkeiten zur Verfügung stehen.</p>
+
+<p>Querverweis: <a href="008002.html">Grundlagen des AES</a> &nbsp; <a href="008002.html#Bindings_20des_20AES">Bindings des AES</a> &nbsp; <a href="007.html">VDI</a></p>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008.html"><img src="udo_lf.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008002.html"><img src="udo_rg.gif" alt="Grundlagen des AES" title="Grundlagen des AES" border="0" width="24" height="24"></a></body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: File-selector library
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="Application.html"><img src="udo_lf.gif" alt="Application library" title="Application library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008005.html"><img src="udo_rg.gif" alt="Print dialogs" title="Print dialogs" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="File-selector_20library"></a>8.4 File-selector library</h1>
+<p>The functions of this library make a file-selector available,
+which is used for loading and saving files. The following routines are
+present for this purpose:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_boxinput">fsel_boxinput</a></td>
+<td valign="top">Selects filename with file-selector (Boxkite)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_exinput">fsel_exinput</a></td>
+<td valign="top">Selects filename with file-selector (AES 1.4 onwards)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#fsel_input">fsel_input</a></td>
+<td valign="top">Selects filename with file-selector
+
+</td></tr>
+</table>
+
+<p><b>Note:</b> Unfortunately alternative file systems (keyword:
+long filenames) are not supported; as of <a href="00b.html">MagiC</a> 4 however this is taken
+over by the functions of the FSLX library.</p>
+
+<p>See also: <a href="00800a.html">Extended file-selectors</a> &nbsp; <a href="00a002.html">Style guidelines</a></p>
+
+<h3><a name="fsel_boxinput"></a>8.4.1 fsel_boxinput</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File selection extended input« - Select filenames.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">91</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t fsel_boxinput ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+int8_t *fs_einsel, int16_t *fs_eexbutton, int8_t *elabel,
+<a href="008004.html#FSEL_CALLBACK">FSEL_CALLBACK</a> callback );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call fsel_boxinput makes a file-selector dialog box
+available, which can also be passed a title string. It is used in an
+extended version of the file-selector BoxKite.<br><br>
+
+<b>The function can be passed the following parameters:</b><table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einpath</td>
+<td valign="top">Name of the default access path (absolute) with appended search
+mask; after the call it contains the new pathname</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einsel</td>
+<td valign="top">Name of the default file; after the call it contains the newly
+selected filename</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_eexbutton</td>
+<td valign="top">Exit button:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">'Cancel' was selected</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">'OK' was selected</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_elabel</td>
+<td valign="top">Title-line</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">callback</td>
+<td valign="top">Address of a function that is called by BoxKite if a GEM
+message is to be passed to the main application.
+<br>This includes not just the message <a href="008007.html#WM_REDRAW">WM_REDRAW</a> but also <a href="008007.html#WM_MOVED">WM_MOVED</a>,
+for instance, as there are some operating system versions that offer
+movement of windows lying at the back. Messages that implicitly open
+new windows or top existing ones, on the other hand, should be
+ignorerd or stored and only processed after return from the
+file-selector. <a href="008007.html#WM_TOPPED">WM_TOPPED</a> messages are not passed through to the
+message callback.
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hint:</b> BoxKite as of Version 2.00 also makes the functions
+of the <a href="00800a.html">MagiC file-selector</a> available. The presence of this call should be checked
+for using <a href="Application.html#_25apgi_7">appl_getinfo</a> (opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> It is imperative that the return value of the function (0 =
+error) is respected, as a shortage of memory, for instance, may make
+it impossible to use a file-selector.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">If BoxKite from Version 1.71 on is installed. This can be checked
+for by the presence of the cookie HBFS. But note that this is also
+present for versions earlier than Version 1.71.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#File-selector_20library">File-selector library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20fsel_boxinput">Binding</a> &nbsp; <a href="00b015.html">XFS-concept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20fsel_boxinput"></a>8.4.1.1 Bindings for fsel_boxinput</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a name="FSEL_CALLBACK"></a>
+<br><br>
+
+/* <a href="00f00a.html#Message">Message</a> handler for updating background windows */
+<br>typedef void cdecl (* FSEL_CALLBACK)(int16_t *msg);<br><br>
+
+int16_t <a href="#fsel_boxinput">fsel_boxinput</a> ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+int8_t *fs_einsel, int16_t *fs_eexbutton, int8_t *elabel,
+FSEL_CALLBACK callback );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_boxinput">fsel_boxinput</a> ( int16_t *<a href="008002.html#global">global</a>, int8_t *fs_einpath,
+                        int8_t *fs_einsel, int16_t *fs_eexbutton,
+                        int8_t *elabel, FSEL_CALLBACK callback )
+{
+  void *aespb[6], *addrin[6], *addrout[6];
+  int <a href="007003.html#contrl">contrl</a>[5], <a href="007003.html#intin">intin</a>[16], <a href="007003.html#intout">intout</a>[7];
+
+  aespb[0] = <a href="007003.html#contrl">contrl</a>;
+  aespb[1] = <a href="008002.html#global">global</a>;
+  aespb[2] = <a href="007003.html#intin">intin</a>;
+  aespb[3] = <a href="007003.html#intout">intout</a>;
+  aespb[4] = addrin;
+  aespb[5] = addrout;
+
+  <a href="007003.html#contrl">contrl</a>[0] = 91;
+  <a href="007003.html#contrl">contrl</a>[1] = 0;
+  <a href="007003.html#contrl">contrl</a>[2] = 2;
+  <a href="007003.html#contrl">contrl</a>[3] = 4;
+  <a href="007003.html#contrl">contrl</a>[4] = 0;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_einpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_einsel;
+   <a href="008002.html#addr_in">addr_in</a>[2] = elabel;
+   <a href="008002.html#addr_in">addr_in</a>[3] = callback;
+
+  _crystal((<a href="008002.html#AESPB">AESPB</a> *)aespb);
+
+   *fs_eexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">91    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_einpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_einsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">elabel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[3]</td>
+  <td align="left" valign="top">callback</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_eexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<p><b>Note:</b> BoxKite requires information from the 'global'
+array of the main application. The supplied GEM bindings of
+development systems normally pass this automatically.</p>
+
+<h3><a name="fsel_exinput"></a>8.4.2 fsel_exinput</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File selection extended input« - Select filenames.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">91</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t fsel_exinput ( int8_t *fs_einpath, int8_t *fs_einsel,
+int16_t *fs_eexbutton, int8_t *elabel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call fsel_exinput makes a system file-selector dialog box
+available in which the user may choose a complete <a href="005.html">GEMDOS</a> path
+specification. It may also be passed a title-string that is to appear
+in the file-selector (normally indicating the action the user is about
+to take).<p><img src="bilder/gif/f_select_en.gif" alt="" title="" border="0" width="352" height="319"></p>
+<br><br>
+
+<b>The function can be passed the following parameters:</b><table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einpath</td>
+<td valign="top">Name of the default access path (absolute) with appended search
+mask; after the call it contains the new pathname</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_einsel</td>
+<td valign="top">Name of the default file; after the call it contains the newly
+selected filename</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_eexbutton</td>
+<td valign="top">Exit button:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">'Cancel' was selected</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">'OK' was selected</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_elabel</td>
+<td valign="top">Titelzeile
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Notes:</b> The function should be nested with <a href="008009.html#wind_update">wind_update</a>
+(<a href="008009.html#BEG_MCTRL">BEG_MCTRL</a> or <a href="008009.html#END_MCTRL">END_MCTRL</a>) to prevent double-clicks being passed on to
+underlying windows.<br><br>
+
+<i>fs_einpath</i> points to a character buffer at least 128 bytes
+long (200 bytes if <a href="00f00d.html#CD">CD</a>-ROMs are to be accessed). <i>fs_einsel</i>
+points to a 13-byte buffer (12 for filename characters plus a
+terminating NULL). <i>fs_elabel</i> points to a buffer up to 30
+characters long.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> It is imperative that the return value of the function (0 =
+error) is respected, as a shortage of memory, for instance, may make
+it impossible to use a file-selector.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">This function is available only from AES 1.4 onwards.<br><br>
+
+It is also present in FreeGEM. To check for this feature, use
+<a href="Application.html#appl_init">appl_init</a> and check that <i>xbuf.arch</i> is non-zero.<br><br>
+
+If it is available, it should be used rather than the <a href="#fsel_input">fsel_input</a>
+call, as with the latter the user is not reminded what the function is
+actually doing.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#File-selector_20library">File-selector library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20fsel_exinput">Binding</a> &nbsp; <a href="#fsel_input">fsel_input</a> &nbsp; <a href="00b015.html">XFS-concept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20fsel_exinput"></a>8.4.2.1 Bindings for fsel_exinput</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#fsel_exinput">fsel_exinput</a> ( int8_t *fs_einpath, int8_t *fs_einsel,
+int16_t *fs_eexbutton, int8_t *elabel );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_exinput">fsel_exinput</a> (int8_t *fs_einpath, int8_t *fs_einsel,
+                      int16_t *fs_eexbutton, int8_t *elabel)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_einpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_einsel;
+   <a href="008002.html#addr_in">addr_in</a>[2] = elabel;
+
+   <a href="008002.html#crys_if">crys_if</a> (91);
+
+   *fs_eexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">91    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_einpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_einsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">elabel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_eexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="fsel_input"></a>8.4.3 fsel_input</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»File selection input« - Selects filenames.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">90</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t fsel_input ( int8_t *fs_iinpath, int8_t *fs_iinsel,
+int16_t *fs_iexbutton );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call fsel_input makes a file-selector dialog box available:
+The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iinpath</td>
+<td valign="top">Name of the default access path (absolute) with appended search
+mask; after the call it contains the new pathname</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iinsel</td>
+<td valign="top">Name of the default file; after the call it contains the newly
+selected filename</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fs_iexbutton</td>
+<td valign="top">Exit button:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">'Cancel' was selected</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">OK' was selected</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Notes:</b> The function should be nested with <a href="008009.html#wind_update">wind_update</a>
+(<a href="008009.html#BEG_MCTRL">BEG_MCTRL</a> or <a href="008009.html#END_MCTRL">END_MCTRL</a>) to prevent double-clicks being passed on to
+underlying windows.<br><br>
+
+<i>fs_iinpath</i> points to a character buffer at least 128 bytes
+long (200 bytes if <a href="00f00d.html#CD">CD</a>-ROMs are to be accessed). <i>fs_iinsel</i>
+points to a 13-byte buffer (12 for filename characters plus a
+terminating NULL).<br><br>
+
+Incidentally, AES versions earlier than 1.4 can only display a
+maximum of 100 files; there a 'ping' warns if not all files can be
+displayed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> It is imperative that the return value of the function (0 =
+error) is respected, as a shortage of memory, for instance, may make
+it impossible to use a file-selector.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions, not present in ViewMAX/3, and will crash
+ViewMAX/2.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#File-selector_20library">File-selector library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20fsel_input">Binding</a> &nbsp; <a href="#fsel_exinput">fsel_exinput</a> &nbsp; <a href="00b015.html">XFS-concept in MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20fsel_input"></a>8.4.3.1 Bindings for fsel_input</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#fsel_input">fsel_input</a> ( int8_t *fs_iinpath, int8_t *fs_iinsel,
+int16_t *fs_iexbutton );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#fsel_input">fsel_input</a> (int8_t *fs_iinpath, int8_t *fs_iinsel,
+                    int16_t *fs_iexbutton)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = fs_iinpath;
+   <a href="008002.html#addr_in">addr_in</a>[1] = fs_iinsel;
+
+   <a href="008002.html#crys_if">crys_if</a> (90);
+
+   *fs_iexbutton = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">90    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fs_iinpath</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">fs_iinsel</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fs_iexbutton</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="Application.html"><img src="udo_lf.gif" alt="Application library" title="Application library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008005.html"><img src="udo_rg.gif" alt="Print dialogs" title="Print dialogs" border="0" width="24" height="24"></a></body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Initialization
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="006004.html"><img src="udo_lf.gif" alt="BITBLT" title="BITBLT" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="006006.html"><img src="udo_rg.gif" alt="Put pixel" title="Put pixel" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Initialization"></a>6.5 Initialization</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Line-A Initialization«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Line-A Nummer:</td>
+<td valign="top"> $A000</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20linea_init">Bindings für linea_init</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Diese <a href="006.html">Line-A</a> Funktion dient dazu, die Adresses des <a href="006.html">Line-A</a>
+Parameterblock abzufragen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert in D0 und A0 einen Zeiger auf den
+Parameterblock zurück. In A1 wird einen Zeiger auf ein Feld mit den 3
+Adressen der Systemzeichensätze zurückgeliefert. In A2 wird ein
+Zeiger auf die Anfangsadressen der <a href="006.html">Line-A</a> Routinen zurückgeliefert.<br><br>
+
+<b>Hinweis:</b> Einige Bindings, wie z.B. das von TC, liefern die
+Adressen nicht an den Aufrufer zurück, sondern setzen selbst intern
+die Parameter für den Aufruf der <a href="006.html">Line-A</a> Funktionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="002.html">TOS</a>-Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20linea_init">Binding</a> &nbsp; <a href="006002.html">LINEA</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20f_C3_BCr_20linea_init"></a>6.5.1 Bindings für linea_init</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Pure-C:</td>
+<td valign="top">void linea_init( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>movem.l   D0-D2/A0-A2,-(A7)  ; Register retten
+dc.w      $A000              ; <a href="006.html">Line-A</a> Opcode
+move.l    A0,pParamblk       ; Zeiger Parameterblock <a href="006002.html">LINEA</a>
+move.l    A1,pFnthdr         ; Zeiger Systemzeichensätze
+move.l    A2,pFktadr         ; Zeiger Anfangsadr. <a href="006.html">Line-A</a> Routinen
+movem.l   (A7)+,D0-D2/A0-A2  ; Register restaurieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="006004.html"><img src="udo_lf.gif" alt="BITBLT" title="BITBLT" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="006006.html"><img src="udo_rg.gif" alt="Put pixel" title="Put pixel" border="0" width="24" height="24"></a></body>
+</html>

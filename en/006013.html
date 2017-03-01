@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Copy raster form
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="006012.html"><img src="udo_lf.gif" alt="Draw sprite" title="Draw sprite" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="006014.html"><img src="udo_rg.gif" alt="Seedfill" title="Seedfill" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Copy_20raster_20form"></a>6.19 Copy raster form</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Copy raster form«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Line-A number:</td>
+<td valign="top"> $A00E</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top"><a href="#Bindings_20for_20copy_raster">See 'Bindings for copy_raster'</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">This Line-A function corresponds exactly to the VDI
+function <a href="00700b.html#vro_cpyfm">vro_cpyfm</a> (Copy raster, Opaque). Merely some fields of the
+<a href="007003.html#contrl">contrl</a> field are not set, as no VDI workstation needs to be open.
+Therefore one should refer to the documentation of the VDI
+function. The following Line-A variables are used:<table>
+<tr><td nowrap="nowrap" valign="top">Variable</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">patptr</td>
+<td valign="top">Can contain a pointer to a pattern</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">multifill</td>
+<td valign="top">0 if the pattern has only one plane, and 1 for several planes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">copy_tran</td>
+<td valign="top">Set to 0 for opaque copying (source and destination have the
+same number of colour planes) or to 1 for transparent copying
+(destination is copied to one colour plane)
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> The binding from Turbo C does not support this
+function.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All TOS versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20copy_raster">Binding</a> &nbsp; <a href="00700b.html#vro_cpyfm">vro_cpyfm</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20for_20copy_raster"></a>6.19.1 Bindings for copy_raster</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Pure-C:</td>
+<td valign="top">void copy_raster( void ); /* WARNING: NOT supported ! */</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>movem.l   D0-D2/A0-A2,-(A7)  ; Save registers
+move.l    pParamblk,A0       ; Pointer parameter block <a href="006002.html">LINEA</a>
+move.l    (4,A0),A1          ; <a href="007003.html#contrl">contrl</a> to A1
+move.l    s_mfdb,D0          ; Address source <a href="00700d.html#MFDB">MFDB</a> to D0
+move.w    D0,(8,A1)          ; Lower WORD source <a href="00700d.html#MFDB">MFDB</a> to <a href="007003.html#contrl">contrl</a>[8]
+lsr.l     #8,D0              ; Move upper WORD of D0 ...
+lsr.l     #8,D0              ; ... onto lower WORD
+move.w    D0,(7,A1)          ; Upper WORD source <a href="00700d.html#MFDB">MFDB</a> to <a href="007003.html#contrl">contrl</a>[7]
+move.l    d_mfdb,D0          ; Address destination <a href="00700d.html#MFDB">MFDB</a> to D0
+move.w    D0,(10,A1)         ; Lower WORD destination <a href="00700d.html#MFDB">MFDB</a> to <a href="007003.html#contrl">contrl</a>[10]
+lsr.l     #8,D0              ; Move upper WORD of D0 ...
+lsr.l     #8,D0              ; ... onto lower WORD
+move.w    D0,(9,A1)          ; Upper WORD destination <a href="00700d.html#MFDB">MFDB</a> to <a href="007003.html#contrl">contrl</a>[9]
+move.l    <a href="007003.html#intin">intin</a>,(8,A0)       ; <a href="007003.html#contrl">contrl</a> in <a href="006002.html">LINEA</a>.<a href="007003.html#contrl">contrl</a>
+move.l    (8,A0),-(A7)       ; Save old value of the <a href="007003.html#intin">intin</a> field
+move.l    <a href="007003.html#intin">intin</a>,(8,A0)       ; <a href="007003.html#intin">intin</a> in <a href="006002.html">LINEA</a>.<a href="007003.html#intin">intin</a>
+move.l    (12,A0),-(A7)      ; Save old value of the <a href="007003.html#ptsin">ptsin</a> field
+move.l    <a href="007003.html#intin">intin</a>,(8,A0)       ; <a href="007003.html#ptsin">ptsin</a> in <a href="006002.html">LINEA</a>.<a href="007003.html#ptsin">ptsin</a>
+move.w    patptr,(44,A0)     ; Line pattern in <a href="006002.html">LINEA</a>.patptr
+move.w    multifill,(50,A0)  ; Plane flag in <a href="006002.html">LINEA</a>.multifill
+move.w    copy_tran,(116,A0) ; Copy mode in <a href="006002.html">LINEA</a>.copy_tran
+dc.w      $A00E              ; <a href="006.html">Line-A</a> opcode
+move.l    pParamblk,A0       ; Pointer parameter block <a href="006002.html">LINEA</a>
+move.l    (A7)+,(12,A0)      ; Restore old value of the <a href="007003.html#ptsin">ptsin</a> field
+move.l    (A7)+,(8,A0)       ; Restore old value of the <a href="007003.html#intin">intin</a> field
+movem.l   (A7)+,D0-D2/A0-A2  ; Restore registers
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="006012.html"><img src="udo_lf.gif" alt="Draw sprite" title="Draw sprite" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="006014.html"><img src="udo_rg.gif" alt="Seedfill" title="Seedfill" border="0" width="24" height="24"></a></body>
+</html>

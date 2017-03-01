@@ -1,0 +1,959 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Spezialbefehle
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="004011.html"><img src="udo_lf.gif" alt="Soundroutinen" title="Soundroutinen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="004013.html"><img src="udo_rg.gif" alt="Tastaturfunktionen" title="Tastaturfunktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Spezialbefehle"></a>4.18 Spezialbefehle</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#Blitmode">Blitmode</a></td>
+<td valign="top">Blitterkonfiguration ändern oder ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#CacheCtrl">CacheCtrl</a></td>
+<td valign="top">CPU Cacheverwaltung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#CJar">CJar</a></td>
+<td valign="top">Erzeugen, Abfragen und Löschen von Cookies</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Dbmsg">Dbmsg</a></td>
+<td valign="top">Debugmeldungen ausgeben</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Janus">Janus</a></td>
+<td valign="top">Funktion des "<a href="#Janus">Janus</a>" Emulator</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Puntaes">Puntaes</a></td>
+<td valign="top"><a href="008.html">AES</a> im ROM abschalten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Random">Random</a></td>
+<td valign="top">Zufallszahlengenerator</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Ssbrk">Ssbrk</a></td>
+<td valign="top">Speicherplatz reservieren (nur intern verwendet).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Supexec">Supexec</a></td>
+<td valign="top">Unterprogramm im Supervisor-Modus starten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Trapper">Trapper</a></td>
+<td valign="top">Einklinken in <a href="00500e.html">Systemfunktionen</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#WdgCtrl">WdgCtrl</a></td>
+<td valign="top">Einstellen des Hardware-Watchdog
+
+</td></tr>
+</table>
+
+<p>Querverweis: <a href="004010.html">Schnittstellenprogrammierung</a></p>
+
+<h3><a name="Blitmode"></a>4.18.1 Blitmode</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»blitter mode« - Blitter-Chip konfigurieren.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">64</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t Blitmode( int16_t mode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Blitmode ist eine <a href="004.html">XBIOS</a>-Routine um den Blitter einzuschalten
+oder seine Existenz festzustellen. Wenn im Parameter <i>mode</i> der
+Wert -1 angegeben wird, dann erhält man den Status des Blitter-Chips.
+Bei allen anderen Werten wird der Blitter konfiguriert:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="right" valign="top">Bit</td>
+  <td align="left" valign="top">Beschreibung</td>
+</tr>
+<tr>
+  <td align="right" valign="top">0</td>
+  <td align="left" valign="top">0 = Blitter aus</td>
+</tr>
+<tr>
+  <td align="right" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1 = Blitter ein</td>
+</tr>
+<tr>
+  <td align="right" valign="top">1-14</td>
+  <td align="left" valign="top">reserviert</td>
+</tr>
+<tr>
+  <td align="right" valign="top">15</td>
+  <td align="left" valign="top">muss immer 0 sein</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Lt. Atari darf die Funktion ohne Versionsabfrage
+benutzt werden (obwohl sie beispielsweise im <a href="002.html">TOS</a> 1.0 nicht vorhanden
+ist). Ermöglicht wird dies durch einen Seiteneffekt im <a href="the_system_vectors.html#Dispatcher_2C_20XBIOS-">Dispatcher des XBIOS</a>.
+Besser ist es allerdings, sich nicht darauf zu verlassen, da der
+entsprechende Trap ja von anderen Programmen verbogen werden kann, und
+dann evtl. nicht der richtige Return-Wert zurückgeliefert wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis durch gesetzte Bits
+Eigenschaften des Blitters-Chips:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="center" valign="top">Bit</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="center" valign="top">0</td>
+  <td align="left" valign="top">0: Blitter aus</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1: Blitter an</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="center" valign="top">1</td>
+  <td align="left" valign="top">0: Blitter nicht vorhanden</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1: Blitter vorhanden</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="center" valign="top">15</td>
+  <td align="left" valign="top">immer 0</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Alle weiteren Bits sind reserviert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Offiziell ist diese Funktion erst ab <a href="002.html">TOS</a>-Version 1.02
+vorhanden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Blitmode">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Blitmode"></a>4.18.1.1 Bindings für Blitmode</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+int16_t <a href="#Blitmode">Blitmode</a>( int16_t mode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    mode,-(sp)   ; Offset 2
+move.w    #64,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="CacheCtrl"></a>4.18.2 CacheCtrl</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»CacheCtrl« - CPU Cacheverwaltung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">160</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t CacheCtrl( int16_t OpCode, int16_t Param );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="004.html">XBIOS</a>-Routine CacheCtrl dient zur Verwaltung der CPU-Caches<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="center" valign="top">OpCode</td>
+  <td align="left" valign="top">Beschreibung</td>
+</tr>
+<tr>
+  <td align="center" valign="top">0</td>
+  <td align="left" valign="top">Liefert 0 zurück, wenn die Funktion vorhanden ist.</td>
+</tr>
+<tr>
+  <td align="center" valign="top">1</td>
+  <td align="left" valign="top">Zurückschreiben des Datencaches</td>
+</tr>
+<tr>
+  <td align="center" valign="top">2</td>
+  <td align="left" valign="top">Zurückschreiben des Befehlscaches</td>
+</tr>
+<tr>
+  <td align="center" valign="top">3</td>
+  <td align="left" valign="top">Zurückschreiben des Daten- und Befehlscaches</td>
+</tr>
+<tr>
+  <td align="center" valign="top">4</td>
+  <td align="left" valign="top">Abfrage, ob Datencache aktiv ist</td>
+</tr>
+<tr>
+  <td align="center" valign="top">5</td>
+  <td align="left" valign="top">Aktivieren/Deaktivieren des Datencaches</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top"><i>Param</i>= 0, ausschalten</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top"><i>Param</i>= 1, einschalten</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top">Zurückschreiben des Caches falls notwendig</td>
+</tr>
+<tr>
+  <td align="center" valign="top">6</td>
+  <td align="left" valign="top">Abrage, ob Befehlscache aktiv ist</td>
+</tr>
+<tr>
+  <td align="center" valign="top">7</td>
+  <td align="left" valign="top">Aktivieren/Deaktivieren des Befehlscaches</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top"><i>Param</i>= 0, ausschalten</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top"><i>Param</i>= 1, einschalten</td>
+</tr>
+<tr>
+  <td align="center" valign="top">&nbsp;&nbsp;</td>
+  <td align="left" valign="top">Zurückschreiben des Caches falls notwendig</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Bemerkung:</b>
+<br>Im CT60 XBIOS hat der OpCode 5/7 dieselbe Funktionalität:
+<br>mode: 0 = deaktivieren aller Caches.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 = aktivieren aller Caches.
+<br>Betroffen sind die folgenden Caches: Data Cache, Store Buffer,
+Branch Cache, Instruction Cache.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Im Erfolgsfall liefert die Funktion den Wert 0 oder <a href="003006.html#EBADRQ">EBADRQ</a>,
+wenn für <i>OpCode</i> ein Wert größer sieben übergeben wird.<br><br>
+
+Als Alternative steht auch der Treiber "CPU Cache Control Driver
+v1.10" von Robert Federle und Thomas Tempelmann für andere Rechner
+zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar</td>
+<td valign="top">Die Funktion ist auf dem Milan seit TOS 4.06 verfügbar. Im
+CT60 XBIOS ab Version v0.98a.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20CacheCtrl">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20CacheCtrl"></a>4.18.2.1 Bindings für CacheCtrl</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#CacheCtrl">CacheCtrl</a>( int16_t OpCode, int16_t Param );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    Param,-(sp)  ; Offset 4
+move.w    OpCode,-(sp) ; Offset 2
+move.w    #160,-(sp)   ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="CJar"></a>4.18.3 CJar</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»CJar« - Erzeugen, Abfragen und Löschen von Cookies</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">17226 (0x434A)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t CJar( int16_t mode, int32_t cookie, int32_t *value );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="004.html">XBIOS</a>-Routine CJar dient auf komfortable Weise zum
+Erzeugen, Abfragen und Löschen von Cookies.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mode</td>
+<td valign="top">Modus 0:
+<br>Ermittelt den Wert des Kekses und legt in an der angegebenen
+Adresse ab. Übergibt man für <i>value</i> einen Nullzeiger, so wird
+lediglich die Existenz des Kekses überprüft.
+<br>Bei erfolgreicher Ermittlung des Kekses, liefert der Aufruf 0x6172
+(="CJar_OK") zurück, sonst einen anderen Wert.<br>
+
+
+<br><br>
+
+Modus 1:
+<br>Erzeugt einen neuen Keks (cookie). <i>Value</i> <b>zeigt</b> auf
+einen Wert, der in den Jar eingetragen wird. WICHTIG! Es wird nicht
+<i>value</i> eingetragen, sondern der Wert auf den 'value' weist! Bei
+Übergabe eines NULL-Pointers wird 0 als Kekswert eingetragen.
+Existiert der Keks bereits, so wird sein alter Inhalt überschrieben!
+<br>Die Funktion liefert "CJar_OK" bei erfolgreicher Eintragung. -1
+wird für den Fall geliefert, daß der <a href="003007.html">Cookie-Jar</a> voll ist.<br>
+
+
+<br><br>
+
+Modus 2:
+<br>Entfernt den Keks <i>cookie</i> aus dem Jar. Der Wert von
+<i>value</i> ist egal. Liefert bei erfolgreicher Entfernung
+"CJar_OK", sonst einen anderen Wert.<br>
+
+Ist nur Verfügbar, wenn die Systemerweiterung Liberty (Cookie
+'Lity') installiert ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cookie</td>
+<td valign="top">Cookiebezeichnung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">value</td>
+<td valign="top">Adresse des Puffers, in dem die Daten abgelegt werden sollen.
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Im Erfolgsfall liefert die Funktion den Wert CJar_OK (0x6172)
+zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar</td>
+<td valign="top">Die Funktion ist verfügbar, wenn der Cookie 'CJar' ($434A6172)
+vorhanden ist. Dieser wird von JARxxx (Cookie Jar Manager) oder
+Liberty erzeugt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20CJar">Binding</a> &nbsp; <a href="00500e.html#S_GETCOOKIE">Cookie Funktionen</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20CJar"></a>4.18.3.1 Bindings für CJar</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#CJar">CJar</a>( int16_t mode, int32_t cookie, int32_t *value );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       value          ; Offset 8
+move.l    cookie,-(sp)   ; Offset 4
+move.w    mode,-(sp)     ; Offset 2
+move.w    #17226,-(sp)   ; Offset 0
+trap      #14            ; <a href="004.html">XBIOS</a> aufrufen
+lea       12(sp),sp      ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Dbmsg"></a>4.18.4 Dbmsg</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Dbmsg« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">11</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Dbmsg( int16_t rsrvd, int16_t msg_num, int32_t msg_arg )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Dbmsg() erlaubt es, spezielle Debuggingkommandos an einen
+residenten Debugger zu schicken.<br><br>
+
+<i>srsrvd</i> ist zur Zeit reserviert und sollte immer den Wert 5
+haben.<br><br>
+
+<i>msg_num</i> ist die Nachrichtennummer, die an den
+Debugginghost geschickt wird. Werte von 0x0000 bis 0xEFFF werden für
+applikationsspezifische <a href="008007.html#Nachrichten">Nachrichten</a> benutzt. Werte von 0xF000 bis
+0xFFFF werden für spezielle Debuggingnachrichten benutzt. Wenn
+<i>msg_num</i> im Bereich der für die Applikation reservierten Werte
+liegt, werden der Wert und der int32_t aus <i>msg_arg</i> angezeigt
+und die Applikation wird angehalten. Wenn <i>msg_num</i> zwischen
+0xF001 und 0xF0FF inklusive liegt, wird <i>msg_arg</i> als ein Zeiger
+auf einen String, der vom Debugger ausgegeben werden soll,
+interpretiert und das Debuggen untrerbrochen. Die Länge des Strings
+wird im unteren Byte von <i>msg_num</i> angegeben.(!nl)<br><br>
+
+Wenn <i>msg_num</i> den Wert <a href="00f00d.html#DB">DB</a>_NULLSTRING (0xF000) hat, wird der
+String bis zur abschließenden 0 ausgegeben.(!nl)<br><br>
+
+Wenn <i>msg_num</i> den Wert <a href="00f00d.html#DB">DB</a>_COMMAND (0xF100) hat, wird
+<i>msg_arg</i> als ein Zeiger auf eine Zeichenkette mit einem
+Debugger Kommando interpretiert. Das Format des Kommandos hängt von
+dem bneutzten Debugger ab. Eine Anwendung bei Verwendung des Atari
+Debuggers ist die Ausgabe eines Strings, ohne das Debuggen zu beenden:<br><br>
+
+Dbmsg( 5, <a href="00f00d.html#DB">DB</a>_COMMAND, "echo 'Debugging <a href="00f00a.html#Message">Message</a>';g" );<br><br>
+
+Der Atari Debugger bis zur Version 3 kennt nur den Wert <a href="00f00d.html#DB">DB</a>_COMMAND
+(0xF100) für <i>msg_num</i>. Normalerweise ist es kein Problem, ein
+Programm mit Debugging Messages ohne Debugger laufen zu lassen, aus
+der endgültigen Version sollten diese Anweisungen allerdings entfernt
+werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Wenn ein Debugger geladen ist, der diese Funktion unterstützt.
+Der einzige Debugger, der zur Zeit diese Funktion unterstützt, ist
+der Atari Debugger.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Dbmsg">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Dbmsg"></a>4.18.4.1 Bindings für Dbmsg</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void <a href="#Dbmsg">Dbmsg</a>( int16_t rsrvd, int16_t msg_num, int32_t msg_arg )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.l    msg_arg,-(sp)  ; Offset 6
+move.w    msg_num,-(sp)  ; Offset 4
+move.w    srsrvd,-(sp)   ; Offset 2
+move.w    #11,-(sp)      ; Offset 0
+trap      #14            ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #10,sp         ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Janus"></a>4.18.5 Janus</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Janus« -</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">43</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Janus( int16_t mode )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Diese Funktion stellt der Hardware-Emulator Janus zur
+Verfügung. Laut einem Artikel in der ST-Computer 1996-04, S. 44 kann
+man damit folgendes erzielt werden.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="right" valign="top">mode</td>
+  <td align="left" valign="top">Beschreibung</td>
+</tr>
+<tr>
+  <td align="right" valign="top">-1</td>
+  <td align="left" valign="top">Ermitteln der aktiven parallele Schnittstelle</td>
+</tr>
+<tr>
+  <td align="right" valign="top">1</td>
+  <td align="left" valign="top">Umschaltung auf die erste parallele Schnittstelle</td>
+</tr>
+<tr>
+  <td align="right" valign="top">2</td>
+  <td align="left" valign="top">Umschaltung auf die zweite parallele Schnittstelle</td>
+</tr>
+<tr>
+  <td align="right" valign="top">256</td>
+  <td align="left" valign="top">Verlassen von Janus</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Alle Angabe ohne Gewähr, da der Artikel nicht
+sehr ausführlich ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Unbekannt bzw. siehe oben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Nur unter dem Hardware-Emulator Janus.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="Janus.html#Bindings_20f_C3_BCr_20Janus">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Janus"></a>4.18.5.1 Bindings für Janus</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void <a href="#Janus">Janus</a>( int16_t mode )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    mode,-(sp)    ; Offset 2
+move.w    #43,-(sp)     ; Offset 0
+trap      #14           ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp         ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Puntaes"></a>4.18.6 Puntaes</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»punt AES« - <a href="008.html">AES</a> abschalten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">39</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void Puntaes( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="004.html">XBIOS</a>-Routine Puntaes schaltet das AES-Betriebssystem
+ab. <a href="008001.html">Das AES</a> wird nur gestart, wenn "os_magic" im <a href="010009.html#OSHEADER">OSHEADER</a> auf die
+korrekte magische Zahl (0x87654321) zeigt. Puntaes setzt dieses Flag
+(sofern möglich) zurück und boote dann das System neu.<br><br>
+
+<b>Hinweis:</b> Ab <a href="00b.html">MagiC</a> 4.00 wurde diese Funktion verändert.
+
+<ul>
+<li><p>long <a href="004004.html#xbios">xbios</a> ( 39, 'AnKr', 4, long key )
+<br>Ermittle Cookie
+<br>Liefert den Zeiger des Cookies <i>key</i> oder 0L wenn er nicht
+vorhanden ist.</p></li>
+<li><p><a href="004004.html#xbios">xbios</a> ( 39, 'AnKr', 5 )
+<br>????</p></li>
+</ul>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert kein Ergebnis.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="Puntaes.html#Bindings_20f_C3_BCr_20Puntaes">Binding</a> &nbsp; <a href="00500e.html#S_GETCOOKIE">Cookie Funktionen</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Puntaes"></a>4.18.6.1 Bindings für Puntaes</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void <a href="#Puntaes">Puntaes</a>( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #39,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Random"></a>4.18.7 Random</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»random generator« - Zufallsgenerator.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">17</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Random( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine Random liefert (basierend auf einem
+Zeitgeber des Rechners) eine 24-Bit-Zufallszahl zurück.<br><br>
+
+<b>Hinweis:</b> Es handelt sich bei dieser Funktion <i>nicht</i>
+um einen Hardware-Zufallszahlengenerator, sondern um eine
+Software-Version, die den folgenden Algorithmus benutzt:<pre>X = (X * 3.1415926...) + 1
+</pre>
+<br><br>
+
+Zurückgeliefert wird der um 8 Bits nach rechts verschobene Wert
+X. Das Verhalten für die gesamte Zahl ist übrigens recht gut, die
+Abfrage einzelner Bits im Sinne einer verminderten Zufälligkeit
+jedoch <i>nicht</i> ratsam.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis eine 24-Bit-Zufallszahl.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Random">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Random"></a>4.18.7.1 Bindings für Random</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+int32_t <a href="#Random">Random</a>( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #17,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Ssbrk"></a>4.18.8 Ssbrk</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»set memory break point« - Speicherplatz reservieren.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void *Ssbrk( int16_t count );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine Ssbrk reserviert Speicherplatz. Die Anzahl
+der Bytes muß dabei in <i>count</i> übergeben werden. Diese
+Funktion muß vor der Initialisierung des <a href="005.html">GEMDOS</a> aufgerufen werden,
+und sollte daher in Anwenderprogrammen <i>nicht</i> verwendet werden.
+In allen Atari-ROM-Versionen ist diese Funktion lediglich als
+Dummy-Routine implementiert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Anfangsadresse des allozierten
+Speicherbereiches zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Ssbrk">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Ssbrk"></a>4.18.8.1 Bindings für Ssbrk</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+void *<a href="#Ssbrk">Ssbrk</a>( int16_t count );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    count,-(sp)  ; Offset 2
+move.w    #1,-(sp)     ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Supexec"></a>4.18.9 Supexec</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»supervisor execute« - führt Routine im Supervisor-Modus
+aus.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">38</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Supexec( int32_t (*func)( ) );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die XBIOS-Routine Supexec führt die Routine unter
+<i>func</i> im Supervisor-Modus aus.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert den Return-Wert der aufgerufenen Funktion
+zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle TOS Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Supexec">Binding</a> &nbsp; <a href="00500e.html#Super">Super</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Supexec"></a>4.18.9.1 Bindings für Supexec</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+int32_t <a href="#Supexec">Supexec</a>( int32_t (*func)( ) );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       func         ; Offset 2
+move.w    #38,-(sp)    ; Offset 0
+trap      #14          ; <a href="004.html">XBIOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Trapper"></a>4.18.10 Trapper</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Trapper« - Hook into system functions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">555</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t <a href="004004.html#xbios">xbios</a>( 555, int16_t layer, int16_t install, int16_t
+opcode, void *function );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Mit Hilfe von Trapper können sich andere Programme effektiv
+und einfach vor und hinter Systemaufrufe hängen, diese sogar ganz
+ersetzen, oder dem System neue Systemaufrufe hinzufügen.<br><br>
+
+Bei Trapper handelt sich es um ein externes Programm! Zu finden
+auf: http://www.mani.de/<br><br>
+
+Mehr Information in der dortigen Anleitung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion ist nur auf Computern vorhanden bei denen das
+Programm Trapper installiert ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Trapper">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Trapper"></a>4.18.10.1 Bindings für Trapper</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">#include <tos.h><br><br>
+
+int32_t <a href="004004.html#xbios">xbios</a>( 555, int16_t layer, int16_t install, int16_t
+opcode, void *function );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea (a2)                  ; <a href="002.html">TOS</a> does not save A2 in traps
+move.l    function,-(sp)  ; Offset 8
+move.w    opcode,-(sp)    ; Offset 6
+move.w    install,-(sp)   ; Offset 4
+move.w    layer,-(sp)     ; Offset 2
+move.w    #555,-(sp)      ; Offset 0
+trap      #14             ; <a href="004.html">XBIOS</a> aufrufen
+lea       12(sp),sp       ; Stack korrigieren
+move.l    (sp)+,a2        ; restore A2
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="WdgCtrl"></a>4.18.11 WdgCtrl</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»WdgCtrl« - Einstellen des Hardware-Watchdog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Xbiosnummer:</td>
+<td valign="top">161</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top">int32_t WdgCtrl ( int16_t OpCode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Diese Funktion de- oder aktiviert den Hardware-Watchdog.<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top">OpCode</td>
+  <td align="left" valign="top">0x0000 - return 0 to check that WdgCtrl is present</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">0x1234 - enable watchdog</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">0xdead - disable watchdog</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">0x4242 - re-trigger watchdog</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion ist für die Hardware des Milans
+2.1. Die Version gibt es allerdings nur als Spezialversion und ist
+nicht frei verfügbar.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top"><a href="005003.html#E_OK">E_OK</a> (0)</td>
+<td valign="top">- OK</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="003006.html#EUNDEV">EUNDEV</a> (-15)</td>
+<td valign="top">- Watchdog nicht vorhanden</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="003006.html#EBADRQ">EBADRQ</a> (-5)</td>
+<td valign="top">- OpCode nicht implementiert
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion ist ab dem MilanTOS mit dem Datum 2002-06-09
+vorhanden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Spezialbefehle">Spezialbefehle</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20WdgCtrl">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20WdgCtrl"></a>4.18.11.1 Bindings für WdgCtrl</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#WdgCtrl">WdgCtrl</a> ( int16_t OpCode );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea (a2)                  ; <a href="002.html">TOS</a> does not save A2 in traps
+move.w    OpCode,-(sp)    ; Offset 2
+move.w    #161,-(sp)      ; Offset 0
+trap      #14             ; <a href="004.html">XBIOS</a> aufrufen
+lea       4(sp),sp        ; Stack korrigieren
+move.l    (sp)+,a2        ; restore A2
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="004011.html"><img src="udo_lf.gif" alt="Soundroutinen" title="Soundroutinen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="004013.html"><img src="udo_rg.gif" alt="Tastaturfunktionen" title="Tastaturfunktionen" border="0" width="24" height="24"></a></body>
+</html>

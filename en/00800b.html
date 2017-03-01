@@ -1,0 +1,2888 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Form library
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00800a.html"><img src="udo_lf.gif" alt="Extended file-selectors" title="Extended file-selectors" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00800c.html"><img src="udo_rg.gif" alt="Graphics library" title="Graphics library" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Form_20library"></a>8.11 Form library</h1>
+<p>This library contains useful functions for handling dialog and
+alert boxes of all kinds. The following routines are available for
+this purpose:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_alert">form_alert</a></td>
+<td valign="top">Displays standardized alert box</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_button">form_button</a></td>
+<td valign="top">Simulates a mouse-click</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_center">form_center</a></td>
+<td valign="top">Centres an object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_dial">form_dial</a></td>
+<td valign="top">Reserves and releases screen memory</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_do">form_do</a></td>
+<td valign="top">Processes a dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_error">form_error</a></td>
+<td valign="top">Outputs operating system error alert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_keybd">form_keybd</a></td>
+<td valign="top">Processes keyboard input</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_popup">form_popup</a></td>
+<td valign="top">Manages a popup-menu</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_wbutton">form_wbutton</a></td>
+<td valign="top">Simulates a mouse-click (in window)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_wkeybd">form_wkeybd</a></td>
+<td valign="top">Processes keyboard input (in window)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_xdial">form_xdial</a></td>
+<td valign="top">Reserves/releases screen memory (Flydials)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_xdo">form_xdo</a></td>
+<td valign="top">Extended dialog handling</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#form_xerr">form_xerr</a></td>
+<td valign="top">Outputs operating system error alert (<a href="00b.html">MagiC</a>)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#xfrm_popup">xfrm_popup</a></td>
+<td valign="top">Manages a popup-menu (extended version)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#x_form_center">x_form_center</a></td>
+<td valign="top">Centres an object (Geneva)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#x_form_error">x_form_error</a></td>
+<td valign="top">Outputs operating system error alert (Geneva)
+
+</td></tr>
+</table>
+
+<p><b>Note:</b> Some of these functions are only present under
+MagiC, and offer additional convenience (e.g. <i>movable</i> dialog
+boxes).</p>
+
+<p>See also: <a href="00a002.html#Dialog_20boxes">Dialog boxes</a> &nbsp; <a href="00a002.html">Style guidelines</a> &nbsp; Scrollable input
+fields</p>
+
+<h3><a name="form_alert"></a>8.11.1 form_alert</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form alert box« - Display an alert box.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">52</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_alert ( int16_t fo_adefbttn, CONST int8_t
+*fo_astring );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_alert displays a standardized alert box on the
+screen and returns the index of the button with which the alert box
+was exited. During this the AES saves the background and restores
+it after the alert box is closed.<br><br>
+
+The parameter <i>fo_adefbttn</i> determines the index of the
+default exit button of the alert box. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Value</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">No default button</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">First button</td>
+</tr>
+<tr>
+  <td align="left" valign="top">2</td>
+  <td align="left" valign="top">Second button</td>
+</tr>
+<tr>
+  <td align="left" valign="top">3</td>
+  <td align="left" valign="top">Third button</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+The parameter <i>fo_astring</i> is a pointer to the formatted
+string that determines the appearance of the alert box. The format is
+'[n][lines][buttons]' where <i>n</i> is the index number of the icon
+to be included:<table>
+<tr><td nowrap="nowrap" valign="top">n Meaning</td>
+<td valign="top">Icon</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0 No icon</td>
+<td valign="top">&nbsp;
+<br></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1 Exclamation mark</td>
+<td valign="top"><p><img src="bilder/gif/rufen.gif" alt="" title="" border="0" width="39" height="38"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">2 Question mark</td>
+<td valign="top"><p><img src="bilder/gif/frage.gif" alt="" title="" border="0" width="40" height="38"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">3 Stop sign</td>
+<td valign="top"><p><img src="bilder/gif/stop.gif" alt="" title="" border="0" width="40" height="38"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">4 Info icon, as of AES 4.10</td>
+<td valign="top"><p><img src="bilder/gif/info.gif" alt="" title="" border="0" width="35" height="34"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">5 Diskette icon, as of AES 4.10</td>
+<td valign="top"><p><img src="bilder/gif/disk.gif" alt="" title="" border="0" width="37" height="34"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">6 Bomb, XaAES</td>
+<td valign="top"><p><img src="bilder/gif/alert_bomb.gif" alt="" title="" border="0" width="32" height="32"></p>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">7 System, XaAES</td>
+<td valign="top"><p><img src="bilder/gif/alert_system.gif" alt="" title="" border="0" width="32" height="32"></p>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> The available icons should not be used in an
+arbitrary manner, but should suit the situation in each case, i.e.:
+
+<ul>
+<li><p>The <b>exclamation mark</b> should be used for any kind of
+message that the user should just confirm briefly.</p></li>
+<li><p>The <b>question mark</b> serves for all queries that should be
+answered before an action takes place (e.g. the deletion of a file).</p></li>
+<li><p>The <b>stop sign</b> should be employed for serious problems
+which it is imperative that the user knows about.</p></li>
+</ul>
+
+<br><br>
+
+The component <i>lines</i> describes the individual text lines
+that are to appear in the alert box. There can be up to five text
+lines, each with a maximum of 30 characters, which are separated from
+each other by a '|' character.<br><br>
+
+The component <i>buttons</i> describes the texts for up to three
+buttons with up to 10 characters each, which are separated by a '|'
+character from each other.<br><br>
+
+<b>Note:</b> All AES versions below 1.06 have problems
+formatting alert strings padded with spaces; to make alerts look right
+with all AES versions, do not pad any line or button with spaces,
+apart from adding one space to the longest text line of an alert (to
+prevent the last character touching the right border in some AES
+versions).<dl>
+<dt><b><a href="00b.html">MagiC</a>:</b></dt>
+<dd>
+<p> Due to the compatibility to GEM/3, alert boxes here can
+contain up to 40 characters per text line and 20 characters per button
+In addition, all alert boxes may be operated completely via the
+keyboard, with the function key [F1] servicing the left, [F2] the
+centre and [F3] the right button.</p>
+
+</dd>
+<dt><b>ViewMAX/2</b></dt>
+<dd>
+<p>and later parse the 'default button' parameter as two bytes;
+the low byte is the default button and the high byte is the Cancel
+button (ESC is a shortcut for it). This style of parameter will crash
+earlier GEM versions.</p>
+
+</dd>
+<dt><b>Under Geneva</b>,</dt>
+<dd>
+<p>the alert string can contain left bracket ('[') characters
+within the text of the buttons. These denote the keyboard equivalents
+to be used for the buttons. For example, this defines an alert with
+the equivalents [Alternate][H] and [Alternate][Y]:</p>
+
+<p>form_alert( 1, "[1][Hi there!][[Hi!|B[ye!]" );</p>
+
+<p>If an alert button does not contain a pre-defined keyboard
+equivalent, it will be considered for an automatic keyboard
+equivalent.</p>
+
+<p><b>Note:</b> DO NOT use this type of alert string when running
+without Geneva, as this will have some unpredictable results.</p>
+
+<p>Additionally, if an alert would normally not have a default
+button, Geneva always forces the rightmost button to be the default.
+For example:</p>
+
+<p>form_alert( 2, "[1][Hi!][OK]" ); /* OK is the default */</p>
+
+</dd>
+</dl>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index of the button with which the alert box
+was quit; the button at far left has the index 1, and so on in
+sequence.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_alert">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_alert"></a>8.11.1.1 Bindings for form_alert</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_alert">form_alert</a> ( int16_t fo_adefbttn, CONST int8_t
+*fo_astring );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_alert">form_alert</a> (int16_t fo_adefbttn, CONST int8_t *fo_astring)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_adefbttn;
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_astring;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(52) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">52    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_adefbttn</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_astring</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_button"></a>8.11.2 form_button</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form button« - Simulate the clicking on an object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">56</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_button ( <a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+int16_t fo_bclicks, int16_t *fo_bnxtobj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_button simulates mouse clicks on an object. The
+following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_btree</td>
+<td valign="top">Address of the object tree in memory</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bobject</td>
+<td valign="top">Object to be processed</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bclicks</td>
+<td valign="top">Number of mouse clicks</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bnxtobj</td>
+<td valign="top">New current object, or 0 if the next object has the status
+<a href="008002.html#HIDDEN">HIDDEN</a> or <a href="008002.html#DISABLED">DISABLED</a>, or is not editable
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> At a double-click on an object with <a href="008002.html#TOUCHEXIT">TOUCHEXIT</a>, bit
+15 will be set in the parameter <i>fo_bnxtobj.</i> The rectangle list
+will <i>not</i> be taken into account by this function.<br><br>
+
+The correct usage of the function is as follows:<ul>
+<li>Monitor mouse clicks with <a href="008007.html#evnt_multi">evnt_multi</a> or <a href="008007.html#evnt_button">evnt_button</a></li>
+<li>Once a click occurs, use obj_find to check if the click was
+made on the object.</li>
+<li>If it was, call form_button with the appropriate values.</li>
+</ul>
+
+<br><br>
+
+<b>Warning:</b> This function was not originally documented by
+Atari, so you may need to add bindings for it to some earlier 'C'
+compilers.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The return value of the function is 0 if an <a href="008002.html#EXIT">EXIT</a> or <a href="008002.html#TOUCHEXIT">TOUCHEXIT</a>
+object was selected, else it is positive.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_button">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008007.html#evnt_multi">evnt_multi</a> &nbsp; <a href="#form_keybd">form_keybd</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_button"></a>8.11.2.1 Bindings for form_button</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_button">form_button</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+int16_t fo_bclicks, int16_t *fo_bnxtobj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_button">form_button</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+                     int16_t fo_bclicks, int16_t *fo_bnxtobj)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_bobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_bclicks;
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_btree;
+
+   <a href="008002.html#crys_if">crys_if</a> (56);
+
+   *fo_bnxtobj = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">56    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_bobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_bclicks</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_btree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fo_bnxtobj</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_center"></a>8.11.3 form_center</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form centered object« - Centre an object on the screen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">54</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_center ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ctree, int16_t *fo_cx, int16_t
+*fo_cy, int16_t *fo_cw, int16_t *fo_ch );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_center modifies an object's coordinates so that
+it will appear at the centre of the display screen, and returns the
+actual position of the object. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>fo_ctree</i></td>
+  <td align="left" valign="top">Address of the object tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>fo_cx</i></td>
+  <td align="left" valign="top">X-coordinate, <u>and</u></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>fo_cy</i></td>
+  <td align="left" valign="top">Y-coordinate of top left of object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>fo_cw</i></td>
+  <td align="left" valign="top">Width, <u>and</u></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>fo_ch</i></td>
+  <td align="left" valign="top">Height of object (each centred)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> The function also takes special attributes of the
+object into account, such as <a href="008002.html#OUTLINED">OUTLINED</a>, for instance (but not
+<a href="008002.html#SHADOWED">SHADOWED</a>).<br><br>
+
+As of PC-GEM/3 the object tree is <i>no longer</i> centred in
+the Y-direction on the whole screen. The reason given for this is that
+users of large screen monitors would otherwise have to cover too large
+a distance from the menu bar to the object (perhaps a dialog box).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The return value is always 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_center">Binding</a> &nbsp; <a href="#x_form_center">x_form_center</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008010.html#objc_offset">objc_offset</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_center"></a>8.11.3.1 Bindings for form_center</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_center">form_center</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ctree, int16_t *fo_cx, int16_t
+*fo_cy, int16_t *fo_cw, int16_t *fo_ch );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_center">form_center</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_ctree, int16_t *fo_cx,
+                     int16_t *fo_cy, int16_t *fo_cw,
+                     int16_t *fo_ch)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_ctree;
+
+   <a href="008002.html#crys_if">crys_if</a> (54);
+
+   *fo_cx = <a href="008002.html#int_out">int_out</a>[1];
+   *fo_cy = <a href="008002.html#int_out">int_out</a>[2];
+   *fo_cw = <a href="008002.html#int_out">int_out</a>[3];
+   *fo_ch = <a href="008002.html#int_out">int_out</a>[4];
+
+   return (<a href="008002.html#int_out">int_out</a>[0]);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">54    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_ctree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fo_cx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">fo_cy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">fo_cw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">fo_ch</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_dial"></a>8.11.4 form_dial</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form dialog space« - Reserve or release memory for a dialog
+object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">51</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_dial ( int16_t fo_diflag, int16_t fo_dilittlx,
+int16_t fo_dilittly, int16_t fo_dilittlw, int16_t fo_dilittlh, int16_t
+fo_dibigx, int16_t fo_dibigy, int16_t fo_dibigw, int16_t fo_dibigh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_dial takes on various tasks, depending on the
+passed parameters. The following apply:<a name="FMD_START"></a>
+<a name="FMD_GROW"></a>
+<a name="FMD_SHRINK"></a>
+<a name="FMD_FINISH"></a>
+<a name="X_FMD_START"></a>
+<a name="X_FMD_FINISH"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_diflag</td>
+<td valign="top">Action to be performed
+<br><b>0 = FMD_START</b> Reserve screen space for a dialog
+<br><b>1 = FMD_GROW</b> Draw several expanding rectangles from the
+coordinates <i>fo_dilittlx/y/w/h</i>to <i>fo_dibigx/y/w/h</i>
+<br><b>2 = FMD_SHRINK</b> Draw several shrinking rectangles from
+<i>fo_dibigx/y/w/h</i> to <i>fo_dilittlx/y/w/h</i>
+<br><b>3 = FMD_FINISH</b> Release the reserved screen space again
+<br><b>1000 = X_FMD_START</b> (Geneva)
+<br>Store the information in the rectangular screen area described by
+the <i>fo_dibig</i> parameters for restoration later; if there is
+insufficient free memory for the area to be saved, then form_dial will
+return a 0 (error) condition
+<br><b>1003 = X_FMD_FINISH</b> (Geneva)
+<br>Copy back the information previously saved with X_FMD_START; this
+MUST be done whenever X_FMD_START is used, but not if an error
+occurred during the X_FMD_START</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlx</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittly</td>
+<td valign="top">Y-coordinate of top left corner,</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlw</td>
+<td valign="top">Width, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlh</td>
+<td valign="top">Height of the smallest rectangle</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigx</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigy</td>
+<td valign="top">Y-coordinate of top left corner,</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigw</td>
+<td valign="top">Width, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigh</td>
+<td valign="top">Height of the largest rectangle
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> With the opcode FMD_FINISH, all affected windows
+receive a <a href="008007.html#WM_REDRAW">WM_REDRAW</a> message from the AES. However the menu bar can
+<i>not</i> be restored in this way, as it lies outside the working
+area of the desktop window.<br><br>
+
+At the time of writing, the AES does not use FMD_START, but
+the call should still be executed for upwards compatibility.<br><br>
+
+The opcodes FMD_GROW and FMD_SHRINK in PC-GEM Version 2.0 fell
+as victims of the lawsuit between <i>Apple</i> and <i>Digital
+Research.</i></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_dial">Binding</a> &nbsp; <a href="008007.html#evnt_mesag">evnt_mesag</a> &nbsp; <a href="#form_xdial">form_xdial</a> &nbsp; <a href="00800c.html#graf_growbox">graf_growbox</a> &nbsp;
+<a href="00800c.html#graf_shrinkbox">graf_shrinkbox</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_dial"></a>8.11.4.1 Bindings for form_dial</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_dial">form_dial</a> ( int16_t fo_diflag, int16_t fo_dilittlx,
+int16_t fo_dilittly, int16_t fo_dilittlw, int16_t fo_dilittlh, int16_t
+fo_dibigx, int16_t fo_dibigy, int16_t fo_dibigw, int16_t fo_dibigh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_dial">form_dial</a> (int16_t fo_diflag, int16_t fo_dilittlx,
+                   int16_t fo_dilittly, int16_t fo_dilittlw,
+                   int16_t fo_dilittlh, int16_t fo_dibigx,
+                   int16_t fo_dibigy, int16_t fo_dibigw,
+                   int16_t fo_dibigh)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_diflag;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_dilittlx;
+   <a href="008002.html#int_in">int_in</a>[2]  = fo_dilittly;
+   <a href="008002.html#int_in">int_in</a>[3]  = fo_dilittlw;
+   <a href="008002.html#int_in">int_in</a>[4]  = fo_dilittlh;
+   <a href="008002.html#int_in">int_in</a>[5]  = fo_dibigx;
+   <a href="008002.html#int_in">int_in</a>[6]  = fo_dibigy;
+   <a href="008002.html#int_in">int_in</a>[7]  = fo_dibigw;
+   <a href="008002.html#int_in">int_in</a>[8]  = fo_dibigh;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(51) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">51    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">9     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_diflag</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_dilittlx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">fo_dilittly</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">fo_dilittlw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">fo_dilittlh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">fo_dibigx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">fo_dibigy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">fo_dibigw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+16</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[8]</td>
+  <td align="left" valign="top">fo_dibigh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_do"></a>8.11.5 form_do</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form do dialog« - Process the dialog with input from the
+user.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">50</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_do ( <a href="008016.html#OBJECT">OBJECT</a> *fo_dotree, int16_t fo_dostartob );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_do takes over the processing of user actions in a
+dialog form from the calling application, suspending program control
+and handling all selectable objects, radio buttons etc. The following
+apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dotree</td>
+<td valign="top">Pointer to object tree of the dialog box</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dostartob</td>
+<td valign="top"><a href="indexudo.html">Index</a> of the editable object where the text cursor should be at
+the opening of the dialog (the object must have the <a href="008002.html#EDITABLE">EDITABLE</a> flag
+set); it will be 0 if the object tree contains no editable object
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> The function only returns once the user activates an
+object with the <a href="008002.html#EXIT">EXIT</a> or <a href="008002.html#TOUCHEXIT">TOUCHEXIT</a> flag, and restores control to the
+calling program.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index of the object which was used to close
+the dialog. With a double-click, in addition bit 15 will be set.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_do">Binding</a> &nbsp; <a href="#form_xdo">form_xdo</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_do"></a>8.11.5.1 Bindings for form_do</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_do">form_do</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_dotree, int16_t fo_dostartob );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_do">form_do</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_dotree, int16_t fo_dostartob)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_dostartob;
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_dotree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(50) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">50    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_dostartob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_dotree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_error"></a>8.11.6 form_error</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form error« - Display an alert box form for TOS errors.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">53</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_error ( int16_t fo_enum );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_error outputs an MS-DOS error number as a plain
+text description (i.e. in an alert box form that contains a stop sign
+icon at the left side of the box, a text string holding an explanatory
+error message or just 'TOS error #X' and a 'Cancel' button).<br><br>
+
+The parameter <i>fo_enum</i> is here the corresponding error
+number.<br><br>
+
+<b>Note:</b> This function is present for reasons of
+compatibility to PC-GEM. Hence on TOS systems one first has to
+translate the GEMDOS error number to the MS-DOS coding. For the
+conversion (GEMDOS -> MS-DOS) one can use, say, the following
+formula: (&nbsp;<i>fo_enum</i>) - 30.<br><br>
+
+In N.AES there is an extended form of form_error with all
+GEMDOS error-codes. Its presence can be checked with <a href="Application.html#_25apgi_64">appl_getinfo</a> (opcode
+64).<br><br>
+
+Geneva interpreted a negative number as a GEMDOS/BIOS error-code, and
+an appropriate error-message is displayed. For instance, the call:
+<br>form_error(-33);
+<br>produces an alert with the text 'There is no file with this name'.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index (1-3) of the selected exit button.
+However, with current GEM versions only one button is available in
+error alerts.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_error">Binding</a> &nbsp; <a href="#form_xerr">form_xerr</a> &nbsp; <a href="00c001.html">form_error in N.AES</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_error"></a>8.11.6.1 Bindings for form_error</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_error">form_error</a> ( int16_t fo_enum );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_error">form_error</a> (int16_t fo_enum)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = fo_enum;
+   return ( <a href="008002.html#crys_if">crys_if</a>(53) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">53    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_enum</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_keybd"></a>8.11.7 form_keybd</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form keyboard« - Process keyboard input in a dialog box
+form.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">55</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_keybd ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+int16_t fo_kobnext, int16_t fo_kchar, int16_t *fo_knxtobject, int16_t
+*fo_knxtchar );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_keybd processes keyboard input for the control of
+forms in dialog boxes. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_ktree</td>
+<td valign="top">Address of the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kobject</td>
+<td valign="top"><a href="indexudo.html">Index</a> of the editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kobnext</td>
+<td valign="top">Unused, should be 0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kchar</td>
+<td valign="top">Pressed key's <a href="010002.html">scancode</a> and ASCII value (as from <a href="008007.html#evnt_keybd">evnt_keybd</a> or
+<a href="008007.html#evnt_multi">evnt_multi</a>)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_knxtobject</td>
+<td valign="top">Editable object for next call</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_knxtchar</td>
+<td valign="top">0 = Pressed key was a cursor key, [Tab] or [Return],
+processed and handled by the call
+<br>>0 = Character passed to obj_edit without processing
+
+</td></tr>
+</table>
+
+<br><br>
+
+User input may change the editable object (cursor or [Tab]
+keys), or select the default object ([Return]).<br><br>
+
+<b>Note about <a href="00b.html">MagiC</a>, N.AES:</b> If the value 0x8765 is
+specified as the object index, then keys will be processed that are
+pressed together with the [Alternate] key. If a matching object is
+found then the value 1 will be returned, the character deleted and the
+appertaining object index passed in <i>fo_knxtobject.</i></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns 0 if an <a href="008002.html#EXIT">EXIT</a> object was selected, else a
+positive number if the dialog should continue to be processed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_keybd">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008010.html#objc_edit">objc_edit</a> &nbsp; <a href="#form_button">form_button</a> &nbsp; <a href="#form_wkeybd">form_wkeybd</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_keybd"></a>8.11.7.1 Bindings for form_keybd</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_keybd">form_keybd</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+int16_t fo_kobnext, int16_t fo_kchar, int16_t *fo_knxtobject, int16_t
+*fo_knxtchar );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_keybd">form_keybd</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+                    int16_t fo_kobnext, int16_t fo_kchar,
+                    int16_t *fo_knxtobject, int16_t *fo_knxtchar)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_kobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_kchar;
+   <a href="008002.html#int_in">int_in</a>[2]  = fo_kobnext;
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_ktree;
+
+   <a href="008002.html#crys_if">crys_if</a> (55);
+
+   *fo_knxtobject = <a href="008002.html#int_out">int_out</a>[1];
+   *fo_knxtchar   = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">55    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_kobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_kchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">fo_kobnext</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_ktree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fo_knxtobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">fo_knxtchar</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_popup"></a>8.11.8 form_popup</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form Popup« - Manage a popup menu.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">135</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_popup ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_popup displays a popup menu on the screen and
+takes over its management. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Address of the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">x</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">y</td>
+<td valign="top">Y-coordinate, around which the box is to be centered
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> If the parameters <i>x</i> and <i>y</i> have the
+value 0, then the corresponding values from the object structure will
+be respected, and the centering is abandoned. At all times the
+function ensures that the complete popup is displayed on the screen.<br><br>
+
+Selectable objects must have the status <a href="008002.html#SELECTABLE">SELECTABLE</a> and
+<i>non-selectable</i> objects the status <a href="008002.html#DISABLED">DISABLED</a> assigned. The
+object with the index 0 in the object tree should be of the type <a href="008002.html#G_BOX">G_BOX</a>
+or <a href="008002.html#G_IBOX">G_IBOX</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the index of the selected object from the
+popup menu, else the value -1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 1.11, but can also be inquired for by <a href="Application.html#_25apgi_9">appl_getinfo</a>
+(opcode 9), as other systems also understand this function.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_popup">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#xfrm_popup">xfrm_popup</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_popup"></a>8.11.8.1 Bindings for form_popup</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_popup">form_popup</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_popup">form_popup</a> (<a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = x;
+   <a href="008002.html#int_in">int_in</a>[1]  = y;
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(135) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">135   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_wbutton"></a>8.11.9 form_wbutton</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form window button« - Simulate the clicking on an object in
+a window.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">63</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_wbutton ( <a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+int16_t fo_bclicks, int16_t *fo_bnxtobj, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_wbutton simulates the clicking on an object in a
+window. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_btree</td>
+<td valign="top">Address of the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bobject</td>
+<td valign="top">Object to be processed</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bclicks</td>
+<td valign="top">Number of mouse clicks</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_bnxtobj</td>
+<td valign="top">New current object, or 0 if the next object has the status
+<a href="008002.html#HIDDEN">HIDDEN</a> or <a href="008002.html#DISABLED">DISABLED</a>, or is not editable</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whandle</td>
+<td valign="top">Window ID
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> With a double-click on a <a href="008002.html#TOUCHEXIT">TOUCHEXIT</a> objec, bit 15
+will be set in the parameter <i>fo_bnxtobj.</i><br><br>
+
+The function corresponds essentially to <a href="#form_button">form_button</a>, with the
+difference that the rectangle list of a window is taken into account.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns 0 if an <a href="008002.html#EXIT">EXIT</a> object was selected, else a
+positive value.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> Version 5.10</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_wbutton">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008007.html#evnt_multi">evnt_multi</a> &nbsp; <a href="#form_keybd">form_keybd</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_wbutton"></a>8.11.9.1 Bindings for form_wbutton</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_wbutton">form_wbutton</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+int16_t fo_bclicks, int16_t *fo_bnxtobj, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_wbutton">form_wbutton</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_btree, int16_t fo_bobject,
+                      int16_t fo_bclicks, int16_t *fo_bnxtobj,
+                      int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_bobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_bclicks;
+   <a href="008002.html#int_in">int_in</a>[2]  = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_btree;
+
+   <a href="008002.html#crys_if">crys_if</a> (63);
+
+   *fo_bnxtobj = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">63    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_bobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_bclicks</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_btree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fo_bnxtobj</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_wkeybd"></a>8.11.10 form_wkeybd</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form window keyboard« - Process keyboard input into a form
+in a window.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">64</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_wkeybd ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+int16_t fo_kobnext, int16_t fo_kchar, int16_t *fo_knxtobject, int16_t
+*fo_knxtchar, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_wkeybd processes keyboard input into a form in a
+window. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_ktree</td>
+<td valign="top">Address of the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kobject</td>
+<td valign="top"><a href="indexudo.html">Index</a> of the editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kobnext</td>
+<td valign="top">Unused, should be 0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_kchar</td>
+<td valign="top">Pressed key's <a href="010002.html">scancode</a> and ASCII value (as from <a href="008007.html#evnt_keybd">evnt_keybd</a> or
+<a href="008007.html#evnt_multi">evnt_multi</a>)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_knxtobject</td>
+<td valign="top">Editable object for next call</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_knxtchar</td>
+<td valign="top">0 = Pressed key was a cursor key, [Tab] or [Return],
+processed and handled by the call
+<br>>0 = Character passed to obj_edit without processing</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whandle</td>
+<td valign="top">Window ID
+
+</td></tr>
+</table>
+
+<br><br>
+
+User input may change the editable object (cursor or [Tab]
+keys), or select the default object (Return).<br><br>
+
+<b>Note about <a href="00b.html">MagiC</a>, XaAES:</b> If the value 0x8765 is
+specified as the object index, then keys will be processed that are
+pressed together with the [Alternate] key. If a matching object is
+found then the value 1 will be returned, the character deleted and the
+appertaining object index passed in <i>fo_knxtobject.</i><br><br>
+
+This function essentially corresponds to <a href="#form_keybd">form_keybd</a> with the
+difference that here the rectangle list of a window is taken into
+account.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns 0 if an <a href="008002.html#EXIT">EXIT</a> object was selected, else a
+positive number if the dialog should continue to be processed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> Version 5.10, XaAES.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_wkeybd">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008010.html#objc_edit">objc_edit</a> &nbsp; <a href="#form_button">form_button</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_wkeybd"></a>8.11.10.1 Bindings for form_wkeybd</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_wkeybd">form_wkeybd</a> ( <a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+int16_t fo_kobnext, int16_t fo_kchar, int16_t *fo_knxtobject, int16_t
+*fo_knxtchar, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_wkeybd">form_wkeybd</a> (<a href="008016.html#OBJECT">OBJECT</a> *fo_ktree, int16_t fo_kobject,
+                     int16_t fo_kobnext, int16_t fo_kchar,
+                     int16_t *fo_knxtobject, int16_t *fo_knxtchar,
+                     int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_kobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_kchar;
+   <a href="008002.html#int_in">int_in</a>[2]  = fo_kobnext;
+   <a href="008002.html#int_in">int_in</a>[3]  = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = fo_ktree;
+
+   <a href="008002.html#crys_if">crys_if</a> (64);
+
+   *fo_knxtobject = <a href="008002.html#int_out">int_out</a>[1];
+   *fo_knxtchar   = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">64    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_kobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_kchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">fo_kobnext</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fo_ktree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">fo_knxtobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">fo_knxtchar</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_xdial"></a>8.11.11 form_xdial</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form Xdialog space« - Reserve or release screen memory for a
+dialog object when using Flydials.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">51</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_xdial ( int16_t fo_diflag, int16_t fo_dilittlx,
+int16_t fo_dilittly, int16_t fo_dilittlw, int16_t fo_dilittlh, int16_t
+fo_dibigx, int16_t fo_dibigy, int16_t fo_dibigw, int16_t fo_dibigh,
+void **flydial );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_xdial takes on various tasks, depending on the
+passed parameters. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_diflag</td>
+<td valign="top"><b>0 = <a href="00800b.html#FMD_START">FMD_START</a></b> reserves screen memory for the dialog
+<br><b>3 = <a href="00800b.html#FMD_FINISH">FMD_FINISH</a></b> restores the screen and releases the buffer
+used to save the background in</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlx</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittly</td>
+<td valign="top">Y-coordinate of the top left corner,</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlw</td>
+<td valign="top">Width, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dilittlh</td>
+<td valign="top">Height of the smallest growing or shrinking rectangle</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigx</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigy</td>
+<td valign="top">Y-coordinate of the top left corner,</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigw</td>
+<td valign="top">Width, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">fo_dibigh</td>
+<td valign="top">Height of the largest growing or shrinking rectangle</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">flydial</td>
+<td valign="top">See below
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> If <i>flydial</i> is non-zero, a test is made
+whether enough memory is available to save the background of the
+dialog box. A pointer to this saved data is then stored in this
+variable. If insufficient memory is available to save the background,
+then the dialog box processed by <a href="#form_xdo">form_xdo</a> is not movable; in that case
+also the dialog will display no 'fly corner' ('asses ear').</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">When Flydials is in use, whose presence can be checked for with
+<a href="Application.html#_25apgi_14">appl_getinfo</a> (opcode 14).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_xdial">Binding</a> &nbsp; <a href="008007.html#evnt_mesag">evnt_mesag</a> &nbsp; <a href="#form_dial">form_dial</a> &nbsp; <a href="00800c.html#graf_growbox">graf_growbox</a> &nbsp;
+<a href="00800c.html#graf_shrinkbox">graf_shrinkbox</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_xdial"></a>8.11.11.1 Bindings for form_xdial</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_xdial">form_xdial</a> ( int16_t fo_diflag, int16_t fo_dilittlx,
+int16_t fo_dilittly, int16_t fo_dilittlw, int16_t fo_dilittlh, int16_t
+fo_dibigx, int16_t fo_dibigy, int16_t fo_dibigw, int16_t fo_dibigh,
+void **flydial );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_xdial">form_xdial</a> (int16_t fo_diflag, int16_t fo_dilittlx,
+                    int16_t fo_dilittly, int16_t fo_dilittlw,
+                    int16_t fo_dilittlh, int16_t fo_dibigx,
+                    int16_t fo_dibigy, int16_t fo_dibigw,
+                    int16_t fo_dibigh, void **flydial)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = fo_diflag;
+   <a href="008002.html#int_in">int_in</a>[1]  = fo_dilittlx;
+   <a href="008002.html#int_in">int_in</a>[2]  = fo_dilittly;
+   <a href="008002.html#int_in">int_in</a>[3]  = fo_dilittlw;
+   <a href="008002.html#int_in">int_in</a>[4]  = fo_dilittlh;
+   <a href="008002.html#int_in">int_in</a>[5]  = fo_dibigx;
+   <a href="008002.html#int_in">int_in</a>[6]  = fo_dibigy;
+   <a href="008002.html#int_in">int_in</a>[7]  = fo_dibigw;
+   <a href="008002.html#int_in">int_in</a>[8]  = fo_dibigh;
+   <a href="008002.html#addr_in">addr_in</a>[0] = flydial;
+   <a href="008002.html#addr_in">addr_in</a>[1] = 0;            /* reserved */
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(51) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">51    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">9     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">fo_diflag</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">fo_dilittlx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">fo_dilittly</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">fo_dilittlw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">fo_dilittlh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">fo_dibigx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">fo_dibigy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">fo_dibigw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+16</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[8]</td>
+  <td align="left" valign="top">fo_dibigh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">flydial</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">0</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_xdo"></a>8.11.12 form_xdo</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form do Xdialog« - Process an extended dialog with user
+input.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">50</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_xdo ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t startob, int16_t
+*lastcrsr, <a href="008016.html#XDO_INF">XDO_INF</a> *tabs, void *flydial );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_xdo takes on the handling of user actions in a
+dialog form. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Pointer to object tree of the dialog box</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">startob</td>
+<td valign="top"><a href="indexudo.html">Index</a> of the editable object where the text cursor should be at
+the opening of the dialog (the object must have the <a href="008002.html#EDITABLE">EDITABLE</a> flag
+set); it will be 0 if the object tree contains no editable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">lastcrsr</td>
+<td valign="top">Contains the index of the object where the cursor was at the
+closing of the dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tabs</td>
+<td valign="top">Pointer to keyboard tables, or NULL</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">flydial</td>
+<td valign="top">The corresponding parameter returned by <a href="#form_xdial">form_xdial</a>, or NULL if
+foregoing Flydials
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index of the object used to close the dialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The function is only available under <a href="00b.html">MagiC</a> (as of Version 2.0).
+The presence of the Flydials and keyboard tables as well as the
+possibility of establishing the last cursor position can be inquired
+for with <a href="Application.html#_25apgi_14">appl_getinfo</a> (opcode 14).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_xdo">Binding</a> &nbsp; <a href="#form_do">form_do</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_xdo"></a>8.11.12.1 Bindings for form_xdo</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_xdo">form_xdo</a> ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t startob, int16_t
+*lastcrsr, <a href="008016.html#XDO_INF">XDO_INF</a> *tabs, void *flydial );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_xdo">form_xdo</a> (<a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t startob, int16_t *lastcrsr,
+                  <a href="008016.html#XDO_INF">XDO_INF</a> *tabs, void *flydial)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = startob;
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = tabs;
+   <a href="008002.html#addr_in">addr_in</a>[2] = flydial;
+
+   <a href="008002.html#crys_if">crys_if</a> (50);
+
+   *lastcrsr = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">50    # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">startob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">tabs</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">flydial</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">lastcrsr</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="form_xerr"></a>8.11.13 form_xerr</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Form Xerror« - Display an error box for TOS errors
+(<a href="00b.html">MagiC</a>).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">136</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t form_xerr ( int32_t errcode, int8_t *errfile );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call form_xerror outputs an error number as a plain text
+description (i.e. in an alert box form that contains a stop sign icon
+at the left side of the box, a text string holding an explanatory
+error message or just 'TOS error #X' and a 'Cancel' button). In
+contrast to <a href="#form_error">form_error</a>, there is no need for translation from the
+TOS to the MS-DOS format.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">errcode</td>
+<td valign="top">Normal, negative GEMDOS or BIOS error-code; if this is
+<a href="005003.html#EBREAK">EBREAK</a> (program termination with [Control]-[C]) or <a href="005003.html#E_OK">E_OK</a> (no error)
+then no alert box will be displayed</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">errfile</td>
+<td valign="top">Path of the file in which the error arose. With a NULL-pointer
+this parameter will be ignored; -1 means that the message will be
+prefaced with 'The program returned:'
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index (1-3) of the selected exit button.
+However, with current GEM versions only one button is available in
+error alerts.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The function is available only under <a href="00b.html">MagiC</a> (as of Version 2.0).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20form_xerr">Binding</a> &nbsp; <a href="#form_error">form_error</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20form_xerr"></a>8.11.13.1 Bindings for form_xerr</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#form_xerr">form_xerr</a> ( int32_t errcode, int8_t *errfile );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#form_xerr">form_xerr</a> (int32_t errcode, int8_t *errfile)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = errcode (High);
+   <a href="008002.html#int_in">int_in</a>[1]  = errcode (Low);
+   <a href="008002.html#addr_in">addr_in</a>[0] = errfile;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(136) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">136   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">errcode (High)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">errcode (Low)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">errfile</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="xfrm_popup"></a>8.11.14 xfrm_popup</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»XForm popup« - Manage a popup menu (extended <a href="00b.html">MagiC</a> version).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">135</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t xfrm_popup( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y, int16_t
+firstscrlob, int16_t lastscrlob, int16_t nlines, void cdecl
+(*init)(<a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t scrollpos, int16_t nlines, void *param),
+void *param, int16_t *lastscrlpos )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call xfrm_popup displays a popup menu on the screen, and
+takes on its management. The followiong apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Address of the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">x</td>
+<td valign="top">X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">y</td>
+<td valign="top">Y-coordinate around which the box is to be centered</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">firstscrlob</td>
+<td valign="top">Object index of the first scrollable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">lastscrlob</td>
+<td valign="top">Object index of the last scrollable object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">nlines</td>
+<td valign="top">Number of lines actually present</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">init</td>
+<td valign="top">Callback routine for translating the objects. <i>tree</i>,
+<i>param</i> and <i>nlines</i> are the parameters that were passed
+in xfrm_popup. <i>scrollpos</i> specifies the current scroll
+position. It lies at: 0..(nlines-(lastscrlob-firstscrlob+1). If the
+popup should not scroll, <i>init</i> == NULL must be passed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">param</td>
+<td valign="top">User-defined parameter</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">lastscrlpos</td>
+<td valign="top">Last scroll position
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> If the parameters <i>x</i> and <i>y</i> have the
+value 0, then the corresponding values from the object structure will
+be respected, and the centering is abandoned. At all times the
+function ensures that the complete popup is displayed on the screen.<br><br>
+
+Selectable objects must have the status <a href="008002.html#SELECTABLE">SELECTABLE</a> and
+<i>non-selectable</i> objects the status <a href="008002.html#DISABLED">DISABLED</a> assigned. The
+object with the index 0 in the object tree should be of the type <a href="008002.html#G_BOX">G_BOX</a>
+or <a href="008002.html#G_IBOX">G_IBOX</a>.</p>
+<ol>
+<li><p>The object tree is initialized automatically by a call of the
+<i>init</i> routine before the first drawing action.</p></li>
+<li><p>The variable <i>scrollpos</i> need not be initialized, as the
+system always start at scrollpos 0.</p></li>
+<li><p>The <i>init</i> routine is responsible for initializing the
+first and/or last scroll object with an arrow.</p></li>
+<li><p>The scrollable objects are <i>firstscrlob</i> ...
+<i>lastscrlob.</i> The object indices must be consecutive numbers.
+The objects must lie directly below each other and all must have the
+same size.</p></li>
+</ol>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the index of the selected object from the
+popup menu, else the value -1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The function is available as of <a href="00b.html">MagiC</a> 5.03.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20xfrm_popup">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#form_popup">form_popup</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20xfrm_popup"></a>8.11.14.1 Bindings for xfrm_popup</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#xfrm_popup">xfrm_popup</a>( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y, int16_t
+firstscrlob, int16_t lastscrlob, int16_t nlines, void cdecl
+(*init)(<a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t scrollpos, int16_t nlines, void *param),
+void *param, int16_t *lastscrlpos )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#xfrm_popup">xfrm_popup</a>( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t x, int16_t y,
+                    int16_t firstscrlob, int16_t lastscrlob,
+                    int16_t nlines,
+                    void  cdecl (*init)(<a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t scrollpos,
+                    int16_t nlines, void *param),
+                    void *param, int16_t *lastscrlpos )
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = x;
+   <a href="008002.html#int_in">int_in</a>[1]  = y;
+   <a href="008002.html#int_in">int_in</a>[2]  = firstscrlob;
+   <a href="008002.html#int_in">int_in</a>[3]  = lastscrlob;
+   <a href="008002.html#int_in">int_in</a>[4]  = nlines;
+   <a href="008002.html#int_in">int_in</a>[5]  = *lastscrlpos;
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = init;
+   <a href="008002.html#addr_in">addr_in</a>[2] = param;
+
+   <a href="008002.html#int_out">int_out</a>[1] = *lastscrlpos;   /* Preset this */
+
+   <a href="008002.html#crys_if">crys_if</a>(135)
+
+   *lastscrlpos = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">135   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">firstscrlob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">lastscrlob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">nlines</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">lastscrlpos</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">init</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">param</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">lastscrlpos</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="x_form_center"></a>8.11.15 x_form_center</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»XForm centered object« - Centre an object on the screen
+(extended version for Geneva).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">28944</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t x_form_center( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t *cx, int16_t *cy,
+int16_t *cw, int16_t0 *ch );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function x_form_center will center a dialog on the screen,
+taking into account all object attributes that can affect the outer
+border. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">Object tree being modified</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cx</i></td>
+  <td align="left" valign="top">X-coordinate of the outer rectangle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cy</i></td>
+  <td align="left" valign="top">Y-coordinate of the outer rectangle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>cw</i></td>
+  <td align="left" valign="top">Width of the outer rectangle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ch</i></td>
+  <td align="left" valign="top">Height of the outer rectangle</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+This function is essentially identical in purpose to the AES
+<a href="#form_center">form_center</a> call, however it takes all attributes which can affect the
+size of the outer border of the object tree (<a href="008002.html#SHADOWED">SHADOWED</a>, <a href="008002.html#OUTLINED">OUTLINED</a>, 3D
+effect, etc.) into consideration. The returned rectangle describes the
+entire area containing these effects.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always return a value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The function is only available under Geneva.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20x_form_center">Binding</a> &nbsp; <a href="#form_center">form_center</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20x_form_center"></a>8.11.15.1 Bindings for x_form_center</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#x_form_center">x_form_center</a>( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t *cx, int16_t *cy,
+int16_t *cw, int16_t0 *ch );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#x_form_center">x_form_center</a>( <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t *cx, int16_t *cy,
+                       int16_t *cw, int16_t0 *ch )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = tree;
+
+   <a href="008002.html#crys_if">crys_if</a>(28944);
+
+   *cx = <a href="008002.html#int_out">int_out</a>[1];
+   *cy = <a href="008002.html#int_out">int_out</a>[2];
+   *cw = <a href="008002.html#int_out">int_out</a>[3];
+   *ch = <a href="008002.html#int_out">int_out</a>[4];
+
+   return (<a href="008002.html#int_out">int_out</a>[0]);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">28944 # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">cx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">cy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">cw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">ch</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="x_form_error"></a>8.11.16 x_form_error</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»XForm error« - Display an error box for TOS errors
+(Geneva).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">28945</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t x_form_error ( uint8_t *fmt, int16_t errnum );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function x_form_error takes the error-code specified by
+<i>errnum</i> and finds an appropriate error-message string. It then
+inserts this text into a program-defined alert string and displays an
+alert.<br><br>
+
+The <i>fmt</i> should be in standard <a href="#form_alert">form_alert</a> format, with a
+'%s' to indicate the location where the error-message should be
+inserted. Since an alert can contain no more than five lines of 30
+characters each, and the predefined error-messages can take up to
+three lines, there should be no more than two lines of text
+surrounding the inserted error text.<br><br>
+
+Example:<pre>if( x_form_error( "[1][Error!|%s][Continue|Quit]", -33 ) == 1 )
+  continue...
+else quit...
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be the index (1-3) of the selected exit button.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The function is only available under Geneva.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Form_20library">Form library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20x_form_error">Binding</a> &nbsp; <a href="#form_error">form_error</a> &nbsp; <a href="#form_xerr">form_xerr</a> &nbsp; form_err in <a href="00c.html">N.AES</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20x_form_error"></a>8.11.16.1 Bindings for x_form_error</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#x_form_error">x_form_error</a> ( uint8_t *fmt, int16_t errnum );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#x_form_error">x_form_error</a> ( uint8_t *fmt, int16_t errnum )
+{
+   <a href="008002.html#int_in">int_in</a>[0] = errnum;
+
+   adrin[0] = fmt;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(28945) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">28945 # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">fmt</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">enum</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00800a.html"><img src="udo_lf.gif" alt="Extended file-selectors" title="Extended file-selectors" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00800c.html"><img src="udo_rg.gif" alt="Graphics library" title="Graphics library" border="0" width="24" height="24"></a></body>
+</html>

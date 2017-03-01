@@ -1,0 +1,1124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Resource library
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008010.html"><img src="udo_lf.gif" alt="Object library" title="Object library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008012.html"><img src="udo_rg.gif" alt="Shell library" title="Shell library" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Resource_20library"></a>8.17 Resource library</h1>
+<p>This library contains functions to load the resources of a GEM
+program (menu bars, dialog boxes, icons etc.) into memory and
+manipulate them there, as well as ascertaining the addresses of the
+relevant objects. The following routines are available for this
+purpose:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_free">rsrc_free</a></td>
+<td valign="top">Releases memory occupied by an application's resource</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_gaddr">rsrc_gaddr</a></td>
+<td valign="top">Obtains address of an object in a resource data set</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_load">rsrc_load</a></td>
+<td valign="top">Loads a resource file</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_obfix">rsrc_obfix</a></td>
+<td valign="top">Converts character-based to pixel-based coordinates</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_rcfix">rsrc_rcfix</a></td>
+<td valign="top">Fixes up coordinates and pointers in memory</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#rsrc_saddr">rsrc_saddr</a></td>
+<td valign="top">Stores address of an object</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#sys_recalc_cicon_colours">sys_recalc_cicon_colours</a></td>
+<td valign="top">Passes RGB-triplets in promille for icon conversion in 'direct
+colour' screen modes
+
+</td></tr>
+</table>
+
+<p><b>Note:</b> Laying off such objects to a resource file has the
+invaluable advantage of permitting changes to the appearance (and
+particularly the language of any text) in a simple way <i>without
+having to make any modifications to the program itself.</i></p>
+
+<p>See also: <a href="008001.html">About the AES</a> &nbsp; <a href="00a002.html">Style guidelines</a></p>
+
+<h3><a name="rsrc_free"></a>8.17.1 rsrc_free</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Resource free« - Release memory occupied by a resource file.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">111</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_free ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call rsrc_free frees the memory previously occupied by a
+resource file (allocated by <a href="#rsrc_load">rsrc_load</a>).<br><br>
+
+<b>Note:</b> It is imperative to call this function at the
+termination of a program!</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20rsrc_free">Binding</a> &nbsp; <a href="#rsrc_load">rsrc_load</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_free"></a>8.17.1.1 Bindings for rsrc_free</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_free">rsrc_free</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_free">rsrc_free</a> (void)
+{
+   return ( <a href="008002.html#crys_if">crys_if</a>(111) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">111   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="rsrc_gaddr"></a>8.17.2 rsrc_gaddr</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Resource get address« - Obtain address of an object in a
+resource set.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">112</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_gaddr ( int16_t re_gtype, int16_t re_gindex, void
+*gaddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call rsrc_gaddr obtains the start addresses of various
+object structures of resource files loaded into memory with <a href="#rsrc_load">rsrc_load</a>.
+The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<a name="R_TREE"></a>
+<a name="R_OBJECT"></a>
+<a name="R_TEDINFO"></a>
+<a name="R_ICONBLK"></a>
+<a name="R_BITBLK"></a>
+<a name="R_STRING"></a>
+<a name="R_IMAGEDATA"></a>
+<a name="R_OBSPEC"></a>
+<a name="R_TEPTEXT"></a>
+<a name="R_TEPTMPLT"></a>
+<tr>
+  <td align="left" valign="top"><i>re_gtype</i></td>
+  <td align="left" valign="top">Type of structure searched for:</td>
+</tr>
+<a name="R_TEPVALID"></a>
+<a name="R_IBPMASK"></a>
+<a name="R_IBPDATA"></a>
+<a name="R_IBPTEXT"></a>
+<a name="R_BIPDATA"></a>
+<a name="R_FRSTR"></a>
+<a name="R_FRIMG"></a>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_TREE      0&nbsp; = Object tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_OBJECT    1&nbsp; = Individual <a href="008016.html#OBJECT">OBJECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_TEDINFO   2&nbsp; = <a href="008016.html#TEDINFO">TEDINFO</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_ICONBLK   3&nbsp; = <a href="008016.html#ICONBLK">ICONBLK</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_BITBLK    4&nbsp; = <a href="008016.html#BITBLK">BITBLK</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_STRING    5&nbsp; = Free string data</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_IMAGEDATA 6&nbsp; = Free image data</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_OBSPEC    7&nbsp; = <i>ob_spec</i> field in <a href="008016.html#OBJECT">OBJECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_TEPTEXT   8&nbsp; = <i>te_ptext</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_TEPTMPLT  9&nbsp; = <i>te_ptmplt</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_TEPVALID  10 = <i>te_pvalid</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_IBPMASK   11 = <i>ib_pmask</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_IBPDATA   12 = <i>ib_pdata</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_IBPTEXT   13 = <i>ib_ptext</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_BIPDATA   14 = <i>ib_pdate</i> in <a href="008016.html#BITBLK">BITBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_FRSTR     15 = <i>ad_frstr</i> free string</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">R_FRIMG     16 = <i>ad_frimg</i> free image</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>re_gindex</i></td>
+  <td align="left" valign="top"><a href="indexudo.html">Index</a> of the structure searched for</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gaddr</i></td>
+  <td align="left" valign="top">Address of the desired structure</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> If one wants to search for a text pointer within a
+<a href="008016.html#TEDINFO">TEDINFO</a> structure, for instance, then one must <i>not</i> pass the
+index of the associated object, but the index of the TEDINFO
+structure. The same applies in essence to other codings.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned (= object
+does not exist).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="rsrc_gaddr.html#Bindings_20for_20rsrc_gaddr">Binding</a> &nbsp; <a href="#rsrc_load">rsrc_load</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_gaddr"></a>8.17.2.1 Bindings for rsrc_gaddr</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_gaddr">rsrc_gaddr</a> ( int16_t re_gtype, int16_t re_gindex, void
+*gaddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_gaddr">rsrc_gaddr</a> (int16_t re_gtype, int16_t re_gindex,
+                    void *gaddr)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = re_gtype;
+   <a href="008002.html#int_in">int_in</a>[1]  = re_gindex;
+   <a href="008002.html#control">control</a>[4] = 1;
+
+   <a href="008002.html#crys_if">crys_if</a> (112);
+
+   <a href="008002.html#control">control</a>[4] = 0;
+   *gaddr = <a href="008002.html#addr_out">addr_out</a>[0];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">112   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">re_gtype</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">re_gindex</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">gaddr</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="rsrc_load"></a>8.17.3 rsrc_load</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Resource load« - Loads a specified resource file into
+memory.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">110</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_load ( CONST int8_t *re_lpfname );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call rsrc_load serves for loading a resource file and
+initializing it (allocating memory); furthermore, all <a href="008016.html#OBJECT">OBJECT</a>
+coordinates are converted from character-based coordinates to screen
+coordinates. The parameter <i>re_lpfname</i> contains the
+NULL-terminated filename of the resource file to load.<br><br>
+
+<b>Note:</b> The file will be looked for in all directories that
+the AES knows about.<br><br>
+
+As of PC-GEM Version 2.0, incidentally, all object trees that
+have a box as a root (e.g. all dialog boxes) will have the <a href="008002.html#SHADOWED">SHADOWED</a>
+flag set for it in <i>ob_state.</i> This means that all dialog boxes
+will be drawn with a shadow instead of an outline frame. The origin of
+this lies in the legal disputes between <i>Apple</i> and <i>Digital
+Research.</i> However, the <a href="008002.html#SHADOWED">SHADOWED</a> bit can be reset (after rsrc_load)
+at run-rime and the normal <a href="008002.html#OUTLINED">OUTLINED</a> bit set once more.<br><br>
+
+<b>Warning:</b> Conversion of bit-images and icons from the
+standard format to the device-specific format does <i>not</i> occur
+at this stage. If required, this must be perfomed by the programmer
+himself.<br><br>
+
+<a href="00b.html">MagiC</a> as of Version 3 and Geneva can load resources in the
+<a href="008016.html#RSXHDR">Interface format</a>. With other AESs this possibility can be checked with <a href="Application.html#_25apgi_2">appl_getinfo</a>
+(opcode 2).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20rsrc_load">Binding</a> &nbsp; <a href="#rsrc_free">rsrc_free</a> &nbsp; <a href="008012.html#shel_find">shel_find</a> &nbsp; <a href="00700b.html#vr_trnfm">vr_trnfm</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_load"></a>8.17.3.1 Bindings for rsrc_load</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_load">rsrc_load</a> ( CONST int8_t *re_lpfname );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_load">rsrc_load</a> (CONST int8_t *re_lpfname)
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = re_lpfname;
+   return ( <a href="008002.html#crys_if">crys_if</a>(110) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">110   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">re_lpfname</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="rsrc_obfix"></a>8.17.4 rsrc_obfix</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Resource object fix« - Convert an object's coordinates from
+character-based to pixel-based.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">114</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_obfix ( <a href="008016.html#OBJECT">OBJECT</a> *re_otree, int16_t re_oobject );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call rsrc_obfix converts the size and position of a
+displayed object from character-based to pixel-based coordinates at
+the current screen resolution. (This is required because all objects
+in RSC files have their coordinates based on character positions
+rather than screen coordinates to ensure correct display of trees and
+objects at any screen resolution.) The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>re_otree</i></td>
+  <td align="left" valign="top">Address of the relevant object tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>re_oobject</i></td>
+  <td align="left" valign="top"><a href="indexudo.html">Index</a> of the object to convert</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> A call of this function is always required if
+objects are created at run-time, or are not loaded with <a href="#rsrc_load">rsrc_load</a>.<br><br>
+
+The conversion is performed by multiplying the lower byte of the
+coordinate specification with the size of a character from the system
+font, and then adding the (signed) upper byte. <b>Exception:</b> For
+a width of exactly 80 characters, the width of the screen is
+substituted; this is used for the background object of the menu tree
+for instance.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This always has the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20rsrc_obfix">Binding</a> &nbsp; <a href="#rsrc_load">rsrc_load</a> &nbsp; <a href="#rsrc_rcfix">rsrc_rcfix</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_obfix"></a>8.17.4.1 Bindings for rsrc_obfix</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_obfix">rsrc_obfix</a> ( <a href="008016.html#OBJECT">OBJECT</a> *re_otree, int16_t re_oobject );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_obfix">rsrc_obfix</a> (<a href="008016.html#OBJECT">OBJECT</a> *re_otree, int16_t re_oobject)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = re_oobject;
+   <a href="008002.html#addr_in">addr_in</a>[0] = re_otree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(114) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">114   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">re_oobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">re_otree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="rsrc_rcfix"></a>8.17.5 rsrc_rcfix</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Resource coordinate fix« - Fix up coordinates and pointers
+in memory.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">115</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_rcfix ( <a href="008016.html#RSHDR">RSHDR</a> *rc_header );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function rsrc_rcfix, present in <a href="00b.html">MagiC</a> and MultiTOS, fixes
+up resource data already loaded into memory by the application. During
+this the coordinates are converted from character- to
+pixel-coordinates.<br><br>
+
+If an application has already loaded an RSC file before the
+function is called, then it must be released with <a href="#rsrc_free">rsrc_free</a> before the
+rsrc_rcfix call is made. The same applies at the termination of the
+application.<br><br>
+
+The advantage of this function consists in the ability of
+incorporating the resource file of the program into the program code
+itself. It then suffices to just call rsrc_rcfix, and loading with
+<a href="#rsrc_load">rsrc_load</a> can then be dispensed with. The following applies:<table>
+<tr><td nowrap="nowrap" valign="top"><i>rc_header:</i></td>
+<td valign="top">Address of the RSC header in memory; the RSC data must lie
+after this
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This will be 0 if unsuccessful, else non-zero.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">Available only in <a href="00b.html">MagiC</a> and <a href="008.html">AES</a> versions 4.0 and greater. The
+presence of this call should also be checked for using <a href="Application.html#_25apgi_4">appl_getinfo</a> (Opcode
+4).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20rsrc_rcfix">Binding</a> &nbsp; <a href="#rsrc_load">rsrc_load</a> &nbsp; <a href="#rsrc_obfix">rsrc_obfix</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_rcfix"></a>8.17.5.1 Bindings for rsrc_rcfix</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_rcfix">rsrc_rcfix</a> ( <a href="008016.html#RSHDR">RSHDR</a> *rc_header );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_rcfix">rsrc_rcfix</a> ( <a href="008016.html#RSHDR">RSHDR</a> *rc_header )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = rc_header;
+   return ( <a href="008002.html#crys_if">crys_if</a>(115) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">115   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">rc_header</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="rsrc_saddr"></a>8.17.6 rsrc_saddr</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">Resource store address« - Store address of an object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">113</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t rsrc_saddr ( int16_t re_stype, int16_t re_sindex, void
+*saddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call rsrc_saddr stores the start address of a data
+structure in memory. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">re_stype</td>
+<td valign="top">Type of structure:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">R_TREE</td>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Object tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_OBJECT</td>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Individual <a href="008016.html#OBJECT">OBJECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_TEDINFO</td>
+  <td align="left" valign="top">2</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><a href="008016.html#TEDINFO">TEDINFO</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_ICONBLK</td>
+  <td align="left" valign="top">3</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><a href="008016.html#ICONBLK">ICONBLK</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_BITBLK</td>
+  <td align="left" valign="top">4</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><a href="008016.html#BITBLK">BITBLK</a> structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_STRING</td>
+  <td align="left" valign="top">5</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Free string data</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_IMAGEDATA</td>
+  <td align="left" valign="top">6</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Free image data</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_OBSPEC</td>
+  <td align="left" valign="top">7</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ob_spec</i> field in <a href="008016.html#OBJECT">OBJECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_TEPTEXT</td>
+  <td align="left" valign="top">8</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>te_ptext</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_TEPTMPLT</td>
+  <td align="left" valign="top">9</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>te_ptmplt</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_TEPVALID</td>
+  <td align="left" valign="top">10</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>te_pvalid</i> in <a href="008016.html#TEDINFO">TEDINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_IBPMASK</td>
+  <td align="left" valign="top">11</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ib_pmask</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_IBPDATA</td>
+  <td align="left" valign="top">12</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ib_pdata</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_IBPTEXT</td>
+  <td align="left" valign="top">13</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ib_ptext</i> in <a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_BIPDATA</td>
+  <td align="left" valign="top">14</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ib_pdata</i> in <a href="008016.html#BITBLK">BITBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_FRSTR</td>
+  <td align="left" valign="top">15</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ad_frstr</i> free string</td>
+</tr>
+<tr>
+  <td align="left" valign="top">R_FRIMG</td>
+  <td align="left" valign="top">16</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top"><i>ad_frimg</i> free image</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">re_sindex</td>
+<td valign="top">Position within the data structure</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">saddr</td>
+<td valign="top">Address to be saved in data structure
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> An error has arisen only if the value 0 is returned.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20rsrc_saddr">Binding</a> &nbsp; <a href="#rsrc_gaddr">rsrc_gaddr</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20rsrc_saddr"></a>8.17.6.1 Bindings for rsrc_saddr</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#rsrc_saddr">rsrc_saddr</a> ( int16_t re_stype, int16_t re_sindex, void
+*saddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#rsrc_saddr">rsrc_saddr</a> (int16_t re_stype, int16_t re_sindex,
+                    void *saddr)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = re_stype;
+   <a href="008002.html#int_in">int_in</a>[1]  = re_sindex;
+   <a href="008002.html#addr_in">addr_in</a>[0] = saddr;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(113) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">113   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">re_stype</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">re_sindex</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">saddr</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="sys_recalc_cicon_colours"></a>8.17.7 sys_recalc_cicon_colours</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">???</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">0 (sub-opcode 5)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void *sys_recalc_cicon_colours( uint16_t colour_values[3*256]
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">Pass RGB-triplets in promille (1/1000th) for the icon
+conversion with 'direct colour' screen modes.<br><br>
+
+Only used from MagxDesk.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> unknown.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">As of <a href="00b.html">MagiC</a> 5.20 from 20.11.97</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Resource_20library">Resource library</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20sys_recalc_cicon_colours">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20sys_recalc_cicon_colours"></a>8.17.7.1 Bindings for sys_recalc_cicon_colours</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void *<a href="#sys_recalc_cicon_colours">sys_recalc_cicon_colours</a>( uint16_t colour_values[3*256]
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void *<a href="#sys_recalc_cicon_colours">sys_recalc_cicon_colours</a>( uint16_t colour_values[3*256] );
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = 5;               /* Subcode 5: */
+   <a href="008002.html#addr_in">addr_in</a>[0] = colour_values;
+
+   <a href="008002.html#crys_if">crys_if</a>(0);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">0     # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">5</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">colour_values</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008010.html"><img src="udo_lf.gif" alt="Object library" title="Object library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008012.html"><img src="udo_rg.gif" alt="Shell library" title="Shell library" border="0" width="24" height="24"></a></body>
+</html>

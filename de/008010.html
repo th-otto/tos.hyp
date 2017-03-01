@@ -1,0 +1,2548 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Objektfunktionen
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00800f.html"><img src="udo_lf.gif" alt="Menüfunktionen" title="Menüfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008011.html"><img src="udo_rg.gif" alt="Resourcefunktionen" title="Resourcefunktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Objektfunktionen"></a>8.16 Objektfunktionen</h1>
+<p>Diese Bibliothek stellt Funktionen zur Verfügung, um Objekte
+(gleich welcher Art) zu zeichnen und zu manipulieren; hierzu gibt es
+die folgenden Routinen:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_add">objc_add</a></td>
+<td valign="top">Objekt im Objektbaum einfügen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_change">objc_change</a></td>
+<td valign="top">Status eine Objekts ändern</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_delete">objc_delete</a></td>
+<td valign="top">Objekt aus dem Objektbaum entfernen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_draw">objc_draw</a></td>
+<td valign="top">Objekt (mit Unterobjekten) zeichnen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_edit">objc_edit</a></td>
+<td valign="top">Text eines Objektes editieren</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_find">objc_find</a></td>
+<td valign="top">Objekt an der Mausposition ermitteln</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_offset">objc_offset</a></td>
+<td valign="top">Bildschirmkoordinaten eines Objekts ermitteln</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_order">objc_order</a></td>
+<td valign="top">Reihenfolge im Objektbaum umstellen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_sysvar">objc_sysvar</a></td>
+<td valign="top">Modifikation der 3D-Objekte</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_wchange">objc_wchange</a></td>
+<td valign="top">Status eines Objektes ändern (im Fenster)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_wdraw">objc_wdraw</a></td>
+<td valign="top">Objekt (mit Unterobjekten) zeichnen (im Fenster)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_wedit">objc_wedit</a></td>
+<td valign="top">Text eines Objektes editieren (im Fenster)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_xedit">objc_xedit</a></td>
+<td valign="top">Text eines Objektes editieren</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#objc_xfind">objc_xfind</a></td>
+<td valign="top">Objektindex über Position ermitteln</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• objc_xoffset</td>
+<td valign="top">z.Zt. keine Informationen bekannt
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Eine besondere Beachtung hat dabei <a href="#objc_sysvar">objc_sysvar</a>
+verdient, mit dessen Hilfe der 3D-Look der Objekte gesteuert (und ab
+<a href="00b.html">MagiC</a> 3 auch abgeschaltet) werden kann.</p>
+
+<p>Querverweis: <a href="008.html">AES</a> &nbsp; <a href="008002.html#Die_20Objekt-Struktur">Objektstruktur im AES</a> &nbsp; <a href="00b007.html">Scrollende Eingabefelder</a> &nbsp; <a href="00a002.html">Style-Guidelines</a></p>
+
+<h3><a name="objc_add"></a>8.16.1 objc_add</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object add« - fügt ein Objekt im Objektbaum ein.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">40</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_add ( <a href="008016.html#OBJECT">OBJECT</a> *ob_atree, int16_t ob_aparent,
+int16_t ob_achild );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt zwischen zwei Objekten in einem Objektbaum
+eine Hierarchische Verknüpfung her. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_atree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_aparent</td>
+<td valign="top">Nummer des Objekts, zu dem das Child hinzugefügt werden soll</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_achild</td>
+<td valign="top">Nummer des Childs, d.h. des hinzuzufügenden Objektes
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Beim Einfügen müssen die Komponenten
+<i>ob_head</i> und <i>ob_tail</i> der <a href="008016.html#OBJECT">OBJECT</a>-Struktur bereits
+passend initialisiert sein.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_add">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#objc_delete">objc_delete</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_add"></a>8.16.1.1 Bindings für objc_add</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_add">objc_add</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_atree, int16_t ob_aparent,
+int16_t ob_achild );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_add">objc_add</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_atree, int16_t ob_aparent,
+                  int16_t ob_achild)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_aparent;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_achild;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_atree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(40) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">40    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_aparent</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_achild</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_atree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_change"></a>8.16.2 objc_change</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object change« - verändert die Darstellung eines Objekts
+innerhalb der angegebenen Grenzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">47</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_change ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+int16_t ob_cresvd, int16_t ob_cxclip, int16_t ob_cyclip, int16_t
+ob_cwclip, int16_t ob_chclip, int16_t ob_cnewstate, int16_t ob_credraw
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ändert den Status eines Objektes und zeichnet es
+ggfs. neu. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_ctree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cobject</td>
+<td valign="top">Nummer des betreffenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cresvd</td>
+<td valign="top">reserviert, sollte 0 sein</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cxclip</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cyclip</td>
+<td valign="top">y-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cwclip</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_chclip</td>
+<td valign="top">Höhe des <a href="VDI_fundamentals.html#Clipping">Clipping</a>-Rechtecks</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_cnewstate</td>
+<td valign="top">neuer Status des Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_credraw</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Objekt nicht neu zeichnen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Objekt neu zeichnen</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_change">Binding</a> &nbsp; <a href="#objc_wchange">objc_wchange</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_change"></a>8.16.2.1 Bindings für objc_change</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_change">objc_change</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+int16_t ob_cresvd, int16_t ob_cxclip, int16_t ob_cyclip, int16_t
+ob_cwclip, int16_t ob_chclip, int16_t ob_cnewstate, int16_t ob_credraw
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_change">objc_change</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+                     int16_t ob_cresvd, int16_t ob_cxclip,
+                     int16_t ob_cyclip, int16_t ob_cwclip,
+                     int16_t ob_chclip, int16_t ob_cnewstate,
+                     int16_t ob_credraw)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_cobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_cresvd;
+   <a href="008002.html#int_in">int_in</a>[2]  = ob_cxclip;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_cyclip;
+   <a href="008002.html#int_in">int_in</a>[4]  = ob_cwclip;
+   <a href="008002.html#int_in">int_in</a>[5]  = ob_chclip;
+   <a href="008002.html#int_in">int_in</a>[6]  = ob_cnewstate;
+   <a href="008002.html#int_in">int_in</a>[7]  = ob_credraw;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_ctree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(47) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">47    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">8     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_cobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_cresvd</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_cxclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_cyclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">ob_cwclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">ob_chclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">ob_cnewstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">ob_credraw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_ctree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_delete"></a>8.16.3 objc_delete</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object delete« - löst ein Objekt aus einem Objektbaum.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">41</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_delete ( <a href="008016.html#OBJECT">OBJECT</a> *ob_dltree, int16_t ob_dlobject );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion entfernt ein Objekt aus einem Objektbaum. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_dltree</i></td>
+  <td align="left" valign="top">Adresse des Objektbaumes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_dlobject</i></td>
+  <td align="left" valign="top">Nummer des zu löschenden Objektes</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_delete">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#objc_add">objc_add</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_delete"></a>8.16.3.1 Bindings für objc_delete</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_delete">objc_delete</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_dltree, int16_t ob_dlobject );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_delete">objc_delete</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_dltree, int16_t ob_dlobject)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_dlobject;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_dltree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(41) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">41    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_dlobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_dltree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_draw"></a>8.16.4 objc_draw</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object draw« - zeichnet ein Objekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">42</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_draw ( <a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+int16_t ob_drdepth, int16_t ob_drxclip, int16_t ob_dryclip, int16_t
+ob_drwclip, int16_t ob_drhclip );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt Objekte (oder Teile von Objekten) auf dem
+Bildschirm dar. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drtree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drstart</td>
+<td valign="top">Nummer des ersten zu zeichnenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drdepth</td>
+<td valign="top">Anzahl der zu zeichnenden Ebenen (0 = nur das erste Objekt),
+max 8</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drxclip</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_dryclip</td>
+<td valign="top">y-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drwclip</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drhclip</td>
+<td valign="top">Höhe des begrenzenden Rechteckes.
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Über die Parameter kann ein Rechteck angegeben
+werden, auf das sich die Darstellung beschränken soll (<a href="VDI_fundamentals.html#Clipping">Clipping</a>).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_draw">Binding</a> &nbsp; <a href="#objc_wdraw">objc_wdraw</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_draw"></a>8.16.4.1 Bindings für objc_draw</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_draw">objc_draw</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+int16_t ob_drdepth, int16_t ob_drxclip, int16_t ob_dryclip, int16_t
+ob_drwclip, int16_t ob_drhclip );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_draw">objc_draw</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+                   int16_t ob_drdepth, int16_t ob_drxclip,
+                   int16_t ob_dryclip, int16_t ob_drwclip,
+                   int16_t ob_drhclip)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_drstart;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_drdepth;
+   <a href="008002.html#int_in">int_in</a>[2]  = ob_drxclip;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_dryclip;
+   <a href="008002.html#int_in">int_in</a>[4]  = ob_drwclip;
+   <a href="008002.html#int_in">int_in</a>[5]  = ob_drhclip;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_drtree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(42) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">42    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_drstart</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_drdepth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_drxclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_dryclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">ob_drwclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">ob_drhclip</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_drtree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_edit"></a>8.16.5 objc_edit</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object edit« - editiert einen Text in einem Objekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">46</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_edit ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermöglicht Texteingaben in Objekte des Typs
+<a href="008002.html#G_FTEXT">G_FTEXT</a> oder <a href="008002.html#G_FBOXTEXT">G_FBOXTEXT</a>. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edtree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edobject</td>
+<td valign="top">Nummer des zu editierenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edchar</td>
+<td valign="top">eingegebenes Zeichen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edidx</td>
+<td valign="top">Position des Zeichens im String</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edkind</td>
+<td valign="top">Funktionsauswahl, wie folgt:<a name="EDSTART"></a>
+<a name="EDINIT"></a>
+<a name="EDCHAR"></a>
+<a name="EDEND"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">EDSTART 0</td>
+<td valign="top">reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">EDINIT 1</td>
+<td valign="top">formatierten String berechnen, und Cursor einschalten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">EDCHAR 2</td>
+<td valign="top">Zeichen verarbeiten und String anschließend neu anzeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">EDEND 3</td>
+<td valign="top">Cursor ausschalten
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> <a href="00b.html">MagiC</a> ab Version 2.0 kennt eine erweiterte
+Funktion <a href="#objc_xedit">objc_xedit</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_edit">Binding</a> &nbsp; <a href="#objc_wedit">objc_wedit</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008016.html#TEDINFO">TEDINFO</a> &nbsp; <a href="#objc_xedit">objc_xedit</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_edit"></a>8.16.5.1 Bindings für objc_edit</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_edit">objc_edit</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_edit">objc_edit</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+                   int16_t ob_edchar, int16_t *ob_edidx,
+                   int16_t ob_edkind)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_edobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_edchar;
+   <a href="008002.html#int_in">int_in</a>[2]  = *ob_edidx;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_edkind;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_edtree;
+
+   <a href="008002.html#crys_if">crys_if</a> (46);
+
+   *ob_edidx = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">46    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_edobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_edchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_edkind</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_edtree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_find"></a>8.16.6 objc_find</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object find« - ermittelt, welches Objekt sich an der
+angegebenen Bildschirmposition befindet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">43</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_find ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+int16_t ob_fdepth, int16_t ob_fmx, int16_t ob_fmy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion bestimmt das Objekt, welches sich unter dem
+Mauszeiger befindet. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_ftree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fstartob</td>
+<td valign="top">Nummer des Objektes, bei dem die Suche beginnen soll</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fdepth</td>
+<td valign="top">Anzahl der Ebenen, die durchsucht werden sollen (0 = nur
+Mutterobjekt)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fmx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fmy</td>
+<td valign="top">y-Koordinate der Bildschirmposition
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Als Ergebnis wird die Nummer des entsprechenden Objektes (oder
+-1 für 'nicht gefunden') zurückgegeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_find">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#objc_xfind">objc_xfind</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_find"></a>8.16.6.1 Bindings für objc_find</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_find">objc_find</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+int16_t ob_fdepth, int16_t ob_fmx, int16_t ob_fmy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_find">objc_find</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+                   int16_t ob_fdepth, int16_t ob_fmx,
+                   int16_t ob_fmy)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_fstartob;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_fdepth;
+   <a href="008002.html#int_in">int_in</a>[2]  = ob_fmx;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_fmy;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_ftree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(43) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">43    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_fstartob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_fdepth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_fmx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_fmy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_ftree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_offset"></a>8.16.7 objc_offset</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object Offset« - berechnet die Position eines Objekts auf
+dem Bildschirm.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">44</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_offset ( <a href="008016.html#OBJECT">OBJECT</a> *ob_oftree, int16_t ob_ofobject,
+int16_t *ob_ofxoff, int16_t *ob_ofyoff );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion berechnet die Position eines Objektes in absoluten
+Bildschirmkoordinaten. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_oftree</i></td>
+  <td align="left" valign="top">Adresse des Objektbaumes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_ofobject</i></td>
+  <td align="left" valign="top">Nummer des entsprechenden Objektes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_ofxoff</i></td>
+  <td align="left" valign="top">berechnete x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_ofyoff</i></td>
+  <td align="left" valign="top">berechnete y-Koordinate</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Rückgabewert von 0 kennzeichnet einen Fehler.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_offset">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="00800b.html#form_center">form_center</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_offset"></a>8.16.7.1 Bindings für objc_offset</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_offset">objc_offset</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_oftree, int16_t ob_ofobject,
+int16_t *ob_ofxoff, int16_t *ob_ofyoff );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_offset">objc_offset</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_oftree, int16_t ob_ofobject,
+                     int16_t *ob_ofxoff, int16_t *ob_ofyoff)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_ofobject;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_oftree;
+
+   <a href="008002.html#crys_if">crys_if</a> (44);
+
+   *ob_ofxoff = <a href="008002.html#int_out">int_out</a>[1];
+   *ob_ofyoff = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">44    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_ofobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_oftree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">ob_ofxoff</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">ob_ofyoff</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_order"></a>8.16.8 objc_order</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object Order« - ordnet ein Objekt innerhalb eines
+Objektbaumes neu an.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">45</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_order ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ortree, int16_t ob_orobject,
+int16_t ob_ornewpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion verändert die Position eines Objektes innerhalb
+eines Unterbaumes. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_ortree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_orobject</td>
+<td valign="top">Nummer des betreffenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_ornewpos</td>
+<td valign="top">neue Position im Baum, und zwar:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="right" valign="top">-1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">an das Ende</td>
+</tr>
+<tr>
+  <td align="right" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">an den Anfang</td>
+</tr>
+<tr>
+  <td align="right" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">an die zweite Stelle</td>
+</tr>
+<tr>
+  <td align="right" valign="top">2</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">an die dritte Stelle (usw.)</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_order">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_order"></a>8.16.8.1 Bindings für objc_order</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_order">objc_order</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ortree, int16_t ob_orobject,
+int16_t ob_ornewpos );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_order">objc_order</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_ortree, int16_t ob_orobject,
+                    int16_t ob_ornewpos)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_orobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_ornewpos;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_ortree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(45) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">45    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_orobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_ornewpos</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_ortree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_sysvar"></a>8.16.9 objc_sysvar</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object sysvar« - Manipulation der 3D Objekte</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">48</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_sysvar ( int16_t ob_smode, int16_t ob_swhich,
+int16_t ob_sival1, int16_t ob_sival2, int16_t *ob_soval1, int16_t
+*ob_soval2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion erlaubt es, das Erscheinungsbild der 3D-Objekte
+des <a href="008.html">AES</a> zu setzen bzw. zu erfragen. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_smode</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">-</td>
+  <td align="left" valign="top">Status abfragen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">-</td>
+  <td align="left" valign="top">neuen Status setzen</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_swhich</td>
+<td valign="top">Gewünschte 3D-Komponente:
+<br><a name="LK3DIND"></a>
+<br>
+
+<b>LK3DIND (1) - Indikatoren</b><table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1 = 0
+<br>beim Selektieren eines Objektes bewegt sich der zugehörige Text
+nicht.
+<br>ob_soval1 = 1
+<br>beim Selektieren eines Objektes bewegt sich der zugehörige Text.
+<br>ob_soval2 = 0
+<br>Objektfarbe ändert sich beim Selektieren nicht.
+<br>ob_soval2 = 1
+<br>Objektfarbe wird beim Selektieren verändert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">wie Modus 0, nur lassen sich jetzt die jeweiligen Werte, über
+die Parameter <i>ob_sival1</i> bzw. <i>ob_sival2</i> setzen.
+</td></tr>
+</table>
+
+<a name="LK3DACT"></a>
+<br>
+
+<b>LK3DACT (2) - Aktivatoren</b>
+<br>Bestimmt das Verhalten der Aktivatoren. Alle weiteren Angaben sind
+analog den Indikatoren zu verwenden.
+<br><a name="INDBUTCOL"></a>
+<br>
+
+<b>INDBUTCOL (3) - Farbe nicht-selektierter Indikatoren!</b><table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1 ist die aktuelle Farbe.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">ob_sival1 enthält die zu setzende Farbe.
+</td></tr>
+</table>
+
+<a name="ACTBUTCOL"></a>
+<br>
+
+<b>ACTBUTCOL (4) - Farbe nicht-selektierter Aktivatoren</b><table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1 ist die aktuelle Farbe.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">ob_sival1 enthält die zu setzende Farbe.
+</td></tr>
+</table>
+
+<a name="BACKGRCOL"></a>
+<br>
+
+<b>BACKGRCOL (5) - Farbe des 3D Hintergrundes</b><table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1 ist die aktuelle Farbe.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">ob_sival1 enthält die zu setzende Farbe.
+</td></tr>
+</table>
+
+<a name="AD3DVALUE"></a>
+<br>
+
+<b>AD3DVALUE (6) - Pixelvergrößerung erfragen</b><table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1
+<br>Anzahl der Pixel in horizontaler Richtung, um die 3D-Buttons nach
+jeder Seite vergrößert werden.
+<br>ob_soval2
+<br>Anzahl der Pixel in vertikaler Richtung, um die 3D-Buttons nach
+jeder Seite vergrößert werden.
+<br><b>Hinweis:</b> Dieser Modus liefert in <a href="00b.html">MagiC</a> stets den Wert 0,
+da die Objektgrößen vom System nicht angetastet werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">z.Zt. nicht unterstützt.
+</td></tr>
+</table>
+
+<a name="MX_ENABLE3D"></a>
+<br>
+
+<b>MX_ENABLE3D (10) - 3D Look ein-/ausschalten</b> Dieser Modus
+ist nur unter MagiC (ab Version 3.0) vorhanden, und erlaubt es, den
+3D-Look ein- bzw. auszuschalten. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Modus 0:</td>
+<td valign="top">ob_soval1 = 0
+<br>(3D ist aus)
+<br>ob_soval1 = 1
+<br>(3D ist aktiv)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Modus 1:</td>
+<td valign="top">ob_sival1 = 0
+<br>ob_sival2 = 0
+<br>(3D-Look aus)
+<br>ob_sival1 = 1
+<br>ob_sival2 = 1
+<br>(3D-Look ein)
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die per objc_sysvar vorgenommenen Einstellungen
+gelten nicht nur für das eigene Programm, sondern für das ganze
+System. Aus diesem Grund sollte die Funktion in normalen
+Anwenderprogrammen nicht benutzt werden, sondern nur in
+Konfigurations-Programmen (z.B. CPX-Modulen) zum Einsatz kommen.<br><br>
+
+In <a href="00b.html">MagiC</a> 2.0 ist die Funktion zwar vorhanden, läßt jedoch
+aufgrund der noch fehlenden 3D-Objekte keine Modifikationen zu.
+Deshalb sollte der Rückgabewert der Funktion beachtet werden. Ab
+MagiC 3 steht der 3D-Look zwar zur Verfügung, jedoch gilt es einige
+Unterschiede zu beachten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis der Wert
+0 zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Available as of <a href="008.html">AES</a> version 3.40.<br><br>
+
+Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_13">appl_getinfo</a> (Opcode 13)
+erfragt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_sysvar">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_sysvar"></a>8.16.9.1 Bindings für objc_sysvar</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_sysvar">objc_sysvar</a> ( int16_t ob_smode, int16_t ob_swhich,
+int16_t ob_sival1, int16_t ob_sival2, int16_t *ob_soval1, int16_t
+*ob_soval2 );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_sysvar">objc_sysvar</a> (int16_t ob_smode, int16_t ob_swhich,
+                     int16_t ob_sival1, int16_t ob_sival2,
+                     int16_t *ob_soval1, int16_t *ob_soval2)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = ob_smode;
+   <a href="008002.html#int_in">int_in</a>[1] = ob_swhich;
+   <a href="008002.html#int_in">int_in</a>[2] = ob_sival1;
+   <a href="008002.html#int_in">int_in</a>[3] = ob_sival2;
+
+   <a href="008002.html#crys_if">crys_if</a> (48);
+
+   *ob_soval1 = <a href="008002.html#int_out">int_out</a>[1];
+   *ob_soval2 = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">48    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_smode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_swhich</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_sival1</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_sival2</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">ob_soval1</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">ob_soval2</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_wchange"></a>8.16.10 objc_wchange</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object window change« - verändert die Darstellung eines
+Objekts innerhalb der angegebenen Grenzen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">61</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void objc_wchange ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+int16_t ob_cnewstate, <a href="010009.html#GRECT">GRECT</a> *clip, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ändert den Status eines Objektes und zeichnet es
+ggfs. neu. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_ctree</i></td>
+  <td align="left" valign="top">Adresse des Objektbaumes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_cobject</i></td>
+  <td align="left" valign="top">Nummer des betreffenden Objektes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>ob_cnewstate</i></td>
+  <td align="left" valign="top">neuer Status des Objektes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>clip</i></td>
+  <td align="left" valign="top">begrenzendes <a href="VDI_fundamentals.html#Clipping">Clipping</a>-Rechteck</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>whandle</i></td>
+  <td align="left" valign="top">Kennung des Fensters</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Ein Aufruf dieser Funktion ist äquivalent zu
+<a href="#objc_change">objc_change</a> (ohne Neuzeichnen) mit einem anschließendem <a href="#objc_wdraw">objc_wdraw</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion steht in <a href="00b.html">MagiC</a> ab Version 5.10 zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_wchange">Binding</a> &nbsp; <a href="#objc_change">objc_change</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_wchange"></a>8.16.10.1 Bindings für objc_wchange</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#objc_wchange">objc_wchange</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+int16_t ob_cnewstate, <a href="010009.html#GRECT">GRECT</a> *clip, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>void <a href="#objc_wchange">objc_wchange</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_ctree, int16_t ob_cobject,
+                   int16_t ob_cnewstate, <a href="010009.html#GRECT">GRECT</a> *clip,
+                   int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_cobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_cnewstate;
+   <a href="008002.html#int_in">int_in</a>[2]  = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_ctree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = clip;
+
+   <a href="008002.html#crys_if">crys_if</a>(61);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">61    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_cobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_cnewstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_ctree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">clip</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_wdraw"></a>8.16.11 objc_wdraw</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object window draw« - zeichnet ein Objekt im Fenster.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">60</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">void objc_wdraw ( <a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+int16_t ob_drdepth, <a href="010009.html#GRECT">GRECT</a> *clip, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt Objekte (oder Teile von Objekten) auf dem
+Bildschirm dar. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drtree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drstart</td>
+<td valign="top">Nummer des ersten zu zeichnenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_drdepth</td>
+<td valign="top">Anzahl der zu zeichnenden Ebenen (0 = nur das erste Objekt)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">clip</td>
+<td valign="top">begrenzendes <a href="VDI_fundamentals.html#Clipping">Clipping</a>-Rechteck</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whandle</td>
+<td valign="top">Kennung des Fensters
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Über die Parameter kann ein Rechteck angegeben
+werden, auf das sich die Darstellung beschränken soll (Clipping).
+Besitzt <i>clip</i> den Wert NULL, so beschränkt sich der
+Zeichenbereich auf den Arbeitsbereich des Fensters.<br><br>
+
+Die Funktion entspricht im wesentlichen <a href="#objc_draw">objc_draw</a> mit dem
+Unterschied, dass hier die Rechteckliste eines Fensters beachtet wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion steht in <a href="00b.html">MagiC</a> ab Version 5.10 zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_wdraw">Binding</a> &nbsp; <a href="#objc_draw">objc_draw</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_wdraw"></a>8.16.11.1 Bindings für objc_wdraw</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#objc_wdraw">objc_wdraw</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+int16_t ob_drdepth, <a href="010009.html#GRECT">GRECT</a> *clip, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>void <a href="#objc_wdraw">objc_wdraw</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_drtree, int16_t ob_drstart,
+                 int16_t ob_drdepth, <a href="010009.html#GRECT">GRECT</a> *clip,
+                 int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_drstart;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_drdepth;
+   <a href="008002.html#int_in">int_in</a>[2]  = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_drtree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = clip;
+
+   <a href="008002.html#crys_if">crys_if</a>(60);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">60    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_drstart</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_drdepth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_drtree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">clip</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_wedit"></a>8.16.12 objc_wedit</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object window edit« - editiert einen Text in einem Objekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">65</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_wedit ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind, int16_t
+whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermöglicht Texteingaben in Objekte des Typs
+<a href="008002.html#G_FTEXT">G_FTEXT</a> oder <a href="008002.html#G_FBOXTEXT">G_FBOXTEXT</a>. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edtree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edobject</td>
+<td valign="top">Nummer des zu editierenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edchar</td>
+<td valign="top">eingegebenes Zeichen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edidx</td>
+<td valign="top">Position des Zeichens im String</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edkind</td>
+<td valign="top">Funktionsauswahl, wie folgt:<table>
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">= reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1</td>
+<td valign="top">= formatierten String berechnen, und Cursor einschalten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">2</td>
+<td valign="top">= Zeichen verarbeiten und String anschließend neu anzeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">3</td>
+<td valign="top">= Cursor ausschalten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">103</td>
+<td valign="top">= Analog Modus-3, jedoch wird der Cursor im <a href="007004.html#XOR-Modus">XOR-Modus</a>
+gezeichnet.
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whandle</td>
+<td valign="top">Kennung des Fensters
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion entspricht im Prinzip <a href="#objc_edit">objc_edit</a> mit
+dem Unterschied, dass hier die Rechteckliste eines Fensters beachtet
+wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion steht in <a href="00b.html">MagiC</a> ab Version 5.10 zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_wedit">Binding</a> &nbsp; <a href="#objc_edit">objc_edit</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008016.html#TEDINFO">TEDINFO</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_wedit"></a>8.16.12.1 Bindings für objc_wedit</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_wedit">objc_wedit</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind, int16_t
+whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_wedit">objc_wedit</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+                    int16_t ob_edchar, int16_t *ob_edidx,
+                    int16_t ob_edkind, int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = ob_edobject;
+   <a href="008002.html#int_in">int_in</a>[1] = ob_edchar;
+   <a href="008002.html#int_in">int_in</a>[2] = *ob_edidx;
+   <a href="008002.html#int_in">int_in</a>[3] = ob_edkind;
+   <a href="008002.html#int_in">int_in</a>[4] = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_edtree;
+
+   <a href="008002.html#crys_if">crys_if</a> (65);
+
+   *ob_edidx = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">65    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">5     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_edobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_edchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_edkind</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_edtree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_xedit"></a>8.16.13 objc_xedit</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object edit« - editiert einen Text in einem Objekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">46</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_xedit ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind, <a href="010009.html#GRECT">GRECT</a> *r );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermöglicht Texteingaben in Objekte des Typs
+<a href="008002.html#G_FTEXT">G_FTEXT</a> oder <a href="008002.html#G_FBOXTEXT">G_FBOXTEXT</a>. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edtree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edobject</td>
+<td valign="top">Nummer des zu editierenden Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edchar</td>
+<td valign="top">eingegebenes Zeichen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edidx</td>
+<td valign="top">Position des Zeichens im String</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_edkind</td>
+<td valign="top">Funktionsauswahl, wie folgt:<table>
+<tr><td nowrap="nowrap" valign="top">&nbsp;&nbsp;0</td>
+<td valign="top">reserviert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;&nbsp;1</td>
+<td valign="top">formatierten String berechnen, und Cursor einschalten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;&nbsp;2</td>
+<td valign="top">Zeichen verarbeiten und String anschließend neu anzeigen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;&nbsp;3</td>
+<td valign="top">Cursor ausschalten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">103</td>
+<td valign="top">Analog Modus-3, jedoch wird der Cursor im <a href="007004.html#XOR-Modus">XOR-Modus</a> gezeichnet.
+Zusätzlich muß jedoch Zeiger auf ein <a href="010009.html#GRECT">GRECT</a> übergeben werden, auf
+das die Ausgabe beschränkt wird; wichtig für den Redraw im Fenster.
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">r</td>
+<td valign="top">siehe <i>ob_edkind</i>
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">ab <a href="00b.html">MagiC</a> Version 2.0</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_xedit">Binding</a> &nbsp; <a href="#objc_wedit">objc_wedit</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="008016.html#TEDINFO">TEDINFO</a> &nbsp; <a href="#objc_edit">objc_edit</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_xedit"></a>8.16.13.1 Bindings für objc_xedit</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_xedit">objc_xedit</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+int16_t ob_edchar, int16_t *ob_edidx, int16_t ob_edkind, <a href="010009.html#GRECT">GRECT</a> *r );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_xedit">objc_xedit</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_edtree, int16_t ob_edobject,
+                    int16_t ob_edchar, int16_t *ob_edidx,
+                    int16_t ob_edkind, <a href="010009.html#GRECT">GRECT</a> *r)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_edobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_edchar;
+   <a href="008002.html#int_in">int_in</a>[2]  = *ob_edidx;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_edkind;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_edtree;
+   <a href="008002.html#addr_in">addr_in</a>[1] = r;
+
+   <a href="008002.html#crys_if">crys_if</a> (46);
+
+   *ob_edidx = <a href="008002.html#int_out">int_out</a>[1];
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">46    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_edobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_edchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_edkind</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_edtree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">r</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">ob_edidx</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="objc_xfind"></a>8.16.14 objc_xfind</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Object xfind« - ermittelt, welches Objekt sich an der
+angegebenen Bildschirmposition befindet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">49</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t objc_xfind ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+int16_t ob_fdepth, int16_t ob_fmx, int16_t ob_fmy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion bestimmt das Objekt, welches sich unter dem
+Mauszeiger befindet. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_ftree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fstartob</td>
+<td valign="top">Nummer des Objektes, bei dem die Suche beginnen soll</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fdepth</td>
+<td valign="top">Anzahl der Ebenen, die durchsucht werden sollen (0 = nur
+Mutterobjekt)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fmx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">ob_fmy</td>
+<td valign="top">y-Koordinate der Bildschirmposition
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Der Unterschied zu objc_find besteht darin, daß
+statt dem normalen Objektrechteck das umfassende Objektrechteck
+benutzt wird. Bei dieser Funktion wird also auch der Rahmen des
+Objektes beachtet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Als Ergebnis wird die Nummer des entsprechenden Objektes (oder
+-1 für 'nicht gefunden') zurückgegeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Das Vorhandensein dieser Funktion kann per <a href="Application.html#_25apgi_5">appl_getinfo</a> (Opcode 5)
+erfragt werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Objektfunktionen">Objekte</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweise:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20objc_xfind">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a> &nbsp; <a href="#objc_find">objc_find</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20objc_xfind"></a>8.16.14.1 Bindings für objc_xfind</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#objc_xfind">objc_xfind</a> ( <a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+int16_t ob_fdepth, int16_t ob_fmx, int16_t ob_fmy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#objc_xfind">objc_xfind</a> (<a href="008016.html#OBJECT">OBJECT</a> *ob_ftree, int16_t ob_fstartob,
+                    int16_t ob_fdepth, int16_t ob_fmx,
+                    int16_t ob_fmy)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = ob_fstartob;
+   <a href="008002.html#int_in">int_in</a>[1]  = ob_fdepth;
+   <a href="008002.html#int_in">int_in</a>[2]  = ob_fmx;
+   <a href="008002.html#int_in">int_in</a>[3]  = ob_fmy;
+   <a href="008002.html#addr_in">addr_in</a>[0] = ob_ftree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(49) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">49    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">ob_fstartob</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">ob_fdepth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">ob_fmx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">ob_fmy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">ob_ftree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00800f.html"><img src="udo_lf.gif" alt="Menüfunktionen" title="Menüfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008011.html"><img src="udo_rg.gif" alt="Resourcefunktionen" title="Resourcefunktionen" border="0" width="24" height="24"></a></body>
+</html>

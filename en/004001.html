@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: About the XBIOS
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="004.html"><img src="udo_lf.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="004002.html"><img src="udo_rg.gif" alt="MetaDOS" title="MetaDOS" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="About_20the_20XBIOS"></a>4.1 About the XBIOS</h1>
+<p>These functions enable ordered access to the various special chips
+in the Atari. They are called via the 680X0-trap #14 and should be
+used only if no routines of a higher level (<a href="005.html">GEMDOS</a>, <a href="003.html">BIOS</a>) are
+available that can be used instead of them. The XBIOS may be
+subdivided into the following function groups:</p>
+
+<ul>
+<li><a href="CENTScreen_XBIOS_extension.html">CENTScreen XBIOS extension</a></li>
+<li><a href="004007.html">Crazy-Dots XBIOS extension</a></li>
+<li><a href="004008.html">CT60 XBIOS extension</a></li>
+<li><a href="004009.html">Date, Time and Timer</a></li>
+<li><a href="00400d.html">Drive functions</a></li>
+<li><a href="00400b.html">DSP programming</a></li>
+<li><a href="004010.html">Interface programming</a></li>
+<li><a href="00400c.html">Interrupt functions</a></li>
+<li><a href="004013.html">Keyboard functions</a></li>
+<li><a href="00400e.html">OverScan XBIOS extension</a></li>
+<li><a href="PCI_BIOS.html">PCI-BIOS</a></li>
+<li><a href="00400a.html">Printer functions</a></li>
+<li><a href="Screen_functions.html">Screen functions</a></li>
+<li><a href="004011.html">Sound routines</a></li>
+<li><a href="004012.html">Special commands</a></li>
+</ul>
+
+<p>The XBIOS is reentrant in <a href="00b.html">MagiC</a>. This means that these functions
+can be called from interrupts as well (as long as the relevant
+supervisor stack does not overflow...).</p>
+
+<a name="XBIOS_2C_20Parameter_20passing_20in"></a>
+<a name="Parameter_20passing_20in_20XBIOS"></a>
+<p>The XBIOS takes its parameters from the stack, in reverse order;
+this means that the last argument from the parameter list is stored as
+the first on the stack. Function results are returned in the processor
+register d0. Only registers d3-d7 and a3-a7 are saved, all others may
+be altered by the call.</p>
+
+<p>See also: <a href="004002.html">MetaDOS</a> &nbsp; <a href="004014.html">Function list</a></p>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="004.html"><img src="udo_up.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="004.html"><img src="udo_lf.gif" alt="XBIOS" title="XBIOS" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="004002.html"><img src="udo_rg.gif" alt="MetaDOS" title="MetaDOS" border="0" width="24" height="24"></a></body>
+</html>

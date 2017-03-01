@@ -1,0 +1,2284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Window-dialogs
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="008007.html"><img src="udo_lf.gif" alt="Event library" title="Event library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="008009.html"><img src="udo_rg.gif" alt="Window library" title="Window library" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Window-dialogs"></a>8.8 Window-dialogs</h1>
+<p>The following functions were introduced with <a href="00b.html">MagiC</a> 4 and <a href="00b013.html#WDIALOG">WDIALOG</a>.
+They permit simple construction of dialog boxes in windows:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_close">wdlg_close</a></td>
+<td valign="top">Closes a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_create">wdlg_create</a></td>
+<td valign="top">Creates a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_delete">wdlg_delete</a></td>
+<td valign="top">Releases memory of closed window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_evnt">wdlg_evnt</a></td>
+<td valign="top">Evaluates the dialog-events</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_get_edit">wdlg_get_edit</a></td>
+<td valign="top">Obtains current editable field</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_get_handle">wdlg_get_handle</a></td>
+<td valign="top">Obtains window ID of a dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_get_tree">wdlg_get_tree</a></td>
+<td valign="top">Obtains object tree of the window</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_get_udata">wdlg_get_udata</a></td>
+<td valign="top">Obtains user data</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_open">wdlg_open</a></td>
+<td valign="top">Opens a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_redraw">wdlg_redraw</a></td>
+<td valign="top">Draws an object in a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_set_edit">wdlg_set_edit</a></td>
+<td valign="top">Activates editable field in the dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_set_iconify">wdlg_set_iconify</a></td>
+<td valign="top">Iconifies a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_set_size">wdlg_set_size</a></td>
+<td valign="top">Alters the size of a dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_set_tree">wdlg_set_tree</a></td>
+<td valign="top">Anchors a new object tree in the dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#wdlg_set_uniconify">wdlg_set_uniconify</a></td>
+<td valign="top">Uniconifies a window-dialog
+
+</td></tr>
+</table>
+
+<p><b>Note:</b> The existence of these functions can be checked for
+with <a href="Application.html#_25apgi_7">appl_getinfo</a> (opcode 7).</p>
+
+<p>See also: <a href="008009.html">Window management</a> &nbsp; <a href="00a002.html">Style guidelines</a> &nbsp; <a href="00b013.html#WDIALOG">WDIALOG</a></p>
+
+<h3><a name="wdlg_close"></a>8.8.1 wdlg_close</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog close« - Close a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">162</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_close ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *x, int16_t *y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function wdlg_close closes the window-dialog
+<i>dialog.</i> The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dialog</td>
+<td valign="top">Pointer to the dialog structure</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">x</td>
+<td valign="top">Last X-coordinate, <u>and</u></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">y</td>
+<td valign="top">Last Y-coordinate of the dialog's top left corner
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> Old <a href="00b013.html#WDIALOG">WDIALOG</a> versions do not return the window
+coordinates. In that case the binding enters -1, so that the dialog
+will be centred automatically at the next call.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_close">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_close"></a>8.8.1.1 Bindings for wdlg_close</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_close">wdlg_close</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *x, int16_t *y );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_close">wdlg_close</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *x, int16_t *y )
+{
+  <a href="008002.html#int_out">int_out</a>[1] = -1;
+  <a href="008002.html#int_out">int_out</a>[2] = -1;
+
+  <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+  <a href="008002.html#crys_if">crys_if</a> (162);
+
+  *x = <a href="008002.html#int_out">int_out</a>[1];
+  *y = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">162   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_create"></a>8.8.2 wdlg_create</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog create« - Create a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">160</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top"><a href="008016.html#DIALOG">DIALOG</a> *wdlg_create ( <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> handle_exit, <a href="008016.html#OBJECT">OBJECT</a> *tree, void
+*user_data, int16_t code, void *data, int16_t flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function wdlg_create allocates memory for a dialog
+structure and initializes it. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">handle_exit</td>
+<td valign="top">Pointer to the service function</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">tree</td>
+<td valign="top">Pointer to the object tree</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">user_data</td>
+<td valign="top">Pointer to user info</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">code</td>
+<td valign="top">Passed to <i>handle_exit</i>in <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> <i>clicks</i></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">data</td>
+<td valign="top">Passed to <i>handle_exit</i>in <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> <i>data</i></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">flags</td>
+<td valign="top">Various flags:
+<br>1 = Enable background operation
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> Pointer to the dialog structure.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_create">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_create"></a>8.8.2.1 Bindings for wdlg_create</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top"><a href="008016.html#DIALOG">DIALOG</a> *<a href="#wdlg_create">wdlg_create</a> ( <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> handle_exit, <a href="008016.html#OBJECT">OBJECT</a> *tree, void
+*user_data, int16_t code, void *data, int16_t flags );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre><a href="008016.html#DIALOG">DIALOG</a> *<a href="#wdlg_create">wdlg_create</a> ( <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> handle_exit, <a href="008016.html#OBJECT">OBJECT</a> *tree,
+                      void *user_data, int16_t code,
+                      void *data, int16_t flags )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = handle_exit;
+   <a href="008002.html#addr_in">addr_in</a>[1] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[2] = user_data;
+   <a href="008002.html#addr_in">addr_in</a>[3] = data;
+
+   <a href="008002.html#int_in">int_in</a>[0] = code
+   <a href="008002.html#int_in">int_in</a>[1] = flags;
+
+   <a href="008002.html#crys_if">crys_if</a> (160);
+
+   return ( <a href="008002.html#addr_out">addr_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">160   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">handle_exit</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">user_data</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[3]</td>
+  <td align="left" valign="top">data</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">code</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">flags</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_delete"></a>8.8.3 wdlg_delete</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog delete« - Release memory used by a closed
+window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">163</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_delete ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function wdlg_delete releases the memory allocated for a
+window-dialog that has been closed. The following applies:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top"><i>Parameter</i></td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_delete">Binding</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_delete"></a>8.8.3.1 Bindings for wdlg_delete</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_delete">wdlg_delete</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_delete">wdlg_delete</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#crys_if">crys_if</a> (163);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">163   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_evnt"></a>8.8.4 wdlg_evnt</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog event« - Evaluate dialog-events</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">166</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_evnt ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#EVNT">EVNT</a> *events );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_evnt serves for evaluating or handling events in
+a window-dialog. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>events</i></td>
+  <td align="left" valign="top">Pointer to the <a href="008016.html#EVNT">EVNT</a>-structure</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> This function must be called in an event-loop. The
+event-bits that refer to the window-dialog are cleared in the
+bit-vector <i>mwhich.</i> Following wdlg_evnt the <a href="008016.html#EVNT">EVNT</a>-structure of
+the application can be used to evaluate the events intended for it.<br><br>
+
+If wdlg_evnt returns a 0, the window-dialog has to be closed (call
+(<a href="#wdlg_close">wdlg_close</a>).<br><br>
+
+<b>Note:</b> The iconify-event is not supported by wdlg_evnt.
+Those wanting to install the <a href="008009.html#The_20components_20of_20a_20window">Iconifier</a> icon as a window object during
+<a href="#wdlg_open">wdlg_open</a> therefore have to evaluate this event and process it
+themselves. The same applies if one wants to install the <a href="008009.html#The_20components_20of_20a_20window">Sizer</a> icon
+as an object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the value 1 if no error has arisen. With
+a return value of 0, the dialog must be closed.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_evnt">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_evnt"></a>8.8.4.1 Bindings for wdlg_evnt</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_evnt">wdlg_evnt</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#EVNT">EVNT</a> *events );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_evnt">wdlg_evnt</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#EVNT">EVNT</a> *events )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = events;
+
+   <a href="008002.html#crys_if">crys_if</a> (166);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">166   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">events</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_get_edit"></a>8.8.5 wdlg_get_edit</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog get edit« - Obtain current editable field</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">164 (sub-opcode 1)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_get_edit ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *cursor );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The function wdlg_get_edit returns the index of the current
+editable object. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dialog</td>
+<td valign="top">Pointer to the dialog structure</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">cursor</td>
+<td valign="top"><a href="indexudo.html">Index</a> of the character
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> With old <a href="00b013.html#WDIALOG">WDIALOG</a> versions <i>cursor</i> is not
+returned. The binding ensures that -1 is entered in this case.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This function returns the index of the current editable
+object. If the result is 0, then no editable object is active at the
+present time.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_get_edit">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_get_edit"></a>8.8.5.1 Bindings for wdlg_get_edit</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_get_edit">wdlg_get_edit</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *cursor );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_get_edit">wdlg_get_edit</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t *cursor )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 1;
+
+   <a href="008002.html#int_out">int_out</a>[1] = -1;
+
+   <a href="008002.html#crys_if">crys_if</a> (164);
+
+   *cursor = <a href="008002.html#int_out">int_out</a>[1];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">164   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">1     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">cursor</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_get_handle"></a>8.8.6 wdlg_get_handle</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog get window handle« - Obtain window ID of a
+dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">164 (sub-opcode 3)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_get_handle ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_get_handle obtains the window ID (the
+window-handle) of a window-dialog. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the AES handle of the dialog-window.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_get_handle">Binding</a> &nbsp; <a href="008009.html#wind_find">wind_find</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_get_handle"></a>8.8.6.1 Bindings for wdlg_get_handle</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_get_handle">wdlg_get_handle</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_get_handle">wdlg_get_handle</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 3;
+   <a href="008002.html#crys_if">crys_if</a> (164);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">164   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">3     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_get_tree"></a>8.8.7 wdlg_get_tree</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog get tree« - Obtain object tree of the window</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">164 (sub-opcode 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_get_tree ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> **tree, <a href="010009.html#GRECT">GRECT</a> *r
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_get_tree obtains the address of the object-tree
+displayed in the window. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">Pointer to object tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>r</i></td>
+  <td align="left" valign="top">Pointer to <a href="010009.html#GRECT">GRECT</a></td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> In addition, the function returns the size of the
+working area of the window. If the dialog size has not been altered
+with <a href="#wdlg_set_size">wdlg_set_size</a>, then the working area corresponds to the <a href="010009.html#GRECT">GRECT</a> of
+the root object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_get_tree">Binding</a> &nbsp; <a href="#wdlg_get_handle">wdlg_get_handle</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_get_tree"></a>8.8.7.1 Bindings for wdlg_get_tree</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_get_tree">wdlg_get_tree</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> **tree, <a href="010009.html#GRECT">GRECT</a> *r
+);</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_get_tree">wdlg_get_tree</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> **tree, <a href="010009.html#GRECT">GRECT</a> *r )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = tree;
+   <a href="008002.html#addr_in">addr_in</a>[2] = r;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 0;
+   <a href="008002.html#crys_if">crys_if</a> (164);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">164   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">r</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">0     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_get_udata"></a>8.8.8 wdlg_get_udata</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog get user data« - Obtain the user-data of a
+window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">164 (sub-opcode 2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void *wdlg_get_udata ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_get_udata obtains the user data of a
+window-dialog. The following applies:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> This function returns the variable <i>user_data</i> that was
+passed at the <a href="#wdlg_create">wdlg_create</a> call.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_get_udata">Binding</a> &nbsp; <a href="#wdlg_get_handle">wdlg_get_handle</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_get_udata"></a>8.8.8.1 Bindings for wdlg_get_udata</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void *<a href="#wdlg_get_udata">wdlg_get_udata</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void *<a href="#wdlg_get_udata">wdlg_get_udata</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#int_in">int_in</a>[0] = 2;
+   <a href="008002.html#crys_if">crys_if</a> (164);
+
+   return ( <a href="008002.html#addr_out">addr_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">164   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">2     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_out">addr_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_open"></a>8.8.9 wdlg_open</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog open« - Opens a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">161</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_open ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int8_t *title, int16_t
+kind, int16_t x, int16_t y, int16_t code, void *data );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_open opens a window-dialog on the screen. The
+following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>title</i></td>
+  <td align="left" valign="top">Pointer to the window name or 0L</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>kind</i></td>
+  <td align="left" valign="top">Window components (<a href="008009.html#NAME">NAME</a>/<a href="008009.html#MOVER">MOVER</a>/<a href="008009.html#CLOSER">CLOSER</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>x</i></td>
+  <td align="left" valign="top">X-coord. of top L of dialog, or -1 (centred)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>y</i></td>
+  <td align="left" valign="top">Y-coord. of top L of dialog, or -1 (centred)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>code</i></td>
+  <td align="left" valign="top">Passed to <i>handle_exit()</i> in <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> <i>clicks</i></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>data</i></td>
+  <td align="left" valign="top">Passed to <i>handle_exit()</i> in <a href="008016.html#HNDL_OBJ">HNDL_OBJ</a> <i>data</i></td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> Before wdlg_open returns to the caller, the service
+routine <i>handle_exit()</i> (see above) is called with the function
+number <a href="008016.html#HNDL_OPEN">HNDL_OPEN</a>.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> Handle of the dialog window (0: Error)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_open">Binding</a> &nbsp; <a href="#wdlg_close">wdlg_close</a> &nbsp; <a href="#wdlg_delete">wdlg_delete</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_open"></a>8.8.9.1 Bindings for wdlg_open</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_open">wdlg_open</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int8_t *title, int16_t
+kind, int16_t x, int16_t y, int16_t code, void *data );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_open">wdlg_open</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int8_t *title,
+                    int16_t kind, int16_t x,
+                    int16_t y, int16_t code, void *data )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = title;
+   <a href="008002.html#addr_in">addr_in</a>[2] = data;
+
+   <a href="008002.html#int_in">int_in</a>[0] = kind;
+   <a href="008002.html#int_in">int_in</a>[1] = x;
+   <a href="008002.html#int_in">int_in</a>[2] = y;
+   <a href="008002.html#int_in">int_in</a>[3] = code;
+
+   <a href="008002.html#crys_if">crys_if</a> (161);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">161   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">3     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">title</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">data</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">kind</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">code</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_redraw"></a>8.8.10 wdlg_redraw</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog redraw« - Draw an object in a window-dialog.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">167</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">void wdlg_redraw ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *rect, int16_t obj,
+int16_t depth );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_redraw draws an object in a window-dialog while
+respecting the rectangle list of the window. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>rect</i></td>
+  <td align="left" valign="top">Pointer to the bounding <a href="010009.html#GRECT">GRECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top"><a href="indexudo.html">Index</a> of the start object</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>depth</i></td>
+  <td align="left" valign="top"><a href="indexudo.html">Index</a> of the plane/depth</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> If one wants to draw an object within the dialog
+then one should always use wdlg_redraw and not <a href="008010.html#objc_draw">objc_draw</a>. Before
+calling wdlg_redraw, just as before and after objc_draw, a <a href="008009.html#wind_update">wind_update</a>
+call is necessary.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_redraw">Binding</a> &nbsp; <a href="008010.html#objc_draw">objc_draw</a> &nbsp; <a href="008007.html#WM_REDRAW">WM_REDRAW</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_redraw"></a>8.8.10.1 Bindings for wdlg_redraw</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">void <a href="#wdlg_redraw">wdlg_redraw</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *rect, int16_t obj,
+int16_t depth );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>void <a href="#wdlg_redraw">wdlg_redraw</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *rect, int16_t obj,
+                   int16_t depth )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = rect;
+
+   <a href="008002.html#int_in">int_in</a>[0] = obj;
+   <a href="008002.html#int_in">int_in</a>[1] = depth;
+   <a href="008002.html#crys_if">crys_if</a> (167);
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">167   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">rect</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">depth</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_set_edit"></a>8.8.11 wdlg_set_edit</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog set edit object« - Activate editable field in
+the window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">165 (sub-opcode 0)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_set_edit ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_set_edit activates an editable object. The
+following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top"><a href="indexudo.html">Index</a> of the new editable object (or 0, if none is to be active)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> Activates an editable object, i.e. the cursor will
+be drawn in the specified object and deleted from any previously
+active object.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function returns the number of the current edit object.
+The value 0 means that none ist active.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_set_edit">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_set_edit"></a>8.8.11.1 Bindings for wdlg_set_edit</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_set_edit">wdlg_set_edit</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_set_edit">wdlg_set_edit</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, int16_t obj )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 0;
+   <a href="008002.html#int_in">int_in</a>[1] = obj;
+
+   <a href="008002.html#crys_if">crys_if</a> (165);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">165   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">0     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_set_iconify"></a>8.8.12 wdlg_set_iconify</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog iconify« - Iconify a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">165 (sub-opcode 3)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_set_iconify ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g, int8_t
+*title, <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_set_iconify permits the iconifying of a
+window-dialog. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog structure</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>g</i></td>
+  <td align="left" valign="top">Pointer to <a href="010009.html#GRECT">GRECT</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>title</i></td>
+  <td align="left" valign="top">New window title, or NULL</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">New window tree, or NULL</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>obj</i></td>
+  <td align="left" valign="top">Object to be centred or -1</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> The new position of the window will be adopted
+normally from the message <a href="008007.html#WM_ICONIFY">WM_ICONIFY</a>; but it is also possible to let
+<a href="00b.html">MagiC</a> obtain this directly by passing coordinates of -1,-1,-1,-1.<br><br>
+
+The function alters the position and size of the root object. As,
+in general, one would like to display a different object tree for an
+iconified window, this can be specified in the parameter <i>tree.</i>
+The object tree normally consists of a root object (<a href="008002.html#G_BOX">G_BOX</a>) and an icon
+to be displayed of the type <a href="008002.html#G_ICON">G_ICON</a> or <a href="008002.html#G_CICON">G_CICON</a>. If the icon is to be
+displayed centred in the window, then one passes its object index in
+parameter <i>obj.</i><br><br>
+
+When setting a new window title, one must bear in mind that at a
+later uniconify the user must restore the old title himself.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7). This function is only present from <a href="00b013.html#WDIALOG">WDIALOG</a> 1.05 onwards.
+If it is not present, intout[0] contains a 0.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_set_iconify">Binding</a> &nbsp; <a href="#wdlg_set_uniconify">wdlg_set_uniconify</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_set_iconify"></a>8.8.12.1 Bindings for wdlg_set_iconify</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_set_iconify">wdlg_set_iconify</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g, int8_t
+*title, <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_set_iconify">wdlg_set_iconify</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g, int8_t *title,
+                           <a href="008016.html#OBJECT">OBJECT</a> *tree, int16_t obj )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = g;
+   <a href="008002.html#addr_in">addr_in</a>[2] = title;
+   <a href="008002.html#addr_in">addr_in</a>[3] = tree;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 3;
+   <a href="008002.html#int_in">int_in</a>[1] = obj;
+
+   <a href="008002.html#crys_if">crys_if</a> (165);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">165   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">g</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">title</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[3]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">3     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">obj</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_set_size"></a>8.8.13 wdlg_set_size</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog set size« - Alter the size of a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">165 (sub-opcode 2)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_set_size ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *new_size );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_set_size makes it possible to alter the size of a
+window-dialog. The following apply:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dialog</td>
+<td valign="top">Pointer to the dialog structure</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">new_size</td>
+<td valign="top">New position and size of the window's working area
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Note:</b> The function can alter position or size of a
+window-dialog. If the root object is to be moved or enlarged then the
+object dimensions have to be altered before calling wdlg_set_size.<br><br>
+
+The buttons must always lie completely within the window's working
+area, as <a href="00800b.html#form_button">form_button</a> pays no regard to the rectangle list. The normal
+use for wdlg_set_size are enlargeable dialogs that have a <a href="008009.html#The_20components_20of_20a_20window">Sizer</a>
+object at the bottom right corner.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_set_size">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_set_size"></a>8.8.13.1 Bindings for wdlg_set_size</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_set_size">wdlg_set_size</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *new_size );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_set_size">wdlg_set_size</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *new_size )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = new_size;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 2;
+   <a href="008002.html#crys_if">crys_if</a> (165);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">165   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">new_size</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">2     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_set_tree"></a>8.8.14 wdlg_set_tree</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog set tree« - Anchor a new object tree in the
+window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">165 (sub-opcode 1)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_set_tree ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> *new_tree );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_set_tree anchors a new object tree in a
+window-dialog. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>new_tree</i></td>
+  <td align="left" valign="top">New object tree</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> If the new root object has a different size, then
+the window size will be adapted automatically; the window contents
+will be updated in every case.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this call should be checked for using <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(Opcode 7).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_set_tree">Binding</a> &nbsp; <a href="#wdlg_open">wdlg_open</a> &nbsp; <a href="#wdlg_close">wdlg_close</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_set_tree"></a>8.8.14.1 Bindings for wdlg_set_tree</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_set_tree">wdlg_set_tree</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> *new_tree );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_set_tree">wdlg_set_tree</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="008016.html#OBJECT">OBJECT</a> *new_tree )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = new_tree;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 1;
+   <a href="008002.html#crys_if">crys_if</a> (165);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">165   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">2     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">new_tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">1     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="wdlg_set_uniconify"></a>8.8.15 wdlg_set_uniconify</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Window-dialog uniconify« - Uniconify a window-dialog</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Opcode:</td>
+<td valign="top">165 (sub-opcode 4)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top">int16_t wdlg_set_uniconify ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g, int8_t
+*title, <a href="008016.html#OBJECT">OBJECT</a> *tree );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">The call wdlg_set_uniconify makes it possible to uniconify a
+window-dialog. The following apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Meaning</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>dialog</i></td>
+  <td align="left" valign="top">Pointer to the dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>g</i></td>
+  <td align="left" valign="top">New position of the window</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>title</i></td>
+  <td align="left" valign="top">New window title, or NULL</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>tree</i></td>
+  <td align="left" valign="top">New window tree, or NULL</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Note:</b> The new position of the window will be adopted
+normally from the message <a href="008007.html#WM_UNICONIFY">WM_UNICONIFY</a>.<br><br>
+
+The function alters the position and size of the root object. As,
+in general, one has displayed a different object tree for an iconified
+window, the original tree can be specified in the parameter
+<i>tree</i> and so restored. With the parameter <i>title</i> one can
+set the old window title that was valid before the iconification.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function always returns the value 1.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">The presence of this function can be ascertained with <a href="Application.html#_25apgi_7">appl_getinfo</a>
+(opcode 7). This function is only present from <a href="00b013.html#WDIALOG">WDIALOG</a> 1.05 onwards.
+If it is not present, then intout[0] contains a 0.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Group:</td>
+<td valign="top"><a href="#Window-dialogs">Window-dialogs</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20wdlg_set_uniconify">Binding</a> &nbsp; <a href="#wdlg_set_iconify">wdlg_set_iconify</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20for_20wdlg_set_uniconify"></a>8.8.15.1 Bindings for wdlg_set_uniconify</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#wdlg_set_uniconify">wdlg_set_uniconify</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g, int8_t
+*title, <a href="008016.html#OBJECT">OBJECT</a> *tree );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Binding:</td>
+<td valign="top"><pre>int16_t <a href="#wdlg_set_uniconify">wdlg_set_uniconify</a> ( <a href="008016.html#DIALOG">DIALOG</a> *dialog, <a href="010009.html#GRECT">GRECT</a> *g,
+                             int8_t *title, <a href="008016.html#OBJECT">OBJECT</a> *tree )
+{
+   <a href="008002.html#addr_in">addr_in</a>[0] = dialog;
+   <a href="008002.html#addr_in">addr_in</a>[1] = g;
+   <a href="008002.html#addr_in">addr_in</a>[2] = title;
+   <a href="008002.html#addr_in">addr_in</a>[3] = tree;
+
+   <a href="008002.html#int_in">int_in</a>[0] = 4;
+
+   <a href="008002.html#crys_if">crys_if</a> (165);
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Address</td>
+  <td align="left" valign="top">Element</td>
+  <td align="left" valign="top">Contents</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">165   # Function opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Entry in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">4     # Entry in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Entry in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">dialog</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[1]</td>
+  <td align="left" valign="top">g</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[2]</td>
+  <td align="left" valign="top">title</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[3]</td>
+  <td align="left" valign="top">tree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">4     # Sub-opcode</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top">Return value</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="008007.html"><img src="udo_lf.gif" alt="Event library" title="Event library" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="008009.html"><img src="udo_rg.gif" alt="Window library" title="Window library" border="0" width="24" height="24"></a></body>
+</html>

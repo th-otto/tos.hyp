@@ -1,0 +1,1111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Zeichenweise Ein-/Ausgabe
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="005.html"><img src="udo_up.gif" alt="GEMDOS" title="GEMDOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00500f.html"><img src="udo_lf.gif" alt="Verzeichnisfunktionen" title="Verzeichnisfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="005011.html"><img src="udo_rg.gif" alt="ARGV-Verfahren" title="ARGV-Verfahren" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Zeichenweise_20Ein-_2FAusgabe"></a>5.16 Zeichenweise Ein-/Ausgabe</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cauxin">Cauxin</a>&nbsp;</td>
+<td valign="top">Zeichen von serieller Schnittstelle lesen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cauxis">Cauxis</a>&nbsp;</td>
+<td valign="top">Eingabe-Status der seriellen Schnittstelle ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cauxos">Cauxos</a>&nbsp;</td>
+<td valign="top">Ausgabe-Status der seriellen Schnittstelle ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cauxout">Cauxout</a></td>
+<td valign="top">Zeichen auf serielle Schnittstelle schreiben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconin">Cconin</a>&nbsp;</td>
+<td valign="top">Zeichen von Standardeingabegerät einlesen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconis">Cconis</a>&nbsp;</td>
+<td valign="top">Tastatur-Puffer nach anliegenden Zeichen abfragen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconos">Cconos</a>&nbsp;</td>
+<td valign="top">Ausgabe-Status des Standardausgabegeräts überprüfen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconout">Cconout</a></td>
+<td valign="top">Zeichen auf Standardausgabegerät schreiben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconrs">Cconrs</a>&nbsp;</td>
+<td valign="top">String von Standardeingabegerät einlesen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cconws">Cconws</a>&nbsp;</td>
+<td valign="top">String auf Standardausgabegerät ausgeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cnecin">Cnecin</a>&nbsp;</td>
+<td valign="top">Zeichen ohne Darstellung am Bildschirm einlesen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cprnos">Cprnos</a>&nbsp;</td>
+<td valign="top">Drucker-Status ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Cprnout">Cprnout</a></td>
+<td valign="top">Zeichen auf Drucker ausgeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Crawcin">Crawcin</a></td>
+<td valign="top">Zeichen ohne Darstellung/Interpretation einlesen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#Crawio">Crawio</a>&nbsp;</td>
+<td valign="top">Zeichen direkt von Tastatur lesen oder auf Bildschirm ausgeben.
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Die Ausgaberoutinen des <a href="005.html">GEMDOS</a> emulieren ein
+<a href="003007.html#VT-52-Terminal">VT-52-Terminal</a>.</p>
+
+<h3><a name="Cauxin"></a>5.16.1 Cauxin</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character auxiliary input« - Eingabe über serielle
+Schnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">3</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cauxin ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cauxin liest ein Zeichen von Handle 2 ein -
+normalerweise die seriellen Schnittstelle aux:. Die Funktion wartet
+solange, bis das Zeichen eingetroffen ist.<br><br>
+
+<b>Hinweis:</b> Atari empfiehlt, für diese Zwecke die
+<a href="003.html">BIOS</a>-Funktion <a href="About_the_BIOS.html#Bconin">Bconin</a> zu verwenden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis das eingelesene Zeichen im
+low Byte des zurückgelieferten WORDs.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cauxin">Binding</a> &nbsp; <a href="#Cauxout">Cauxout</a> &nbsp; <a href="About_the_BIOS.html#Bconin">Bconin</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cauxin"></a>5.16.1.1 Bindings für Cauxin</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cauxin">Cauxin</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #3,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cauxis"></a>5.16.2 Cauxis</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character auxiliary input status« - überprüft den
+Eingabestatus der seriellen Schnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">18</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t Cauxis ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cauxis überprüft den Status von Handle 2 -
+normalerweise die seriellen Schnittstelle aux:, dahingehend, ob ein
+Zeichen empfangen werden kann.<br><br>
+
+<b>Hinweis:</b> Die Funktion arbeitet bei Umlenkung der
+Ein-/Ausgabe erst ab GEMDOS-Version 0.15 korrekt. Atari empfiehlt,
+für diese Zwecke die entsprechende <a href="003.html">BIOS</a>-Funktion zu verwenden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert folgende Resultate:<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">-1</td>
+<td valign="top">Zeichen im Puffer verfügbar</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">kein Zeichen verfügbar
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cauxis">Binding</a> &nbsp; <a href="#Cauxos">Cauxos</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cauxis"></a>5.16.2.1 Bindings für Cauxis</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#Cauxis">Cauxis</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #18,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cauxos"></a>5.16.3 Cauxos</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character auxiliary output status« - überprüft den
+Ausgabestatus der seriellen Schnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">19</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t Cauxos ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cauxos überprüft den Status von Handle 2 -
+normalerweise die seriellen Schnittstelle aux: dahingehend, ob Zeichen
+ausgegeben werden können.<br><br>
+
+<b>Hinweis:</b> Atari empfiehlt, für diese Zwecke die
+<a href="003.html">BIOS</a>-Funktion <a href="About_the_BIOS.html#Bcostat">Bcostat</a> zu verwenden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert folgende Resultate:<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">-1</td>
+<td valign="top">Zeichen kann ausgegeben werden</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">Zeichen kann nicht ausgegeben werden
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cauxos">Binding</a> &nbsp; <a href="#Cauxis">Cauxis</a> &nbsp; <a href="About_the_BIOS.html#Bcostat">Bcostat</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cauxos"></a>5.16.3.1 Bindings für Cauxos</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#Cauxos">Cauxos</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #19,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cauxout"></a>5.16.4 Cauxout</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character auxiliary output« - schreibt ein Zeichen auf die
+serielle Schnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">4</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cauxout ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cauxout schreibt das Zeichen <i>c</i> auf
+Handle 2 - normalerweise die seriellen Schnittstelle aux:.<br><br>
+
+<b>Hinweis:</b> Die Funktion arbeitet bei Umlenkung der
+Ein-/Ausgabe erst ab GEMDOS-Version 0.15 korrekt. Atari empfiehlt,
+für diese Zwecke die <a href="003.html">BIOS</a>-Funktion <a href="About_the_BIOS.html#Bconout">Bconout</a> zu verwenden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert im Fehlerfall einen negativen Wert
+zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cauxout">Binding</a> &nbsp; <a href="#Cauxin">Cauxin</a> &nbsp; <a href="About_the_BIOS.html#Bconout">Bconout</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cauxout"></a>5.16.4.1 Bindings für Cauxout</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cauxout">Cauxout</a> ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    c,-(sp)      ; Offset 2
+move.w    #4,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconin"></a>5.16.5 Cconin</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console input« - liest ein Zeichen vom
+Standardeingabegerät.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">1</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cconin ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cconin wartet, bis ein Zeichen verfügbar
+ist und liest ein Zeichen vom Standardeingabegerät mit Handle 0. Als
+Standardeingabegerät dient in der Regel die Tastatur.<br><br>
+
+<b>Hinweis:</b> Durch Setzen von Bit-3 der Systemvariablen
+<i><a href="003004.html#conterm">conterm</a></i> kann veranlaßt werden, daß in den Bits 24..31 der
+Wert von <a href="About_the_BIOS.html#Kbshift">Kbshift</a> zurückgegeben wird. Leider gibt es keine
+Möglichkeit, Ein-/Ausgabeumlenkung sowie ein Dateiende zu erkennen.
+Aus diesem Grund definieren viele Bibliotheken die Tastenkombination
+Control-Z (ASCII-Code 26) als Zeichen für das Dateiende.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis in einem LONG den ASCII-Code
+des Zeichens im niederwertigen Wort (Bits 0 .. 7). Wenn das
+eingelesene Zeichen von der Tastatur kommt, beinhalten die unteren
+acht Bits des höherwertigen Worts (Bits 16 ... 23) den Scancode der
+Tastatur mit dem Zustand der Shift Taste wie oben beschrieben. Wenn
+eine Nicht-ASCII Taste gedrückt wurde, wird als ASCII Code 0
+zurückgeliefert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconin">Binding</a> &nbsp; <a href="#Cconout">Cconout</a> &nbsp; <a href="#Cconis">Cconis</a> &nbsp; <a href="About_the_BIOS.html#Kbshift">Kbshift</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconin"></a>5.16.5.1 Bindings für Cconin</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cconin">Cconin</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #1,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconis"></a>5.16.6 Cconis</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console is waiting« - prüft nach, ob ein Zeichen
+im Standardeingabepuffer vorliegt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">11</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cconis ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cconis überprüft den Status von Handle 0 -
+normalerweise der Standardeingabe-Puffer, dahingehend, ob ein Zeichen
+empfangen werden kann.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert folgende Resultate:<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">-1L</td>
+<td valign="top">Zeichen verfügbar</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0L</td>
+<td valign="top">Zeichen nicht verfügbar
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconis">Binding</a> &nbsp; <a href="#Cconin">Cconin</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconis"></a>5.16.6.1 Bindings für Cconis</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cconis">Cconis</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #11,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconos"></a>5.16.7 Cconos</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console output status« - prüft den Status des
+Standardausgabegerätes.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">16</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t Cconos ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cconos überprüft den Status von Handle 1 -
+normalerweise das Standardausgabegerät, dahingehend, ob Zeichen
+ausgegeben werden können.<br><br>
+
+<b>Hinweis:</b> Die Funktion arbeitet bei Umlenkung der
+Ein-/Ausgabe erst ab GEMDOS-Version 0.15 korrekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis den Status des
+Standardausgabegeräts, und zwar wie folgt:<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">Zeichen kann nicht ausgegeben werden</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1</td>
+<td valign="top">Zeichen kann ausgegeben werden
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconos">Binding</a> &nbsp; <a href="#Cconout">Cconout</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconos"></a>5.16.7.1 Bindings für Cconos</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#Cconos">Cconos</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #16,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconout"></a>5.16.8 Cconout</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console output« - schreibt ein Zeichen auf das
+Standardausgabegerät.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">2</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cconout ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cconout schreibt das Zeichen <i>c</i> auf
+das GEMDOS Handle 1 - normalerweise das Standardausgabegerät. Als
+Standardausgabegerät dient in der Regel der Bildschirm.<br><br>
+
+<b>Hinweis:</b> Das Zeichen <i>c</i> enthält in den Bits 0..7
+den zugehörigen ASCII-Code (alle anderen Bits müssen 0 sein). Es
+erfolgt keine Umwandlung von Linefeed, deshalb müssen ASCII 13 und
+ACII 10 ausgegeben werden, um einen Zeilenumbruch zu erzeugen. Die
+Funktion arbeitet bei Umlenkung der Ein- bzw. Ausgabe erst ab
+GEMDOS-Version 0.15 korrekt. Für ältere Versionen darf dieses
+Handle nicht auf ein reines Ausgabedevice umgelenkt werden, da dieser
+Aufruf versucht, aus dem Ausgabestream zu lesen um spezielle
+Tastenkombinationen zu bearbeiten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Der Rückgabewert der Funktion ist vom Betriebssystem
+abhängig. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Betriebssystem</td>
+<td valign="top">Wert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002.html">TOS</a></td>
+<td valign="top">kein sinnvoller Rückgabewert</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="00b.html">MagiC</a> < 3.00</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">< 0</td>
+<td valign="top">= Fehler</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0L</td>
+<td valign="top">= Ausgabegerät ist voll</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1L</td>
+<td valign="top">= Ausgabe war erfolgreich
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">MiNT/MagiC > 3.00</td>
+<td valign="top"><table>
+<tr><td nowrap="nowrap" valign="top">< 0</td>
+<td valign="top">= Fehler</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0L</td>
+<td valign="top">= Ausgabegerät ist voll</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">1L</td>
+<td valign="top">= Ausgabe war erfolgreich</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">4L</td>
+<td valign="top">= Ausgabe auf dem Terminal war erfolgreich
+</td></tr>
+</table>
+
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconout">Binding</a><a href="#Cconin">Cconin</a> &nbsp; <a href="#Cconos">Cconos</a> &nbsp; <a href="003007.html#VT-52-Terminal">VT-52-Terminal</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconout"></a>5.16.8.1 Bindings für Cconout</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cconout">Cconout</a> ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    c,-(sp)      ; Offset 2
+move.w    #2,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconrs"></a>5.16.9 Cconrs</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console read string« - liest einen String von der
+Standardeingabe.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">10</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cconrs ( <a href="005014.html#LINE">LINE</a> *buf );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die GEMDOS-Routine Cconrs liest einen String von der
+Standardeingabe (GEMDOS Handle 0) - normalerweise die Tastatur, und
+schreibt die Zeichen gleichzeitig auf die Standardausgabe (GEMDOS
+Handle 1) - normalerweise der Bildschirm.<br><br>
+
+Dazu schreibt man in die Komponente <i>maxlen</i> die Anzahl der
+einzulesenden Zeichen - 1. Die Eingabe wird von der Funktion
+abgebrochen, wenn die <a href="VT_52_terminal.html#Return">Return</a>-Taste betätigt wird, oder die maximale
+Eingabelänge überschritten wurde.<br><br>
+
+Spezielle Tastenkombinationen bewirken unterschiedliche
+Funktionen. Im einzelnen:<table>
+<tr><td nowrap="nowrap" valign="top">Eingabe</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="VT_52_terminal.html#Return">Return</a></td>
+<td valign="top">Ende der Eingabe</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Control-J</td>
+<td valign="top">End of line; don't place Ctrl-J in buffer</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Control-H</td>
+<td valign="top">Kill last character (= Delete)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Backspace</td>
+<td valign="top">letztes Zeichen löschen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Control-U/X</td>
+<td valign="top">ganze Zeile löschen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Control-R</td>
+<td valign="top">Zeile neu eingeben</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Control-C</td>
+<td valign="top">Programm (!) abbrechen
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Umlaute werden von der Funktion erst ab <a href="005.html">GEMDOS</a>
+Version 0.15 korrekt behandelt, ein evtl. Dateiende wird nicht
+erkannt. Gelesene Zeichen werden sogar dann auf dem Bildschirm
+ausgegeben, wenn die Standardausgabe umgelenkt worden ist.<br><br>
+
+<b>In <a href="00b.html">MagiC</a> ist die Funktion stark erweitert worden; hier
+gilt:</b><table>
+<tr><td nowrap="nowrap" valign="top">Eingabe</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Cursor hoch/runter</td>
+<td valign="top">letzte Eingaben zurückholen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Cursor links/rechts</td>
+<td valign="top">Cursor ein Zeichen bewegen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">dto. mit Shift</td>
+<td valign="top">Cursor an Zeilenanfang/-ende</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Home</td>
+<td valign="top">Cursor an Zeilenanfang</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Insert</td>
+<td valign="top">Einfügemodus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Shift-Insert</td>
+<td valign="top">Überschreibmodus</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Shift-Clear</td>
+<td valign="top">Eingabe löschen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Tabulator</td>
+<td valign="top">wechselseitig Zeilenanfang/ende</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Undo</td>
+<td valign="top">letzte Eingabe</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Delete/Backspace</td>
+<td valign="top">Zeichen unter/vor Cursor löschen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">F1..F10</td>
+<td valign="top">Environmentvariablen F1..F10 abrufen
+
+</td></tr>
+</table>
+
+<br><br>
+
+Bei normalen Dateien wird in MagiC bis zum ersten LF gelesen,
+wobei CR überlesen wird. Die Environmentvariablen können dabei mit
+jedem beliebigen Kommandointerpreter (z.B. der <i>Mupfel</i>) belegt
+werden.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert bei fehlerfreier Ausführung den Wert 0L
+zurück und im Fehlerfall eine negative Zahl.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconrs">Binding</a> &nbsp; <a href="#Cconws">Cconws</a> &nbsp; <a href="00b.html">MagiC</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconrs"></a>5.16.9.1 Bindings für Cconrs</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cconrs">Cconrs</a> ( <a href="005014.html#LINE">LINE</a> *buf );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       buf          ; Offset 2
+move.w    #10,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cconws"></a>5.16.10 Cconws</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character console write string« - schreibt einen String auf
+das Standardausgabegerät.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">9</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cconws ( CONST BYTE *buf );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cconws schreibt den String <i>buf</i> auf
+das GEMDOS Handle 1 - normalerweise das Standardausgabegerät con:.
+Der String muß mit dem ASCII-Zeichen Null beendet werden. Für
+GEMDOS Versions kleiner 0.15 darf dieses Handle nicht auf ein reines
+Ausgabedevice umgelenkt werden, da dieser Aufruf versucht, aus dem
+Ausgabestream zu lesen um spezielle Tastenkombinationen zu bearbeiten.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Unter <a href="002.html">TOS</a> 1.04 liefert die Funktion den Wert 0L bei
+erfolgreicher Ausführung bzw. den Wert -1L im Fehlerfall. Unter
+anderen Betriebssystemen ist die Funktion offenbar als void
+deklariert, denn sie liefert dort überhaupt keinen brauchbaren
+Rückgabewert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cconws">Binding</a> &nbsp; <a href="#Cconrs">Cconrs</a> &nbsp; <a href="003007.html#VT-52-Terminal">VT-52-Terminal</a> &nbsp; <a href="010001.html">ASCII-Tabelle</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cconws"></a>5.16.10.1 Bindings für Cconws</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cconws">Cconws</a> ( CONST BYTE *buf );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>pea       buf          ; Offset 2
+move.w    #9,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #6,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cnecin"></a>5.16.11 Cnecin</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character no echo input« - liest ein Zeichen vom
+Standardeingabegerät.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">8</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cnecin ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cnecin liest ein Zeichen direkt vom GEMDOS
+Handle 0 - normalerweise der Standardeingabe con: (üblicherweise die
+Tastatur), ohne daß das Zeichen auf dem Standardausgabegerät
+ausgegeben wird.<br><br>
+
+<b>Hinweis:</b> Flußkontrolle kann durch die Tastenkombinationen
+Control-S (Ausgabe stoppen) bzw. Control-Q (Ausgabe fortsetzen)
+erreicht werden. Bei GEMDOS Versions kleiner 0.30 hängt sich die
+Funktion auf, wenn das Handle umgeleitet wurde un ein End-of-File
+erkannt wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis das eingelesene Zeichen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cnecin">Binding</a> &nbsp; <a href="#Cconin">Cconin</a> &nbsp; <a href="#Crawcin">Crawcin</a> &nbsp; <a href="#Crawio">Crawio</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cnecin"></a>5.16.11.1 Bindings für Cnecin</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cnecin">Cnecin</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #8,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cprnos"></a>5.16.12 Cprnos</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character printer output status« - prüft den Status der
+Druckerschnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">17</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t Cprnos ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cprnos überprüft den Status von Handle 3 -
+normalerweise die parallele Schnittstelle, dahingehend, ob Zeichen
+ausgegeben werden können.<br><br>
+
+<b>Hinweis:</b> Es ist sehr zu empfehlen, diese Funktion vor
+einer gewünschten Druckausgabe zu nutzen, da zum Erkennen des
+Drucker-Timeouts ein Zeitraum von ca. 30 Sekunden vergeht.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert folgende Resultate:<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">-1</td>
+<td valign="top">Drucker bereit</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0</td>
+<td valign="top">Drucker nicht bereit
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cprnos">Binding</a> &nbsp; <a href="#Cconos">Cconos</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cprnos"></a>5.16.12.1 Bindings für Cprnos</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#Cprnos">Cprnos</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #17,-(sp)    ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Cprnout"></a>5.16.13 Cprnout</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character printer output« - schreibt ein Zeichen auf die
+Druckerschnittstelle.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">5</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Cprnout ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Cprnout schreibt das Zeichen <i>c</i> auf
+das GEMDOS Handle 3 - normalerweise die Druckerschnittstelle prn:.<br><br>
+
+Das auszugebende Zeichen belegt dabei die Bits 0..7, alle anderen
+Bits müssen 0 sein.<br><br>
+
+<b>Hinweis:</b> Vor der Druckausgabe sollte per <a href="#Cprnos">Cprnos</a>
+überprüft werden, ob der Drucker zur Ausgabe bereit ist. Die mit
+Hilfe der Funktion <a href="00400a.html#Setprt">Setprt</a> vorgenommenen Einstellungen werden beim
+Druck von quasi allen <a href="002.html">TOS</a> Versionen <i>nicht</i> beachtet. Die
+Funktion arbeitet bei Umlenkung der Ein-/Ausgabe erst ab
+GEMDOS-Version 0.15 korrekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert im Fehlerfall den Wert 0 zurück.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Cprnout">Binding</a> &nbsp; <a href="#Cprnos">Cprnos</a> &nbsp; <a href="00400a.html#Setprt">Setprt</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Cprnout"></a>5.16.13.1 Bindings für Cprnout</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Cprnout">Cprnout</a> ( int16_t c );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    c,-(sp)      ; Offset 2
+move.w    #5,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Crawcin"></a>5.16.14 Crawcin</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character raw input« - liest ein Zeichen ungepuffert vom
+Standardeingabegerät.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">7</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Crawcin ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Crawcin liest ein Zeichen vom GEMDOS Handle
+- üblicherweise die Standardeingabe, ohne daß es dabei sofort auf
+dem Bildschirm ausgegeben wird oder die spezielle Tastenkombinationen
+bearbeitet werden.<br><br>
+
+<b>Hinweis:</b> Die Funktion arbeitet bei Umlenkung der
+Ein-/Ausgabe erst ab GEMDOS-Version 0.15 korrekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert als Ergebnis das eingelesene Zeichen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Crawcin">Binding</a> &nbsp; <a href="#Cconin">Cconin</a> &nbsp; <a href="#Cconout">Cconout</a> &nbsp; <a href="#Crawio">Crawio</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Crawcin"></a>5.16.14.1 Bindings für Crawcin</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Crawcin">Crawcin</a> ( void );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    #7,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #2,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<h3><a name="Crawio"></a>5.16.15 Crawio</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»character raw input output« - ermöglicht ungepufferte
+Ein-/Ausgaben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gemdosnummer:</td>
+<td valign="top">6</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int32_t Crawio ( int16_t w );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die <a href="005.html">GEMDOS</a>-Routine Crawio führt ungepufferte Ein-Ausgaben
+durch. Für den Parameter <i>w</i> gilt, wobei nur die unteren 8 Bits
+beachtet werden (und alle anderen Bits 0 sein sollten):<table>
+<tr><td nowrap="nowrap" valign="top">Wert</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">0xff</td>
+<td valign="top">Zeichen von Standardeingabe lesen</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">sonst</td>
+<td valign="top">Zeichen auf Standardausgabe ausgeben
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion arbeitet bei Umlenkung der
+Ein-/Ausgabe erst ab GEMDOS-Version 0.15 korrekt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Falls der Parameter <i>w</i> den Wert 0xff besitzt, liefert
+die Funktion in einem LONG den ASCII Code des eingelesenen Zeichens im
+niederwertige WORD (Bits 0 .. 7) zurück. Wurde das Zeichen von der
+Tastatur gelesen, enthält das höherwertige WORD (Bits 16 ... 23) den
+Scancode der Tastatur mit dem Status der Shifttaste in den oberen 8
+Bits wenn Bit 3 der Systemvariable <i><a href="003004.html#conterm">conterm</a></i> gesetzt ist. Wenn
+eine Nicht-ASCII Taste gedrückt wurde, wird als ASCII Code 0
+zurückgeliefert.<br><br>
+
+Ein Wert von 0 bedeutet, daß kein Zeichen verfügbar ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Alle <a href="005.html">GEMDOS</a> Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Zeichenweise_20Ein-_2FAusgabe">Zeichenweise Ein-/Ausgabe</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20Crawio">Binding</a> &nbsp; <a href="#Cconin">Cconin</a> &nbsp; <a href="#Cconout">Cconout</a> &nbsp; <a href="003007.html#VT-52-Terminal">VT-52-Terminal</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20Crawio"></a>5.16.15.1 Bindings für Crawio</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int32_t <a href="#Crawio">Crawio</a> ( int16_t w );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>move.w    w,-(sp)      ; Offset 2
+move.w    #6,-(sp)     ; Offset 0
+trap      #1           ; <a href="005.html">GEMDOS</a> aufrufen
+addq.l    #4,sp        ; Stack korrigieren
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="005.html"><img src="udo_up.gif" alt="GEMDOS" title="GEMDOS" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00500f.html"><img src="udo_lf.gif" alt="Verzeichnisfunktionen" title="Verzeichnisfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="005011.html"><img src="udo_rg.gif" alt="ARGV-Verfahren" title="ARGV-Verfahren" border="0" width="24" height="24"></a></body>
+</html>

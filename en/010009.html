@@ -1,0 +1,646 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Type definitions
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="010.html"><img src="udo_up.gif" alt="Appendix" title="Appendix" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="010008.html"><img src="udo_lf.gif" alt="XHDI - eXtended HardDisk Interface (Version 1.30)" title="XHDI - eXtended HardDisk Interface (Version 1.30)" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="indexudo.html"><img src="udo_rg.gif" alt="Index" title="Index" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Type_20definitions"></a>16.9 Type definitions</h1>
+<p>In this hypertext there are references to the following data
+types:</p>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top"><a href="#AESVARS">AESVARS</a></td>
+  <td align="left" valign="top"><a href="008016.html#APPLRECORD">APPLRECORD</a></td>
+  <td align="left" valign="top"><a href="010009.html#ARHEADER">ARHEADER</a></td>
+  <td align="left" valign="top"><a href="005014.html#BASEPAGE">BASEPAGE</a></td>
+  <td align="left" valign="top"><a href="010009.html#BCB">BCB</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="004015.html#BCONMAP">BCONMAP</a></td>
+  <td align="left" valign="top"><a href="008016.html#BITBLK">BITBLK</a></td>
+  <td align="left" valign="top"><a href="00300b.html#BPB">BPB</a></td>
+  <td align="left" valign="top"><a href="004015.html#CD_DISC_INFO">CD_DISC_INFO</a></td>
+  <td align="left" valign="top"><a href="004015.html#CD_TOC_ENTRY">CD_TOC_ENTRY</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#CICON">CICON</a></td>
+  <td align="left" valign="top"><a href="008016.html#CICONBLK">CICONBLK</a></td>
+  <td align="left" valign="top"><a href="#CPXINFO">CPXINFO</a></td>
+  <td align="left" valign="top"><a href="00b015.html#dev_descr">dev_descr</a></td>
+  <td align="left" valign="top"><a href="00b015.html#DEVDRV">DEVDRV</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="005014.html#DISKINFO">DISKINFO</a></td>
+  <td align="left" valign="top"><a href="008016.html#DITHER_MODE">DITHER_MODE</a></td>
+  <td align="left" valign="top"><a href="005014.html#DOSTIME">DOSTIME</a></td>
+  <td align="left" valign="top"><a href="005014.html#DOSVARS">DOSVARS</a></td>
+  <td align="left" valign="top"><a href="008016.html#DRV_INFO">DRV_INFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="004015.html#DSPBLOCK">DSPBLOCK</a></td>
+  <td align="left" valign="top"><a href="005014.html#DTA">DTA</a></td>
+  <td align="left" valign="top"><a href="008016.html#EVNT">EVNT</a></td>
+  <td align="left" valign="top"><a href="005014.html#fcookie">fcookie</a></td>
+  <td align="left" valign="top"><a href="005014.html#FILEPTR">FILEPTR</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="00b015.html#FILESYS">FILESYS</a></td>
+  <td align="left" valign="top"><a href="00700d.html#fix31">fix31</a></td>
+  <td align="left" valign="top"><a href="008016.html#FNTS_ITEM">FNTS_ITEM</a></td>
+  <td align="left" valign="top"><a href="00700d.html#FONT_HDR">FONT_HDR</a></td>
+  <td align="left" valign="top"><a href="00b015.html#fs_descr">fs_descr</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="#GEM_MUPB">GEM_MUPB</a></td>
+  <td align="left" valign="top"><a href="#GRECT">GRECT</a></td>
+  <td align="left" valign="top"><a href="#HDFUNCS">HDFUNCS</a></td>
+  <td align="left" valign="top"><a href="008016.html#HNDL_OBJ">HNDL_OBJ</a></td>
+  <td align="left" valign="top"><a href="008016.html#ICONBLK">ICONBLK</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="004015.html#IOREC">IOREC</a></td>
+  <td align="left" valign="top"><a href="004015.html#KBDVBASE">KBDVBASE</a></td>
+  <td align="left" valign="top"><a href="004015.html#KEYTAB">KEYTAB</a></td>
+  <td align="left" valign="top"><a href="008016.html#LBOX_ITEM">LBOX_ITEM</a></td>
+  <td align="left" valign="top"><a href="005014.html#LINE">LINE</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="005014.html#ltchars">ltchars</a></td>
+  <td align="left" valign="top"><a href="004015.html#MAPTAB">MAPTAB</a></td>
+  <td align="left" valign="top"><a href="010009.html#MCB">MCB</a></td>
+  <td align="left" valign="top"><a href="#Memory_20Descriptor_20_28MD_29_20in_20TOS">MD</a></td>
+  <td align="left" valign="top"><a href="008016.html#MEDIA_SIZE">MEDIA_SIZE</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#MEDIA_TYPE">MEDIA_TYPE</a></td>
+  <td align="left" valign="top"><a href="008016.html#MENU">MENU</a></td>
+  <td align="left" valign="top"><a href="004015.html#META_DRVINFO">META_DRVINFO</a></td>
+  <td align="left" valign="top"><a href="004015.html#META_INFO_1">META_INFO_1</a></td>
+  <td align="left" valign="top"><a href="004015.html#META_INFO_2">META_INFO_2</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="VDI_fundamentals.html#META_HEADER">META_HEADER</a></td>
+  <td align="left" valign="top"><a href="00700d.html#MFDB">MFDB</a></td>
+  <td align="left" valign="top"><a href="008016.html#MFORM">MFORM</a></td>
+  <td align="left" valign="top"><a href="008016.html#MN_SET">MN_SET</a></td>
+  <td align="left" valign="top"><a href="004015.html#MOUSE">MOUSE</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="00300b.html#MPB">MPB</a></td>
+  <td align="left" valign="top"><a href="#MRETS">MRETS</a></td>
+  <td align="left" valign="top"><a href="005014.html#mutimbuf">mutimbuf</a></td>
+  <td align="left" valign="top"><a href="008016.html#OBJECT">OBJECT</a></td>
+  <td align="left" valign="top"><a href="#OHEADER">OHEADER</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="#OSHEADER">OSHEADER</a></td>
+  <td align="left" valign="top"><a href="004015.html#OVERPATCH">OVERPATCH</a></td>
+  <td align="left" valign="top"><a href="008016.html#PARMBLK">PARMBLK</a></td>
+  <td align="left" valign="top"><a href="004015.html#PBDEF">PBDEF</a></td>
+  <td align="left" valign="top"><a href="005014.html#PD">PD</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#PDLG_SUB">PDLG_SUB</a></td>
+  <td align="left" valign="top"><a href="005005.html#PH">PH</a></td>
+  <td align="left" valign="top"><a href="005014.html#ploadinfo">ploadinfo</a></td>
+  <td align="left" valign="top"><a href="008016.html#POPINFO">POPINFO</a></td>
+  <td align="left" valign="top"><a href="008016.html#PRN_ENTRY">PRN_ENTRY</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#PRN_MODE">PRN_MODE</a></td>
+  <td align="left" valign="top"><a href="008016.html#PRN_TRAY">PRN_TRAY</a></td>
+  <td align="left" valign="top"><a href="008016.html#PRN_SETTINGS">PRN_SETTINGS</a></td>
+  <td align="left" valign="top"><a href="008016.html#PRN_SWITCH">PRN_SWITCH</a></td>
+  <td align="left" valign="top"><a href="00300b.html#PUN_INFO">PUN_INFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="00700d.html#pxyarray">pxyarray</a></td>
+  <td align="left" valign="top"><a href="#RGB_LIST">RGB_LIST</a></td>
+  <td align="left" valign="top"><a href="008016.html#RSHDR">RSHDR</a></td>
+  <td align="left" valign="top"><a href="008016.html#SCANX">SCANX</a></td>
+  <td align="left" valign="top"><a href="004015.html#SCREEN">SCREEN</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#SET_ITEM">SET_ITEM</a></td>
+  <td align="left" valign="top"><a href="005014.html#sgttyb">sgttyb</a></td>
+  <td align="left" valign="top"><a href="008016.html#SHELTAIL">SHELTAIL</a></td>
+  <td align="left" valign="top"><a href="008016.html#SLCT_ITEM">SLCT_ITEM</a></td>
+  <td align="left" valign="top"><a href="008016.html#SWINFO">SWINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="005014.html#tchars">tchars</a></td>
+  <td align="left" valign="top"><a href="005014.html#timeval">timeval</a></td>
+  <td align="left" valign="top"><a href="005014.html#timezone">timezone</a></td>
+  <td align="left" valign="top"><a href="008016.html#TEDINFO">TEDINFO</a></td>
+  <td align="left" valign="top"><a href="#THREADINFO">THREADINFO</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#USERBLK">USERBLK</a></td>
+  <td align="left" valign="top"><a href="008016.html#UTXT_FN">UTXT_FN</a></td>
+  <td align="left" valign="top"><a href="005014.html#winsize">winsize</a></td>
+  <td align="left" valign="top"><a href="008016.html#XAESMSG">XAESMSG</a></td>
+  <td align="left" valign="top"><a href="005014.html#XATTR">XATTR</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="#XCPB">XCPB</a></td>
+  <td align="left" valign="top"><a href="008016.html#XDO_INF">XDO_INF</a></td>
+  <td align="left" valign="top"><a href="00700d.html#XFNT_INFO">XFNT_INFO</a></td>
+  <td align="left" valign="top"><a href="008016.html#XFSL_FILTER">XFSL_FILTER</a></td>
+  <td align="left" valign="top"><a href="008016.html#XSHW_COMMAND">XSHW_COMMAND</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008016.html#XTED">XTED</a></td>
+  <td align="left" valign="top"><a href="005014.html#xkey">xkey</a></td>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+</table>
+</div>
+
+<h3><a name="AESVARS"></a>16.9.1 AESVARS</h3>
+<pre>typedef struct
+{
+     int32_t magic;                 /* Has to be 0x87654321       */
+     void *membot;                  /* End of the <a href="008.html">AES</a> variables   */
+     void *<a href="008002.html#aes">aes</a>_start;               /* Start address              */
+     int32_t magic2;                /* Is 'MAGX'                  */
+     int32_t date;                  /* Creation date              */
+     void (*chgres)(int16_t res, int16_t txt);  /* Change resolution */
+     int32_t (**shel_vector)(void); /* Resident desktop           */
+     int8_t *<a href="008002.html#aes">aes</a>_bootdrv;           /* Booting will be from here  */
+     int16_t *<a href="007003.html#vdi">vdi</a>_device;           /* Driver used by <a href="008.html">AES</a>         */
+     void *reservd1;                /* Reserved                   */
+     void *reservd2;                /* Reserved                   */
+     void *reservd3;                /* Reserved                   */
+     int16_t version;               /* Version (0x0201 is V2.1)   */
+     int16_t release;               /* 0=alpha..3=release         */
+} AESVARS;
+</pre>
+<p><b>Note:</b> These variables are <b>READ-ONLY</b>!</p>
+
+<p>The first three variables are also present under TOS, and can
+be obtained there from the operating system header. The
+<i><a href="007003.html#vdi">vdi</a>_device</i> component is superfluous as of <a href="00b.html">MagiC</a> 2.0 as one
+gets the device number in a MultiTOS-compatible way with <a href="Application.html#appl_getinfo">appl_getinfo</a>
+(opcode 2). The routine for changing the resolution (<i>chgres</i>)
+expects in register d2 an optional Falcon-mode (as int16_t).</p>
+
+<p>See also: <a href="003007.html#Cookie_2C_20MagX">MagiC's cookie</a> &nbsp; <a href="00b001.html#DOMagixAESVars">DOMagixAESVars</a></p>
+
+<h3><a name="Archive_20header_20_28ARHEADER_29"></a>16.9.2 Archive header (ARHEADER)</h3>
+<a name="ARHEADER"></a>
+<pre>typedef struct
+{
+  int8_t  a_fname[14];  /* Filename                  */
+  int32_t a_modti;      /* Time of last access       */
+  int8_t  a_userid;     /* Unused                    */
+  int8_t  a_gid;        /* Unused                    */
+  int16_t a_fimode;     /* File mode                 */
+  int32_t a_fsize;      /* File length               */
+  int16_t reserved;     /* Reserved                  */
+} ARHEADER;
+</pre>
+<p><b>Note:</b> An archive file in <i>Digital Research</i> format
+consists of a file- header, any number of files (each prefaced with an
+ARHEADER structure) as well as an end-identifier. The file-header here
+consists only of the WORD 0xff65, the end of the archive file is
+identified by the value 0x0000.</p>
+
+<p>See also: <a href="#OHEADER">OHEADER</a></p>
+
+<h3><a name="Buffer_20Control_20Block_20_28BCB_29"></a>16.9.3 Buffer Control Block (BCB)</h3>
+<a name="BCB"></a>
+<pre>typedef struct _bcb
+{
+  struct _bcb   *b_link;          /* Next BCB              */
+  int16_t       b_negl;           /* Initialize to -1      */
+  int16_t       b_private[5];     /* Unknown               */
+  void          *b_buf;           /* Actual buffer         */
+} BCB;
+</pre>
+<h3><a name="CPXINFO"></a>16.9.4 CPXINFO</h3>
+<pre>typedef struct
+{
+    int16_t cdecl (*<a href="009001.html#cpx_call">cpx_call</a>)();
+    void cdecl    (*<a href="009001.html#cpx_draw">cpx_draw</a>)();
+    void cdecl    (*<a href="009001.html#cpx_wmove">cpx_wmove</a>)();
+    void cdecl    (*<a href="009001.html#cpx_timer">cpx_timer</a>)();
+    void cdecl    (*<a href="009001.html#cpx_key">cpx_key</a>)();
+    void cdecl    (*<a href="009001.html#cpx_button">cpx_button</a>)();
+    void cdecl    (*<a href="009001.html#cpx_m1">cpx_m1</a>)();
+    void cdecl    (*<a href="009001.html#cpx_m2">cpx_m2</a>)();
+    int16_t cdecl (*<a href="009001.html#cpx_hook">cpx_hook</a>)();
+    void cdecl    (*<a href="009001.html#cpx_close">cpx_close</a>)();
+} CPXINFO;
+</pre>
+<p>See also: <a href="009.html">XCONTROL</a> &nbsp; <a href="009001.html#cpx_init">cpx_init</a></p>
+
+<h3><a name="FlpDrvInfo"></a>16.9.5 FlpDrvInfo</h3>
+<p>This structure plays a role in connection with MagiC Mac, and is
+defined as follows:</p>
+
+<pre>typedef struct
+{
+   BOOLEAN  inserted;    /* True: disk is inserted and available */
+                         /* to <a href="005.html">GEMDOS</a>/<a href="003.html">BIOS</a> functions             */
+   BOOLEAN  highDensity; /* True: HD disk inserted, false: no or */
+                         /* DD disk inserted                     */
+   int16_t  res1;        /* Reserved                             */
+   int32_t  res2;        /* Reserved                             */
+} FlpDrvInfo;
+</pre>
+<p>See also: <a href="00e001.html#The_20MagiC_20Mac_20cookie">The MagiC Mac cookie</a></p>
+
+<h3><a name="GEM_MUPB"></a>16.9.6 GEM_MUPB</h3>
+<p>This structure describes the 'GEM memory usage parameter
+block', which is defined as follows:</p>
+
+<pre>typdef struct
+{
+   int32_t gm_magic;  /* Magical value, has to be 0x87654321 */
+   void *gm_end;      /* End of the memory required by <a href="002002.html">GEM</a>   */
+   void *gm_init;     /* Start address of <a href="002002.html">GEM</a>                */
+} GEM_MUPB;
+</pre>
+<p>See also: <a href="003004.html#_sysbase">_sysbase</a> &nbsp; <a href="#OSHEADER">OSHEADER</a> &nbsp; <a href="003004.html">System variables</a> &nbsp; <a href="the_system_vectors.html">System vectors</a></p>
+
+<h3><a name="GRECT"></a>16.9.7 GRECT</h3>
+<pre>typedef struct
+{
+   int16_t x;   /* X-coordinate */
+   int16_t y;   /* Y-coordinate */
+   int16_t w;   /* Width        */
+   int16_t h;   /* Height       */
+} GRECT;
+</pre>
+<p>See also: <a href="008001.html">About the AES</a> &nbsp; <a href="002002.html">GEM</a> &nbsp; <a href="About_the_VDI.html">About the VDI</a></p>
+
+<h3><a name="HDFUNCS"></a>16.9.8 HDFUNCS</h3>
+<pre>typedef struct
+{
+    int32_t dma_begin ( void);
+    int32_t dma_end   ( void );
+    int32_t dma_wait  ( d0 = int32_t ticks_200hz );
+    int32_t ncr_begin ( void );
+    int32_t ncr_end   ( void );
+    int32_t ncr_wait  ( d0 = int32_t ticks_200hz );
+} HDFUNCS;
+</pre>
+<p><b>Note:</b> Directly before the structure (2 bytes before) lies
+an int16_t, which specifies the table length in int32_ts (in this case
+6). All 6 pointers lie in the system variables area and may be altered
+in case of need. The internal functions for the floppy drive also jump
+via the 6 pointers.
+<br><b>Important:</b> The pointer <i>hddrv_functions</i> in the
+<a href="003007.html#Cookie_2C_20MagX">MagX cookie</a> may <i>not</i> be altered.</p>
+
+<p>See also: <a href="00b009.html#Background-DMA_20in_20MagiC">Background-DMA in MagiC</a></p>
+
+<h3><a name="MacVersion"></a>16.9.9 MacVersion</h3>
+<p>This structure plays a role in connection with MagiC Mac, and is
+defined as follows:</p>
+
+<pre>typedef struct /* 'vers' resource definition, see Inside Mac docs */
+{
+   int8_t vm;       /* First part of version number in BCD */
+   int8_t vn;       /* Second and third part of version    */
+                    /* number in BCD                       */
+   int8_t  vt;      /* Development: 0x20, alpha: 0x40,     */
+                    /* beta: 0x60, release: 0x80           */
+   int8_t  vd;      /* Stage of pre-release version        */
+   int16_t region;  /* Region code                         */
+   int8_t  str[];   /* Two version strings                 */
+} MacVersion;
+</pre>
+<p>See also: <a href="00e001.html#The_20MagiC_20Mac_20cookie">The MagiC Mac cookie</a></p>
+
+<h3><a name="Memory-Control-Block_20_28MCB_29_20in_20MagiC"></a>16.9.10 Memory-Control-Block (MCB) in MagiC</h3>
+<a name="Memory_20management_20in_20MagiC"></a>
+<a name="MagiC_2C_20Memory_20management_20in"></a>
+<a name="MCB"></a>
+<pre>typedef struct
+{
+    int32_t mcb_magic;        /* 'ANDR' or 'KROM' (last)       */
+    int32_t mcb_len;          /* Nett length                   */
+    int32_t mcb_owner;        /* Pointer to <a href="005014.html#PD">PD</a> structure       */
+    int32_t mcb_prev;         /* Previous block, or NULL       */
+    int8_t mcb_data[0];
+} MCB;
+</pre>
+<p><b>Note:</b> The component <i>mcb_magic</i> has the value 'KROM'
+if no futher MCB follows, else the value 'ANDR'. In the latter case
+the next MCB lies <i>mcb_len</i> bytes behind the currrent MCB. The
+list is chained backwards with <i>mcb_prev</i> which considerably
+speeds up many operations.</p>
+
+<p>With all memory operations the component <i>mcb_magic</i> is
+always checked, and if an error is found the system is halted
+immediately. For a halt due to a memory error the address of the
+faulty MCB as well as the data (4 LONGwords) are output. Subsequently
+one is asked on which</p>
+
+<a name="Core_20dump"></a>
+<p>drive one would like a <b>core dump</b> to be saved. If one
+specifies a valid drive, then the whole ST memory from 0 to <a href="003004.html#phystop">phystop</a> is
+written to the root directory of the specified drive, and is assigned
+the</p>
+
+<a name="Core_20dump_2C_20Name_20for"></a>
+<p>name '_sys_'. The file, depending on the ST model, can be up to 4
+or even 16 MB long, of course.</p>
+
+<p>Memory-resident programs (terminating themselves with <a href="00500b.html#Ptermres">Ptermres</a>)
+now work - unlike earlier - in a way that the blocks are <i>not</i>
+released, all MCBs remain <a href="004011.html#intact">intact</a> and continue to be used (each time
+one clicks in the menu-bar the free memory is output, for which the
+whole list is run through once and during this all MCBs are checked).
+Those who wish to do so can therefore release memory-resident programs
+(or also parts of them) subsequently.</p>
+
+<p>See also: <a href="005.html">GEMDOS</a> &nbsp; <a href="00b.html">MagiC</a> &nbsp; <a href="#Memory_20Descriptor_20_28MD_29_20in_20TOS">MD</a> &nbsp; <a href="00500c.html">Memory management</a></p>
+
+<h3><a name="Memory_20Descriptor_20_28MD_29_20in_20TOS"></a>16.9.11 Memory Descriptor (MD) in TOS</h3>
+<a name="Memory_20management_20in_20TOS"></a>
+<a name="TOS_2C_20Memory_20management_20in"></a>
+<pre>typedef struct md
+{
+    struct md *m_link;      /* Pointer to next <a href="00300b.html#MD">MD</a>         */
+    int32_t      m_start;   /* Start address of the block */
+    int32_t      m_length;  /* Length of the block        */
+    <a href="005014.html#BASEPAGE">BASEPAGE</a>  *m_own;       /* Pointer to the basepage    */
+} <a href="00300b.html#MD">MD</a>;
+</pre>
+<p><b>Note:</b> The component <i>m_own</i> here points to the
+basepage of the process to which the memory block belongs.</p>
+
+<p>These structures are administered in the internal memory
+management of TOS (but <i>not</i> of <a href="00b.html">MagiC</a>!). These descriptors,
+as far as they are used, hang in three memory lists, namely for free
+blocks, occupied blocks and for the next block to be occupied
+(mem_rover). With the mem_rover concept one attempts to achieve that
+consecutive <a href="00500c.html#Malloc">Malloc</a> calls reserve consecutive memory if possible (this
+has been described as an error already elsewhere). This is intended to
+reduce memory segmentation.</p>
+
+<p><b>This idea is unusable if several programs are running
+simultaneously and call Mallocs alternately, however</b>. The concept
+implemented by Atari has the advantage that it is not sensitive to
+programs that run amuck, since the MDs lie is system memory, far away
+from user memory. A known disadvantage of the described concept is
+that only a very restricted number of Malloc calls are possible,
+since every call swallows an <a href="00300b.html#MD">MD</a> of the limited system memory; this is
+also massively burdened by opened folders and files. A further
+disadvantage of the TOS memory management: If a program overspills
+a memory block, i.e. writes past its end, then this generally passes
+completely unnoticed.</p>
+
+<p>Specially in multitasking systems the danger of an overwritten
+memory block is very much higher than in TOS. Furthermore, the
+number of memory blocks required, as well as those for folders (each
+program has its own files and standard directories) is appreciably
+higher. For these resons MagiC has a completely different concept;
+in that there is only one memory list whose pointers point to the
+first <a href="010009.html#MCB">MCB</a>.</p>
+
+<p>See also: <a href="005001.html">About the GEMDOS</a> &nbsp; <a href="010009.html#MCB">MCB</a> &nbsp; <a href="00300b.html#MPB">MPB</a> &nbsp; <a href="00500c.html">Memory management</a> &nbsp; <a href="003004.html#themd">themd</a></p>
+
+<h3><a name="MRETS"></a>16.9.12 MRETS</h3>
+<pre>typedef struct
+{
+    int16_t x;
+    int16_t y;
+    int16_t buttons;
+    int16_t kstate;
+} MRETS;
+</pre>
+<p>See also: <a href="009001.html#cpx_button">cpx_button</a> &nbsp; <a href="009001.html#cpx_m1">cpx_m1</a> &nbsp; <a href="009001.html#cpx_m2">cpx_m2</a> &nbsp; <a href="009.html">XCONTROL</a></p>
+
+<h3><a name="OHEADER"></a>16.9.13 OHEADER</h3>
+<p>This structure describes the header of an object file in
+<i>Digital Research</i> format:</p>
+
+<pre>typedef struct
+{
+   int16_t magic;         /* Magical value: 0x601a      */
+   int32_t tsize;         /* <a href="00f008.html#Size">Size</a> of the TEXT segment   */
+   int32_t dsize;         /* <a href="00f008.html#Size">Size</a> of the DATA segment   */
+   int32_t bsize;         /* <a href="00f008.html#Size">Size</a> of the BSS            */
+   int32_t ssize;         /* <a href="00f008.html#Size">Size</a> of the symbol table   */
+   int8_t reserved[10];   /* Reserved, set to zero      */
+} OHEADER;
+</pre>
+<p>See also: <a href="010009.html#ARHEADER">ARHEADER</a> &nbsp; <a href="005014.html#BASEPAGE">BASEPAGE</a></p>
+
+<h3><a name="OSHEADER"></a>16.9.14 OSHEADER</h3>
+<a name="SYSHDR"></a>
+<a name="TOS_2C_20Version_20number_20of"></a>
+<a name="EmuTOS_2C_20Detect"></a>
+<pre>typedef struct _osheader
+{
+    uint16_t    os_entry;       /* BRAnch instruction to Reset-handler  */
+    uint16_t    os_version;     /* <a href="002.html">TOS</a> version number                   */
+    void       *reseth;         /* Pointer to Reset-handler             */
+    struct _osheader *os_beg;   /* Base address of the operating system */
+    void       *os_end;         /* First byte not used by the OS        */
+    int32_t     os_rsvl;        /* Reserved                             */
+    <a href="#GEM_MUPB">GEM_MUPB</a>   *os_magic;       /* <a href="002002.html">GEM</a> memory-usage parameter block     */
+    int32_t     os_date;        /* <a href="002.html">TOS</a> date (English !) in BCD format   */
+    uint16_t    os_conf;        /* Various configuration bits           */
+    uint16_t    os_dosdate;     /* <a href="002.html">TOS</a> date in <a href="005.html">GEMDOS</a> format            */
+
+    /* The following components are available only as of <a href="002.html">TOS</a> Version
+       1.02 (Blitter-<a href="002.html">TOS</a>)               */
+    int8_t    **p_root;         /* Base address of the <a href="005.html">GEMDOS</a> pool      */
+    int8_t    **pkbshift;       /* Pointer to <a href="003.html">BIOS</a> <a href="About_the_BIOS.html#Kbshift">Kbshift</a> variable
+                                   (for <a href="002.html">TOS</a> 1.00 see <a href="About_the_BIOS.html#Kbshift">Kbshift</a>)           */
+    <a href="005014.html#BASEPAGE">BASEPAGE</a>  **p_run;          /* Address of the variables containing
+                                   a pointer to the current <a href="005.html">GEMDOS</a>
+                                   process.                             */
+    int8_t     *p_rsv2;         /* Reserved                             */
+                                /* If EmuTOS is present, then 'ETOS'    */
+} OSHEADER;
+</pre>
+<p>The structure also appears under the name SYSHDR.</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">os_conf</td>
+<td valign="top">The component <i>os_conf</i> contains the so-called NTSC/PAL
+flag in its lowest bit; if this bit is set, then the machine has a PAL
+video system, if cleared NTSC. The remaining bits contain a country
+identifier, which can serve to denote the language used for menus etc.
+for instance. The folowing assignments apply:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="center" valign="top">Value</td>
+  <td align="left" valign="top">Country</td>
+</tr>
+<tr>
+  <td align="center" valign="top">0 to 126</td>
+  <td align="left" valign="top">see the define by the <a href="003007.html#Cookie_2C_20_AKP">_AKP</a> cookie</td>
+</tr>
+<tr>
+  <td align="center" valign="top">127</td>
+  <td align="left" valign="top">All countries are supported.</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Warning:</b> To obtain the language in use, one should fall
+back <i>not</i> to the OSHEADER if possible, but use the <a href="003007.html#Cookie_2C_20_AKP">_AKP</a>
+cookie or the function <a href="Application.html#appl_getinfo">appl_getinfo</a> (opcode 3).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">p_root</td>
+<td valign="top">With older <a href="002.html">TOS</a> versions the address of <i>p_root</i> is
+0x56FA.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">p_run</td>
+<td valign="top"><pre><a href="005014.html#BASEPAGE">BASEPAGE</a> **GetRun (void)
+{
+  int32_t savessp = <a href="00500e.html#Super">Super</a> (0L);
+  OSHEADER *O = *((OSHEADER **)(0x4f2L);
+  <a href="00500e.html#Super">Super</a> ((void *) savessp );
+
+  O = O->os_beg;   /* wegen eines Fehlers in alter AHDI-Version */
+
+  if (O->os_version < 0x102)
+  {
+    if ((O->os_conf >> 1) == 4)      /* PAL-Modus wegshiften */
+      return ((<a href="005014.html#BASEPAGE">BASEPAGE</a> **)0x873c);  /* Spanisches <a href="002.html">TOS</a> 1.0   */
+    else
+      return ((<a href="005014.html#BASEPAGE">BASEPAGE</a> **)0x602c);
+  }
+  else
+    return O->p_run;
+}
+</pre>
+
+
+</td></tr>
+</table>
+
+<p>See also: <a href="About_the_BIOS.html#Kbshift">Kbshift</a> &nbsp; <a href="003004.html#_sysbase">_sysbase</a> &nbsp; <a href="003004.html">System variables</a> &nbsp; <a href="the_system_vectors.html">System vectors</a></p>
+
+<h3><a name="PrintDesc"></a>16.9.15 PrintDesc</h3>
+<p>This structure plays a role in connection with MagiC Mac, and is
+defined as follows:</p>
+
+<pre>typedef struct
+{
+    THPrint     printHdl;       /* Printer-configuration for <a href="VDI_fundamentals.html#NVDI">NVDI</a> */
+    PrSetupProc doPrintSetup;   /* ditto                          */
+    VoidProcPtr saveSetup;      /* ditto                          */
+    int32_t     reserved[7];    /* Reserved                       */
+} PrintDesc;
+</pre>
+<p>See also: <a href="00e001.html#The_20MagiC_20Mac_20cookie">The MagiC Mac cookie</a></p>
+
+<h3><a name="RGB_LIST"></a>16.9.16 RGB_LIST</h3>
+<pre>typedef struct
+{
+    uint16_t red;     /* Red proportion in parts per thousand   */
+    uint16_t green;   /* Green proportion in parts per thousand */
+    uint16_t blue;    /* Blue proportion in parts per thousand  */
+} RGB_LIST;
+</pre>
+<p>See also: <a href="VDI_fundamentals.html#The_20XIMG_20format_20for_20pixel_20images">XIMG format</a></p>
+
+<h3><a name="THREADINFO"></a>16.9.17 THREADINFO</h3>
+<pre>typedef struct
+{
+   int32_t cdecl (*proc)(void *par);
+   void          *user_stack;
+   uint32_t      stacksize;
+   int16_t       mode;
+   int32_t       res1;
+} THREADINFO;
+</pre>
+<p><b>Note:</b> If the component <i>user_stack</i> is NULL, then
+the system will create the stack itself. When the thread terminates,
+the system will release the stack again automatically. The component
+<i>stacksize</i> must always be specified so that the system can set
+the stack pointer of the thread to the end of the stack. The
+supervisior-stack is set by the operating system, so that its size
+cannot be influenced.</p>
+
+<p>The components <i>mode</i> and <i>res1</i> are reserved for
+future purposes, so they should be set to the value 0 or 0L. In
+Solaris 2.x, for instance, one can arrest the thread up to the final
+start with them. The started thread executes the function
+<i>proc</i>, which is passed as a parameter to the component
+<i>par</i> (on the stack). The CPU registers d0-d2 and a0-a2 may be
+altered by the function.</p>
+
+<p>See also: <a href="00b012.html">Threads in MagiC</a> &nbsp; <a href="008012.html#shel_write">shel_write</a> &nbsp; <a href="003007.html#Sample_20code">Sample code</a></p>
+
+<h3><a name="XCPB"></a>16.9.18 XCPB</h3>
+<pre>typedef struct
+{
+    int16_t       handle;
+    int16_t       booting;
+    int16_t       reserved;
+    int16_t       SkipRshFix;
+    void          *reserve1;
+    void          *reserve2;
+    void cdecl    (*<a href="009001.html#rsh_fix">rsh_fix</a>)      ( int num_objs, int num_frstr, int num_frimg,
+                                    int num_tree, <a href="008016.html#OBJECT">OBJECT</a> *rs_object,
+                                    <a href="008016.html#TEDINFO">TEDINFO</a> *rs_tedinfo, char *rs_strings[],
+                                    <a href="008016.html#ICONBLK">ICONBLK</a> *rs_iconblk, <a href="008016.html#BITBLK">BITBLK</a> *rs_bitblk,
+                                    long *rs_frstr, long *rs_frimg, long *rs_trindex,
+                                    struct foobar *rs_imdope );
+    void cdecl    (*<a href="009001.html#rsh_obfix">rsh_obfix</a>)    ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int curob );
+    int16_t cdecl (*<a href="009001.html#Popup">Popup</a>)        ( char *items[], int num_items, int default_item,
+                                    int font_size, <a href="#GRECT">GRECT</a> *button, <a href="#GRECT">GRECT</a> *world );
+    void cdecl    (*<a href="009001.html#Sl_size">Sl_size</a>)      ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider, int num_items,
+                                    int visible, int direction, int min_size );
+    void cdecl    (*<a href="009001.html#Sl_x">Sl_x</a>)         ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider, int value,
+                                    int num_min, int num_max, void (*foo)() );
+    void cdecl    (*<a href="009001.html#Sl_y">Sl_y</a>)         ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider,  int value,
+                                    int num_min, int num_max, void (*foo)() );
+    void cdecl    (*<a href="009001.html#Sl_arrow">Sl_arrow</a>)     ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider, int obj,
+                                    int inc, int min, int max, int *numvar,
+                                    int direction, void (*foo)() );
+    void cdecl    (*<a href="009001.html#Sl_dragx">Sl_dragx</a>)     ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider,
+                                    int min, int max, int *numvar, void (*foo)() );
+    void cdecl    (*<a href="009001.html#Sl_dragy">Sl_dragy</a>)     ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int base, int slider,
+                                    int min, int max, int *numvar, void (*foo)() );
+    int16_t cdecl (*<a href="009001.html#Xform_do">Xform_do</a>)     ( <a href="008016.html#OBJECT">OBJECT</a> *tree, int start_field, int puntmsg[] );
+    <a href="#GRECT">GRECT</a> * cdecl (*<a href="009001.html#GetFirstRect">GetFirstRect</a>) ( <a href="#GRECT">GRECT</a> *prect );
+    <a href="#GRECT">GRECT</a> * cdecl (*<a href="009001.html#GetNextRect">GetNextRect</a>)  ( void );
+    void cdecl    (*<a href="009001.html#Set_Evnt_Mask">Set_Evnt_Mask</a>)( int mask, MOBLK *m1, MOBLK *m2, long time );
+    int16_t cdecl (*<a href="009001.html#XGen_Alert">XGen_Alert</a>)   ( int id );
+    int16_t cdecl (*<a href="009001.html#CPX_Save">CPX_Save</a>)     ( void *ptr, long num );
+    void * cdecl  (*<a href="009001.html#Get_Buffer">Get_Buffer</a>)   ( void );
+    int16_t cdecl (*<a href="009001.html#getcookie">getcookie</a>)    ( long cookie, long *p_value );
+    int16_t       Country_Code;
+    void cdecl    (*<a href="009001.html#MFsave">MFsave</a>)       ( int saveit, <a href="008016.html#MFORM">MFORM</a> *mf );
+} XCPB;
+</pre>
+<p>See also: <a href="009001.html#cpx_init">cpx_init</a> &nbsp; <a href="009.html">XCONTROL</a></p>
+
+<span class="page-break"></span>
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="010.html"><img src="udo_up.gif" alt="Appendix" title="Appendix" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="010008.html"><img src="udo_lf.gif" alt="XHDI - eXtended HardDisk Interface (Version 1.30)" title="XHDI - eXtended HardDisk Interface (Version 1.30)" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="indexudo.html"><img src="udo_rg.gif" alt="Index" title="Index" border="0" width="24" height="24"></a></body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>
+The documentation for TOS: Transform mouse
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00600f.html"><img src="udo_lf.gif" alt="Hide mouse" title="Hide mouse" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="006011.html"><img src="udo_rg.gif" alt="Undraw sprite" title="Undraw sprite" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Transform_20mouse"></a>6.16 Transform mouse</h1>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Transform mouse«</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Line-A number:</td>
+<td valign="top"> $A00B</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Syntax:</td>
+<td valign="top"><a href="#Bindings_20for_20transform_mouse">See 'Bindings for transform_mouse'</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Description:</td>
+<td valign="top">This Line-A function sets the mouse pointer to a new shape.
+The required parameters are passed via the <a href="007003.html#intin">intin</a> field. Alternatively,
+the <a href="008.html">AES</a> structure <a href="008016.html#MFORM">MFORM</a> may be used instead. For the call of the
+Line-A function, the <a href="007003.html#intin">intin</a> in the Line-A parameter block is set to
+this structure, and after the call the old value is restored again.<pre>typedef struct mfstr
+{
+   int16_t mf_xhot;
+   int16_t mf_yhot;
+   int16_t mf_nplanes;
+   int16_t mf_fg;
+   int16_t mf_bg;
+   int16_t mf_mask[16];
+   int16_t mf_data[16];
+} <a href="008016.html#MFORM">MFORM</a>;
+</pre>
+<table>
+<tr><td nowrap="nowrap" valign="top">Variable</td>
+<td valign="top">Meaning</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_xhot</td>
+<td valign="top">X-coordinate of the <a href="007007.html#hot-spot">hot-spot</a> of the mouse form; for actions
+performed by the mouse it is important where this point is positioned
+in the mouse form</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_yhot</td>
+<td valign="top">Y-coordinate of the <a href="007007.html#hot-spot">hot-spot</a> of the mouse form; for actions
+performed by the mouse it is important where this point is positioned
+in the mouse form</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_nplanes</td>
+<td valign="top">Must be set to 1, as the mouse form may only have one colour
+plane</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_fg</td>
+<td valign="top">The colour of the mask</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_bg</td>
+<td valign="top">The colour of the data</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_mask</td>
+<td valign="top">The 16 * 16 pixel-sized mask. Each 1 in the mask clears the
+background at that point (or sets the background colour). This way one
+can prevent 'shine-through' of the background at places where no mouse
+data are drawn, and to provide the mouse pointer with a 'frame' to
+offset it from the background.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">mf_data</td>
+<td valign="top">The 16 * 16 pixel-sized mouse form. Each 1 in the mouse form
+creates one dot in the colour mf_bg on the screen.
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Return value:</td>
+<td valign="top"> The function does not return a result.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Availability:</td>
+<td valign="top">All TOS versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">See also:</td>
+<td valign="top"><a href="#Bindings_20for_20transform_mouse">Binding</a> &nbsp; <a href="006011.html">Undraw sprite</a> &nbsp; <a href="006012.html">Draw sprite</a>
+
+</td></tr>
+</table>
+
+<h3><a name="Bindings_20for_20transform_mouse"></a>6.16.1 Bindings for transform_mouse</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Pure-C:</td>
+<td valign="top">void transform_mouse( <a href="008016.html#MFORM">MFORM</a> *mform );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Assembler:</td>
+<td valign="top"><pre>movem.l   D0-D2/A0-A2,-(A7)  ; Save registers
+move.l    pParamblk,A0       ; Pointer parameter block <a href="006002.html">LINEA</a>
+move.l    (8,A0),-(A7)       ; Save old value of the <a href="007003.html#intin">intin</a> field
+move.l    mform,(8,A0)       ; Field with mouse form in <a href="006002.html">LINEA</a>.<a href="007003.html#intin">intin</a>
+dc.w      $A00B              ; <a href="006.html">Line-A</a> opcode
+move.l    pParamblk,A0       ; Pointer parameter block <a href="006002.html">LINEA</a>
+move.l    (A7)+,(8,A0)       ; Restore old value of the <a href="007003.html#intin">intin</a> field
+movem.l   (A7)+,D0-D2/A0-A2  ; Restore registers
+</pre>
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="006.html"><img src="udo_up.gif" alt="Line-A" title="Line-A" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00600f.html"><img src="udo_lf.gif" alt="Hide mouse" title="Hide mouse" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="006011.html"><img src="udo_rg.gif" alt="Undraw sprite" title="Undraw sprite" border="0" width="24" height="24"></a></body>
+</html>

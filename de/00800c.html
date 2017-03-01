@@ -1,0 +1,2745 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>
+Die Anleitung zum TOS: Grafikfunktionen
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Language" content="de">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Generator" content="UDO 7.04 (1296) for Linux">
+</head>
+<body>
+<? include "/var/www/banner.php"; ?>
+
+<a id="UDO_nav_hm_HEAD" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_HEAD" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_HEAD" href="00800b.html"><img src="udo_lf.gif" alt="Formularfunktionen" title="Formularfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_HEAD" href="00800d.html"><img src="udo_rg.gif" alt="Klemmbrett-Funktionen" title="Klemmbrett-Funktionen" border="0" width="24" height="24"></a>
+<hr>
+
+<h1><a name="Grafikfunktionen"></a>8.12 Grafikfunktionen</h1>
+<p>Diese Bibliothek übernimmt die Verwaltung von Rechtecken; so kann
+etwa ein Rechteck aufgezogen werden, daß sich automatisch mit dem
+Mauszeiger mitbewegt. Insgesamt stehen die folgenden Funktionen zur
+Verfügung:</p>
+
+<table>
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_dragbox">graf_dragbox</a></td>
+<td valign="top">Verschieben eines Rechtecks.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_growbox">graf_growbox</a></td>
+<td valign="top">Animation eines sich vergrößernden Rechtecks.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_handle">graf_handle</a></td>
+<td valign="top">Kennung der AES-Workstation ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_mbox">graf_mbox</a></td>
+<td valign="top">Rechteckverschiebung darstellen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_mkstate">graf_mkstate</a></td>
+<td valign="top">Maus- und Tastaturstatus ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_mouse">graf_mouse</a></td>
+<td valign="top">Form des Mauszeigers bestimmen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_multirubber">graf_multirubber</a></td>
+<td valign="top">Zwei Rechteckhülle (»Gummiband«) darstellen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_rubberbox">graf_rubbox</a></td>
+<td valign="top"> Rechteckhülle (»Gummiband«) darstellen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_shrinkbox">graf_shrinkbox</a></td>
+<td valign="top"> Animation eines sich verkleinernden Rechtecks.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_slidebox">graf_slidebox</a></td>
+<td valign="top"> Sliderposition ermitteln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_watchbox">graf_watchbox</a></td>
+<td valign="top"> Objektstatus an Position des Mauszeigers koppeln.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_wwatchbox">graf_wwatchbox</a></td>
+<td valign="top"> Objektstatus an Mausposition koppeln (im Fenster).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">• <a href="#graf_xhandle">graf_xhandle</a></td>
+<td valign="top"> Kennung der AES-Workstation ermitteln.
+
+</td></tr>
+</table>
+
+<p><b>Hinweis:</b> Eine besondere Beachtung hat dabei <a href="#graf_handle">graf_handle</a>
+verdient, mit dessen Hilfe die Kennung der <i>physikalischen</i>
+Bildschirm-Workstation erfragt werden kann.</p>
+
+<p>Querverweis: <a href="00a002.html">Style-Guidelines</a></p>
+
+<h3><a name="graf_dragbox"></a>8.12.1 graf_dragbox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics drag Box« - verschiebt ein Rechteck mit der Maus.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">71</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_dragbox ( int16_t gr_dwidth, int16_t gr_dheight,
+int16_t gr_dstartx, int16_t gr_dstarty, int16_t gr_dboundx, int16_t
+gr_dboundy, int16_t gr_dboundw, int16_t gr_dboundh, int16_t
+*gr_dfinishx, int16_t *gr_dfinishy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermöglicht das Verschieben eines kleineren
+Rechtecks innerhalb eines größeren Begrenzungsrechtecks.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dwidth</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dheight</td>
+<td valign="top">Höhe</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dstartx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dstarty</td>
+<td valign="top">y-Koordinate des zu verschiebenden Rechtecks</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dboundx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dboundy</td>
+<td valign="top">y-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dboundw</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dboundh</td>
+<td valign="top">Höhe des Begrenzungsrechteckes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dfinishx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_dfinishy</td>
+<td valign="top">y-Koordinate des zu verschiebenden Rechtecks beim Loslassen des
+Mausknopfs
+
+</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_dragbox">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_dragbox"></a>8.12.1.1 Bindings für graf_dragbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_dragbox">graf_dragbox</a> ( int16_t gr_dwidth, int16_t gr_dheight,
+int16_t gr_dstartx, int16_t gr_dstarty, int16_t gr_dboundx, int16_t
+gr_dboundy, int16_t gr_dboundw, int16_t gr_dboundh, int16_t
+*gr_dfinishx, int16_t *gr_dfinishy );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_dragbox">graf_dragbox</a> (int16_t gr_dwidth, int16_t gr_dheight,
+                      int16_t gr_dstartx, int16_t gr_dstarty,
+                      int16_t gr_dboundx, int16_t gr_dboundy,
+                      int16_t gr_dboundw, int16_t gr_dboundh,
+                      int16_t *gr_dfinishx, int16_t *gr_dfinishy)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = gr_dwidth;
+   <a href="008002.html#int_in">int_in</a>[1] = gr_dheight;
+   <a href="008002.html#int_in">int_in</a>[2] = gr_dstartx;
+   <a href="008002.html#int_in">int_in</a>[3] = gr_dstarty;
+   <a href="008002.html#int_in">int_in</a>[4] = gr_dboundx;
+   <a href="008002.html#int_in">int_in</a>[5] = gr_dboundy;
+   <a href="008002.html#int_in">int_in</a>[6] = gr_dboundw;
+   <a href="008002.html#int_in">int_in</a>[7] = gr_dboundh;
+
+   <a href="008002.html#crys_if">crys_if</a> (71);
+
+   *gr_dfinishx = <a href="008002.html#int_out">int_out</a>[1];
+   *gr_dfinishy = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">71    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">8     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_dwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_dheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_dstartx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_dstarty</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">gr_dboundx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">gr_dboundy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">gr_dboundw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">gr_dboundh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">gr_dfinishx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">gr_dfinishy</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_growbox"></a>8.12.2 graf_growbox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics grow Box« - zeichnet ein sich vergrößerndes
+Rechteck.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">73</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_growbox ( int16_t gr_gstx, int16_t gr_gsty,
+int16_t gr_gstwidth, int16_t gr_gstheight, int16_t gr_gfinx, int16_t
+gr_gfiny, int16_t gr_gfinwidth, int16_t gr_gfinheight );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion zeichnet ein sich ausdehnendes Rechteck. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gstx</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gsty</i></td>
+  <td align="left" valign="top">y-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gstwidth</i></td>
+  <td align="left" valign="top">Breite</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gstheight</i></td>
+  <td align="left" valign="top">Höhe des Rechtecks (zu Beginn)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gfinx</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gfiny</i></td>
+  <td align="left" valign="top">y-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gfinwidth</i></td>
+  <td align="left" valign="top">Breite</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_gfinheight</i></td>
+  <td align="left" valign="top">Höhe des Rechtecks (am Ende)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Ab PC-GEM Version 2.0 wird dieser Befehl
+ignoriert. Dies liegt in den Rechtsstreitigkeiten zwischen
+<i>Apple</i> und <i>Digital Research</i> begründet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_growbox">Binding</a> &nbsp; <a href="00800b.html#form_dial">form_dial</a> &nbsp; <a href="#graf_shrinkbox">graf_shrinkbox</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_growbox"></a>8.12.2.1 Bindings für graf_growbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_growbox">graf_growbox</a> ( int16_t gr_gstx, int16_t gr_gsty,
+int16_t gr_gstwidth, int16_t gr_gstheight, int16_t gr_gfinx, int16_t
+gr_gfiny, int16_t gr_gfinwidth, int16_t gr_gfinheight );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_growbox">graf_growbox</a> (int16_t gr_gstx, int16_t gr_gsty,
+                      int16_t gr_gstwidth,
+                      int16_t gr_gstheight, int16_t gr_gfinx,
+                      int16_t gr_gfiny, int16_t gr_gfinwidth,
+                      int16_t gr_gfinheight)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = gr_gstx;
+   <a href="008002.html#int_in">int_in</a>[1] = gr_gsty;
+   <a href="008002.html#int_in">int_in</a>[2] = gr_gstwidth;
+   <a href="008002.html#int_in">int_in</a>[3] = gr_gstheight;
+   <a href="008002.html#int_in">int_in</a>[4] = gr_gfinx;
+   <a href="008002.html#int_in">int_in</a>[5] = gr_gfiny;
+   <a href="008002.html#int_in">int_in</a>[6] = gr_gfinwidth;
+   <a href="008002.html#int_in">int_in</a>[7] = gr_gfinheight;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(73) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">73    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">8     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_gstx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_gsty</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_gstwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_gstheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">gr_gfinx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">gr_gfiny</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">gr_gfinwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">gr_gfinheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_handle"></a>8.12.3 graf_handle</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics handle« - ermittelt den VDI-Handle der
+Arbeitsstation.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">77</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_handle ( int16_t *gr_hwchar, int16_t *gr_hhchar,
+int16_t *gr_hwbox, int16_t *gr_hhbox );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Kennung der Bildschirm-Workstation,
+auf der das AES ausgibt. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hwchar</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hhchar</td>
+<td valign="top">Höhe eines Zeichens aus dem Systemzeichensatz in Punkten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hwbox</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hhbox</td>
+<td valign="top">Höhe einer Zelle, in die ein beliebiges Zeichen aus dem
+Systemzeichensatz komplett hinein paßt.
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Information aus den Parametern
+<i>gr_hwbox</i> bzw. <i>gr_hhbox</i> wird vom AES für die
+Breite der einzelnen Fensterelemente verwendet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Kennung (handle) der geöffneten
+AES-Workstation.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_handle">Binding</a> &nbsp; <a href="00700a.html#v_opnvwk">v_opnvwk</a> &nbsp; <a href="#graf_xhandle">graf_xhandle</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_handle"></a>8.12.3.1 Bindings für graf_handle</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_handle">graf_handle</a> ( int16_t *gr_hwchar, int16_t *gr_hhchar,
+int16_t *gr_hwbox, int16_t *gr_hhbox );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_handle">graf_handle</a> (int16_t *gr_hwchar, int16_t *gr_hhchar,
+                     int16_t *gr_hwbox, int16_t *gr_hhbox)
+{
+   <a href="008002.html#crys_if">crys_if</a> (77);
+
+   *gr_hwchar = <a href="008002.html#int_out">int_out</a>[1];
+   *gr_hhchar = <a href="008002.html#int_out">int_out</a>[2];
+   *gr_hwbox  = <a href="008002.html#int_out">int_out</a>[3];
+   *gr_hhbox  = <a href="008002.html#int_out">int_out</a>[4];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">77    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">gr_hwchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">gr_hhchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">gr_hwbox</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">gr_hhbox</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_mbox"></a>8.12.4 graf_mbox</h3>
+<a name="graf_movebox"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics move Box« - verschiebt ein Rechteck mit der Maus.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">72</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_mbox ( int16_t gr_mwidth, int16_t gr_mheight,
+int16_t gr_msourcex, int16_t gr_msourcey, int16_t gr_mdestx, int16_t
+gr_mdesty );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion zeichnet ein sich bewegendes Rechteck mit
+konstanter Größe. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_mwidth</i></td>
+  <td align="left" valign="top">Breite</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_mheight</i></td>
+  <td align="left" valign="top">Höhe des Rechteckes</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_msourcex</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_msourcey</i></td>
+  <td align="left" valign="top">y-Koordinate (zu Beginn)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_mdestx</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_mdesty</i></td>
+  <td align="left" valign="top">y-Koordinate (am Ende)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion kann beispielsweise dann angewendet
+werden, wenn das Verschieben eines Piktogramms nicht erlaubt ist,
+(Drucker-Symbol auf das Papierkorb-Icon legen) und es an seine
+ursprünglich Stelle zurückpositioniert werden soll.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_mbox">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_mbox"></a>8.12.4.1 Bindings für graf_mbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_mbox">graf_mbox</a> ( int16_t gr_mwidth, int16_t gr_mheight,
+int16_t gr_msourcex, int16_t gr_msourcey, int16_t gr_mdestx, int16_t
+gr_mdesty );<br><br>
+
+oder<br><br>
+
+int16_t <a href="00800c.html#graf_movebox">graf_movebox</a> ( ... )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_mbox">graf_mbox</a> (int16_t gr_mwidth, int16_t gr_mheight,
+                   int16_t gr_msourcex, int16_t gr_msourcey,
+                   int16_t gr_mdestx, int16_t gr_mdesty)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = gr_mwidth;
+   <a href="008002.html#int_in">int_in</a>[1] = gr_mheight;
+   <a href="008002.html#int_in">int_in</a>[2] = gr_msourcex;
+   <a href="008002.html#int_in">int_in</a>[3] = gr_msourcey;
+   <a href="008002.html#int_in">int_in</a>[4] = gr_mdestx;
+   <a href="008002.html#int_in">int_in</a>[5] = gr_medsty;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(72) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">72    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">6     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_mwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_mheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_msourcex</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_msourcey</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">gr_mdestx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">gr_mdesty</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_mkstate"></a>8.12.5 graf_mkstate</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics Mouse and Keyboard Status« - ermittelt den Status
+von Maus und Tastatur.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">79</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_mkstate ( int16_t *gr_mkmx, int16_t *gr_mkmy,
+int16_t *gr_mkmstate, int16_t *gr_mkkstate );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die aktuelle Mausposition sowie den
+Zustand der Maustasten und Sondertasten der Tastatur. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_mkmx</td>
+<td valign="top">x-Position</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_mkmy</td>
+<td valign="top">y-Position des Mauszeigers</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_mkmstate</td>
+<td valign="top">Zustand der Mausknöpfe (Bit-0 = linke Taste, usw.)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_mkkstate</td>
+<td valign="top">Sondertasten der Tastatur als Bitvektor:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0x0001</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">rechte Shift-Taste</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x0002</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">linke Shift-Taste</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x0004</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Control-Taste</td>
+</tr>
+<tr>
+  <td align="left" valign="top">0x0008</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">Alternate-Taste</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Ein Bit ist dabei genau dann gesetzt, wenn die
+entsprechende Taste gedrückt ist.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Als Ergebnis wird immer eine 1 zurückgegeben.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_mkstate">Binding</a> &nbsp; <a href="008007.html#evnt_button">evnt_button</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_mkstate"></a>8.12.5.1 Bindings für graf_mkstate</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_mkstate">graf_mkstate</a> ( int16_t *gr_mkmx, int16_t *gr_mkmy,
+int16_t *gr_mkmstate, int16_t *gr_mkkstate );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_mkstate">graf_mkstate</a> (int16_t *gr_mkmx, int16_t *gr_mkmy,
+                      int16_t *gr_mkmstate, int16_t *gr_mkkstate)
+{
+   <a href="008002.html#crys_if">crys_if</a> (79);
+
+   *gr_mkmx     = <a href="008002.html#int_out">int_out</a>[1];
+   *gr_mkmy     = <a href="008002.html#int_out">int_out</a>[2];
+   *gr_mkmstate = <a href="008002.html#int_out">int_out</a>[3];
+   *gr_mkkstate = <a href="008002.html#int_out">int_out</a>[4];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">79    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">5     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">gr_mkmx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">gr_mkmy</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">gr_mkmstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">gr_mkkstate</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_mouse"></a>8.12.6 graf_mouse</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics Mouse« - verändert die Darstellung des
+Mauszeigers.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">78</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_mouse ( int16_t gr_monumber, <a href="008016.html#MFORM">MFORM</a> *gr_mofaddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion erlaubt es, das Aussehen des Mauszeigers zu
+verändern. Für den Parameter <i>gr_monumber</i> gilt:<a name="ARROW"></a>
+<a name="TEXT_CRSR"></a>
+<a name="HOURGLASS"></a>
+<a name="BUSY_BEE"></a>
+<a name="BUSYBEE"></a>
+<a name="POINT_HAND"></a>
+<a name="FLAT_HAND"></a>
+<a name="THIN_CROSS"></a>
+<a name="THICK_CROSS"></a>
+<a name="OUTLN_CROSS"></a>
+<a name="X_LFTRT"></a>
+<a name="X_UPDOWN"></a>
+<a name="USER_DEF"></a>
+<a name="M_OFF"></a>
+<a name="M_ON"></a>
+<a name="M_SAVE"></a>
+<a name="M_LAST"></a>
+<a name="M_PREVIOUS"></a>
+<a name="M_RESTORE"></a>
+<a name="XACRS_BUBBLE_DISC"></a>
+<a name="XACRS_RESIZER"></a>
+<a name="XACRS_NE_SIZER"></a>
+<a name="XACRS_MOVER"></a>
+<a name="XACRS_VERTSIZER"></a>
+<a name="XACRS_HORSIZER"></a>
+<a name="XACRS_POINTSLIDE"></a>
+<a name="X_MGET"></a>
+<a name="X_MRESET"></a>
+<a name="X_SET_SHAPE"></a>
+<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="right" valign="top">gr_monumber</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top">ARROW</td>
+  <td align="right" valign="top">0</td>
+  <td align="left" valign="top">Pfeil</td>
+</tr>
+<tr>
+  <td align="left" valign="top">TEXT_CRSR</td>
+  <td align="right" valign="top">1</td>
+  <td align="left" valign="top">Textcursor</td>
+</tr>
+<tr>
+  <td align="left" valign="top">HOURGLASS</td>
+  <td align="right" valign="top">2</td>
+  <td align="left" valign="top">Sanduhr, Biene</td>
+</tr>
+<tr>
+  <td align="left" valign="top">BUSY_BEE</td>
+  <td align="right" valign="top">2</td>
+  <td align="left" valign="top">siehe HOURGLASS</td>
+</tr>
+<tr>
+  <td align="left" valign="top">BUSYBEE</td>
+  <td align="right" valign="top">2</td>
+  <td align="left" valign="top">siehe HOURGLASS</td>
+</tr>
+<tr>
+  <td align="left" valign="top">POINT_HAND</td>
+  <td align="right" valign="top">3</td>
+  <td align="left" valign="top">zeigende Hand</td>
+</tr>
+<tr>
+  <td align="left" valign="top">FLAT_HAND</td>
+  <td align="right" valign="top">4</td>
+  <td align="left" valign="top">flache Hand</td>
+</tr>
+<tr>
+  <td align="left" valign="top">THIN_CROSS</td>
+  <td align="right" valign="top">5</td>
+  <td align="left" valign="top">feines Fadenkreuz</td>
+</tr>
+<tr>
+  <td align="left" valign="top">THICK_CROSS</td>
+  <td align="right" valign="top">6</td>
+  <td align="left" valign="top">breites Fadenkreuz</td>
+</tr>
+<tr>
+  <td align="left" valign="top">OUTLN_CROSS</td>
+  <td align="right" valign="top">7</td>
+  <td align="left" valign="top">umrissenes Fadenkreuz</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="right" valign="top">8</td>
+  <td align="left" valign="top">Sizer (<a href="008002.html#N.AES">N.AES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">X_LFTRT</td>
+  <td align="right" valign="top">8</td>
+  <td align="left" valign="top">left-right arrow (Geneva)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="right" valign="top">9</td>
+  <td align="left" valign="top">horizontal arrows (<a href="008002.html#N.AES">N.AES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">X_UPDOWN</td>
+  <td align="right" valign="top">9</td>
+  <td align="left" valign="top">up-down arrow (Geneva)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="right" valign="top">10</td>
+  <td align="left" valign="top">vertical arrows (<a href="008002.html#N.AES">N.AES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">USER_DEF</td>
+  <td align="right" valign="top">255</td>
+  <td align="left" valign="top">eigene Mausform</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_OFF</td>
+  <td align="right" valign="top">256</td>
+  <td align="left" valign="top">Mauszeiger ausschalten</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_ON</td>
+  <td align="right" valign="top">257</td>
+  <td align="left" valign="top">Mauszeiger einschalten</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_SAVE</td>
+  <td align="right" valign="top">258</td>
+  <td align="left" valign="top">aktuelle Mausform sichern</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_LAST</td>
+  <td align="right" valign="top">259</td>
+  <td align="left" valign="top">letzte Mausform herstellen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_PREVIOUS</td>
+  <td align="right" valign="top">259</td>
+  <td align="left" valign="top">siehe M_LAST</td>
+</tr>
+<tr>
+  <td align="left" valign="top">M_RESTORE</td>
+  <td align="right" valign="top">260</td>
+  <td align="left" valign="top">vorherige Mausform herstellen</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_BUBBLE_DISC</td>
+  <td align="right" valign="top">270</td>
+  <td align="left" valign="top">The Data Uncertain logo (<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_RESIZER</td>
+  <td align="right" valign="top">271</td>
+  <td align="left" valign="top">The 'resize window' cursors (<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_NE_SIZER</td>
+  <td align="right" valign="top">272</td>
+  <td align="left" valign="top">(<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_MOVER</td>
+  <td align="right" valign="top">273</td>
+  <td align="left" valign="top">The 'move window' cursor (<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_VERTSIZER</td>
+  <td align="right" valign="top">274</td>
+  <td align="left" valign="top">The 'resize vertically' cursor (<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_HORSIZER</td>
+  <td align="right" valign="top">275</td>
+  <td align="left" valign="top">The 'resize horizontally' cursor (<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">XACRS_POINTSLIDE</td>
+  <td align="right" valign="top">276</td>
+  <td align="left" valign="top">The 'two-arrows pointing inwards'</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="right" valign="top">&nbsp;</td>
+  <td align="left" valign="top">cursor to pinpoint slider position(<a href="00d.html">XaAES</a>)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">X_MRESET</td>
+  <td align="right" valign="top">1000</td>
+  <td align="left" valign="top">(Geneva)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">X_MGET</td>
+  <td align="right" valign="top">1001</td>
+  <td align="left" valign="top">(Geneva)</td>
+</tr>
+<tr>
+  <td align="left" valign="top">X_SET_SHAPE</td>
+  <td align="right" valign="top">1100</td>
+  <td align="left" valign="top">(Geneva)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+Im Fall <i>gr_monumber</i> = USER_DEF, ist <i>gr_mofaddr</i> ein
+Zeiger auf die Struktur <a href="008016.html#MFORM">MFORM</a>, die das Aussehen des Mauszeigers
+festlegt.<br><br>
+
+<b>Hinweis:</b> Man sollte darauf achten, daß außerhalb des
+Arbeitsbereichs des eigenen Fensters, der Mauszeiger nur die Form
+eines Pfeils oder einer Sanduhr besitzt.<br><br>
+
+In the event that the application must change the mouse form, set
+the highest bit ( Bit 15 ) of gr_monumber to 1 and OR in with the
+desired mouse form number. After finishing the work, call the
+graf_mouse with value 0 to set the mouse back to arrow.<a name="M_FORCE"></a>
+<br><br>
+
+M_FORCE &nbsp; 0x8000<br><br>
+
+Ob die Modi 258-260 zur Verfügung stehen, bzw. ob die Mausform
+für jede Applikation lokal verwaltet wird, kann per <a href="Application.html#_25apgi_8">appl_getinfo</a> (Opcode
+8) abgefragt werden.<dl>
+<dt><b>X_MRESET (1000)</b></dt>
+<dd>
+<p></p>
+
+<p>graf_mouse( X_MRESET, 0L );</p>
+
+<p>Resets the mouse so that it is "on" just once, and also updates
+graf_mouse's idea of the hide count.</p>
+
+</dd>
+<dt><b>X_MGET (1001)</b></dt>
+<dd>
+<p></p>
+
+<p>hidecount = graf_mouse( X_MGET, <a href="008016.html#MFORM">MFORM</a> *mouse );</p>
+
+<p>In this mode, if "mouse" is non-zero, then the <a href="008016.html#MFORM">MFORM</a> it points to
+is filled-in with the shape of the last mouse set with graf_mouse().
+"hidecount" gets the number of times the mouse was hidden using
+graf_mouse(M_OFF...). If this number is greater than zero, the mouse
+is hidden that number of times. If it is zero, the mouse is shown
+once. If it is less than zero, the mouse is "shown" more than once.</p>
+
+</dd>
+<dt><b>X_SET_SHAPE (1100)</b></dt>
+<dd>
+<p></p>
+
+<p>graf_mouse( X_SET_SHAPE+index, <a href="008016.html#ANI_MOUSE">ANI_MOUSE</a> *mouse_form );</p>
+
+<p>Change the shape of the mouse form whose number is "index". The
+<a href="008016.html#ANI_MOUSE">ANI_MOUSE</a> structure contains up to 32 mouse shapes to be animated in a
+continuous loop while that particular mouse shape is being displayed.
+<br>If the "frames" portion of the <a href="008016.html#ANI_MOUSE">ANI_MOUSE</a> structure is one, then no
+animation is performed. Otherwise, it should be the number of frames
+contained in the mouse animation sequence. The "delay" value is the
+number of 50 Hz timer tics to pause between each frame in the
+animation. The "form" portion of the structure only needs to be
+initialized for the number of frames, so if there are only two frames,
+this means that only form[0] and form[1] are used. If a NULL pointer
+is passed, instead of a pointer to an <a href="008016.html#ANI_MOUSE">ANI_MOUSE</a> structure, then the
+mouse shape is restored to its default.
+<br>It does not matter if the application which sets a new shape
+terminates without resetting the mouse shape, as this call allocates
+memory internally to hold the new shape data.</p>
+
+</dd>
+</dl>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">In allen AES Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_mouse">Binding</a> &nbsp; <a href="00a002.html#Mausklicks_20und_20Formen">Mausklicks und Formen</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_mouse"></a>8.12.6.1 Bindings für graf_mouse</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_mouse">graf_mouse</a> ( int16_t gr_monumber, <a href="008016.html#MFORM">MFORM</a> *gr_mofaddr );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_mouse">graf_mouse</a> (int16_t gr_monumber, <a href="008016.html#MFORM">MFORM</a> *gr_mofaddr)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = gr_monumber;
+   <a href="008002.html#addr_in">addr_in</a>[0] = gr_mofaddr;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(78) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">78    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_monumber</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">gr_mofaddr</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_multirubber"></a>8.12.7 graf_multirubber</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics Rubberbox« - zeichnet eine 'Rubberbox'
+(Gummirechteck) auf den Bildschirm.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">69</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_multirubber(int16_t x, int16_t y, int16_t minw,
+int16_t minh, <a href="010009.html#GRECT">GRECT</a> *rec, int16_t *outw, int16_t *outh)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt ein Gummiband in Form eines Rechtecks auf
+dem Bildschirm dar, dessen obere linke Ecke festbleibt und dessen
+untere rechte Ecke solange bewegt werden kann, wie die linke Maustaste
+gedrückt wird. Ähnelt <a href="#graf_rubberbox">graf_rubberbox</a>, nur mit zwei Rechtecken.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">x</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">y</td>
+<td valign="top">y-Koordinate der linken, oberen Ecke</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">minw</td>
+<td valign="top">kleinste Breite des Gummibandes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">minh</td>
+<td valign="top">kleinste Höhe des Gummibandes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">rec</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">outw</td>
+<td valign="top">Breite des Gummibandes bei Loslassen des Mausknopfs</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">outh</td>
+<td valign="top">Höhe des Gummibandes bei Loslassen des Mausknopfs
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion sollte aus den o.g. Gründen nur bei
+bereits gedrückter Maustaste aufgerufen werden. Interessant ist, daß
+bei der Angabe der minimalen Breite und Höhe auch <i>negative</i>
+Werte zugelassen sind; das Gummiband läßt sich dann von rechts unten
+nach links oben ziehen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion steht nur unter <a href="008002.html#N.AES">N.AES</a> zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_multirubber">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_multirubber"></a>8.12.7.1 Bindings für graf_multirubber</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_multirubber">graf_multirubber</a>(int16_t x, int16_t y, int16_t minw,
+int16_t minh, <a href="010009.html#GRECT">GRECT</a> *rec, int16_t *outw, int16_t *outh)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_multirubber">graf_multirubber</a> (int16_t x, int16_t y, int16_t minw,
+                          int16_t minh, <a href="010009.html#GRECT">GRECT</a> *rec,
+                          int16_t *outw, int16_t *outh)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = x;
+   <a href="008002.html#int_in">int_in</a>[1] = y;
+   <a href="008002.html#int_in">int_in</a>[2] = minw;
+   <a href="008002.html#int_in">int_in</a>[3] = minh;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = rec;
+
+   <a href="008002.html#crys_if">crys_if</a> (69);
+
+   *outw = <a href="008002.html#int_out">int_out</a>[1];
+   *outh = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">69    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">x</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">y</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">minw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">minh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">rec</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">outw</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">outh</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_rubberbox"></a>8.12.8 graf_rubberbox</h3>
+<a name="graf_rubbox"></a>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics Rubberbox« - zeichnet eine 'Rubberbox'
+(Gummirechteck) auf den Bildschirm.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">70</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_rubberbox ( int16_t gr_rx, int16_t gr_ry, int16_t
+gr_minwidth, int16_t gr_minheight, int16_t *gr_rlastwidth, int16_t
+*gr_rlastheight );<br><br>
+
+oder<br><br>
+
+int16_t graf_rubbox ( ... );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion stellt ein Gummiband in Form eines Rechtecks auf
+dem Bildschirm dar, dessen obere linke Ecke festbleibt und dessen
+untere rechte Ecke solange bewegt werden kann, wie die linke Maustaste
+gedrückt wird.<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_rx</td>
+<td valign="top">x-Koordinate</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_ry</td>
+<td valign="top">y-Koordinate der linken, oberen Ecke</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_minwidth</td>
+<td valign="top">kleinste Breite des Gummibandes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_minheight</td>
+<td valign="top">kleinste Höhe des Gummibandes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_rlastwidth</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_rlastheight</td>
+<td valign="top">Höhe des Gummibandes bei Loslassen des Mausknopfs
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion sollte aus den o.g. Gründen nur bei
+bereits gedrückter Maustaste aufgerufen werden. Interessant ist, daß
+bei der Angabe der minimalen Breite und Höhe auch <i>negative</i>
+Werte zugelassen sind; das Gummiband läßt sich dann von rechts unten
+nach links oben ziehen.<br><br>
+
+In älteren GEM-Dokumentationen auch häufig als "graf_rubbox"
+bezeichnet!</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_rubberbox">Binding</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_rubberbox"></a>8.12.8.1 Bindings für graf_rubberbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="00800c.html#graf_rubbox">graf_rubbox</a> ( int16_t gr_rx, int16_t gr_ry, int16_t
+gr_minwidth, int16_t gr_minheight, int16_t *gr_rlastwidth, int16_t
+*gr_rlastheight );<br><br>
+
+oder<br><br>
+
+int16_t <a href="#graf_rubberbox">graf_rubberbox</a> ( ... )</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="00800c.html#graf_rubbox">graf_rubbox</a> (int16_t gr_rx, int16_t gr_ry,
+                     int16_t gr_minwidth, int16_t gr_minheight,
+                     int16_t *gr_rlastwidth,
+                     int16_t *gr_rlastheight)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = gr_rx;
+   <a href="008002.html#int_in">int_in</a>[1] = gr_ry;
+   <a href="008002.html#int_in">int_in</a>[2] = gr_minwidth;
+   <a href="008002.html#int_in">int_in</a>[3] = gr_minheight;
+
+   <a href="008002.html#crys_if">crys_if</a> (70);
+
+   *gr_rlastwidth = <a href="008002.html#int_out">int_out</a>[1];
+   *gr_lastheight = <a href="008002.html#int_out">int_out</a>[2];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">70    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_rx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_ry</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_minwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_minheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">gr_rlastwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">gr_rlastheight</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_shrinkbox"></a>8.12.9 graf_shrinkbox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics shrink Box« - zeichnet ein sich verkleinerndes
+Rechteck.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">74</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_shrinkbox ( int16_t gr_sfinx, int16_t gr_sfiny,
+int16_t gr_sfinwidth, int16_t gr_sfinheight, int16_t gr_sstx, int16_t
+gr_ssty, int16_t gr_sstwidth, int16_t gr_sstheight );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion zeichnet ein schrumpfendes Rechteck. Es gilt:<br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Parameter</td>
+  <td align="left" valign="top">Bedeutung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sfinx</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sfiny</i></td>
+  <td align="left" valign="top">y-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sfinwidth</i></td>
+  <td align="left" valign="top">Breite</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sfinheight</i></td>
+  <td align="left" valign="top">Höhe des Rechteckes (am Ende)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sstx</i></td>
+  <td align="left" valign="top">x-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_ssty</i></td>
+  <td align="left" valign="top">y-Koordinate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sstwidth</i></td>
+  <td align="left" valign="top">Breite</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><i>gr_sstheight</i></td>
+  <td align="left" valign="top">Höhe des Rechteckes (zu Beginn)</td>
+</tr>
+</table>
+</div>
+
+<br><br>
+
+<b>Hinweis:</b> Ab PC-GEM Version 2.0 wird dieser Befehl
+ignoriert. Dies liegt in den Rechtsstreitigkeiten zwischen
+<i>Apple</i> und <i>Digital Research</i> begründet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Ein Fehler ist nur dann aufgetreten, wenn als Ergebnis 0
+zurückgegeben wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_shrinkbox">Binding</a> &nbsp; <a href="00800b.html#form_dial">form_dial</a> &nbsp; <a href="#graf_growbox">graf_growbox</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_shrinkbox"></a>8.12.9.1 Bindings für graf_shrinkbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_shrinkbox">graf_shrinkbox</a> ( int16_t gr_sfinx, int16_t gr_sfiny,
+int16_t gr_sfinwidth, int16_t gr_sfinheight, int16_t gr_sstx, int16_t
+gr_ssty, int16_t gr_sstwidth, int16_t gr_sstheight );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_shrinkbox">graf_shrinkbox</a> (int16_t gr_sfinx, int16_t gr_sfiny,
+                        int16_t gr_sfinwidth, int16_t gr_sfinheight,
+                        int16_t gr_sstx, int16_t gr_ssty,
+                        int16_t gr_sstwidth, int16_t gr_sstheight)
+{
+   <a href="008002.html#int_in">int_in</a>[0] = gr_sfinx;
+   <a href="008002.html#int_in">int_in</a>[1] = gr_sfiny;
+   <a href="008002.html#int_in">int_in</a>[2] = gr_sfinwidth;
+   <a href="008002.html#int_in">int_in</a>[3] = gr_sfinheight;
+   <a href="008002.html#int_in">int_in</a>[4] = gr_sstx;
+   <a href="008002.html#int_in">int_in</a>[5] = gr_ssty;
+   <a href="008002.html#int_in">int_in</a>[6] = gr_sstwidth;
+   <a href="008002.html#int_in">int_in</a>[7] = gr_sstheight;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(74) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">74    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">8     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_sfinx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_sfiny</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_sfinwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_sfinheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[4]</td>
+  <td align="left" valign="top">gr_sstx</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[5]</td>
+  <td align="left" valign="top">gr_ssty</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+12</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[6]</td>
+  <td align="left" valign="top">gr_sstwidth</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+14</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[7]</td>
+  <td align="left" valign="top">gr_sstheight</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_slidebox"></a>8.12.10 graf_slidebox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics slide Box« - ermittelt die Position der
+Schieberegler.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">76</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_slidebox ( <a href="008016.html#OBJECT">OBJECT</a> *gr_slptree, int16_t
+gr_slparent, int16_t gr_slobject, int16_t gr_slvh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion dient zur Abfrage von Schiebereglern (Slidern). Es
+gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_slptree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_slparent</td>
+<td valign="top">Nummer des Parent-Rechteckes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_slobject</td>
+<td valign="top">Nummer des zu verschiebenden Rechteckes (Slider)</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_slvh</td>
+<td valign="top"><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">horizontal verschieben</td>
+</tr>
+<tr>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">=</td>
+  <td align="left" valign="top">vertikal verschieben</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion darf nur bei gedrückter Maustaste
+aufgerufen werden, da sie beim Loslassen des Mausknopfes sofort
+abbricht.<br><br>
+
+In Geneva hat sich der Parameter <a href="#graf_slidebox_20von_20Geneva">gr_slvh</a> geringfügig geändert.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die relative Position zwischen 0 (ganz
+links bzw. ganz oben) und 1000 (ganz rechts bzw. ganz unten) des
+Sliders.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">In allen AES Versionen.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_slidebox">Binding</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="graf_slidebox_20von_20Geneva"></a>8.12.10.1 graf_slidebox von Geneva</h4>
+<p>The meaning of the <i>gr_slvh</i> parameter has changed slightly,
+to provide for real-time updating of sliders:</p>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">LSB</td>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">for horizontal slider, 1 for vertical</td>
+</tr>
+<tr>
+  <td align="left" valign="top">MSB</td>
+  <td align="left" valign="top">0</td>
+  <td align="left" valign="top">for old-style, dotted outline drag box</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">1</td>
+  <td align="left" valign="top">to describe the area to be scrolled in real-time</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">2</td>
+  <td align="left" valign="top">to initialize real-time scrolling</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">3</td>
+  <td align="left" valign="top">to process the scroll bar in real time</td>
+</tr>
+</table>
+</div>
+
+<p>To use real-time scroll bars, a program does the following:</p>
+
+
+<ol>
+<li><p> Call graf_slidebox with <i>gr_slvh</i> mode 0x1XX (where "XX" is 00
+for a horizontal slider, and 01 for vertical). In this mode, the
+<i>gr_slparent</i> parameter describes the size of the entire area to
+be scrolled, and <i>gr_slobject</i> describes the size of the area
+which is visible at one time. Both of these values can be in any units
+the programmer chooses.</p></li>
+<li><p> Call graf_slidebox with <i>gr_slvh</i> mode 0x2XX. In this mode,
+<i>gr_slparent</i> and <i>gr_slobject</i> have the same meaning they
+normally do. The return value will either be -1, if the user has
+released the slider, or it will be a number >= 0 which represents the
+new position of the slider. This number is based on the numbers passed
+in Step 1. The call does not return until the slider has either moved
+enough to change the position within the list, or the mouse button has
+been released.</p></li>
+<li><p> If the result of the last graf_slidebox call was -1, then continue
+on with the rest of the program. Otherwise, perform whatever action is
+necessary to redraw the list of items, starting at the returned index.
+The slider position is updated automatically by Geneva; the program
+must not alter it.</p></li>
+<li><p> Call graf_slidebox with <i>gr_slvh</i> mode 0x3XX. In this mode,
+<i>gr_slparent</i> and <i>gr_slobject</i> have the same meaning they
+normally do. Go to Step 3.</p></li>
+</ol>
+
+<p>Example: Process a list of 100 items, 10 of which are visible at
+once</p>
+
+<pre>if( <a href="#graf_slidebox">graf_slidebox</a>( 0L, 100, 10, 0x101 ) >= 0 )
+{
+  i = <a href="#graf_slidebox">graf_slidebox</a>( object_tree, parent_obj, slider_obj, 0x201 );
+  while( i>=0 )
+  {
+     redraw_list_starting_at(i);
+     i = <a href="#graf_slidebox">graf_slidebox</a>( object_tree, parent_obj, slider_obj, 0x301 );
+  }
+}
+</pre>
+<h4><a name="Bindings_20f_C3_BCr_20graf_slidebox"></a>8.12.10.2 Bindings für graf_slidebox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_slidebox">graf_slidebox</a> ( <a href="008016.html#OBJECT">OBJECT</a> *gr_slptree, int16_t
+gr_slparent, int16_t gr_slobject, int16_t gr_slvh );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_slidebox">graf_slidebox</a> (<a href="008016.html#OBJECT">OBJECT</a> *gr_slptree, int16_t gr_slparent,
+                       int16_t gr_slobject, int16_t gr_slvh)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = gr_slparent;
+   <a href="008002.html#int_in">int_in</a>[1]  = gr_slobject;
+   <a href="008002.html#int_in">int_in</a>[2]  = gr_slvh;
+   <a href="008002.html#addr_in">addr_in</a>[0] = gr_slptree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(76) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">76    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">3     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_slparent</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_slobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_slvh</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">gr_slptree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_watchbox"></a>8.12.11 graf_watchbox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics watch Box« - selektiert ein Objekt und überwacht
+die Mausbewegungen bezüglich dieses Objekts.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">75</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_watchbox ( <a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+int16_t gr_winstate, int16_t gr_woutstate );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion setzt den Objektstatus eines Objektes in
+Abhängigkeit von der Position des Mauszeigers. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_wptree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_wpobject</td>
+<td valign="top">Nummer des Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_winstate</td>
+<td valign="top">Objektstatus, wenn sich der Mauszeiger innerhalb der Begrenzung
+befindet:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">NORMAL</td>
+  <td align="left" valign="top">(0x0000)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#SELECTED">SELECTED</a></td>
+  <td align="left" valign="top">(0x0001)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#CROSSED">CROSSED</a></td>
+  <td align="left" valign="top">(0x0002)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#CHECKED">CHECKED</a></td>
+  <td align="left" valign="top">(0x0004)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#DISABLED">DISABLED</a></td>
+  <td align="left" valign="top">(0x0008)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#OUTLINED">OUTLINED</a></td>
+  <td align="left" valign="top">(0x0010)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#SHADOWED">SHADOWED</a></td>
+  <td align="left" valign="top">(0x0020)</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_woutstate</td>
+<td valign="top">Objektstatus, wenn sich der Mauszeiger außerhalb der
+Begrenzung befindet.
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion bricht ab, wenn der Mausknopf
+losgelassen wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Position des Mauszeigers beim
+Loslassen des Buttons (0 = außerhalb des Objektes, 1 = innerhalb des
+Objektes).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">All AES versions.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_watchbox">Binding</a> &nbsp; <a href="#graf_wwatchbox">graf_wwatchbox</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_watchbox"></a>8.12.11.1 Bindings für graf_watchbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_watchbox">graf_watchbox</a> ( <a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+int16_t gr_winstate, int16_t gr_woutstate );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_watchbox">graf_watchbox</a> (<a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+                       int16_t gr_winstate, int16_t gr_woutstate)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = 0;
+   <a href="008002.html#int_in">int_in</a>[1]  = gr_wobject;
+   <a href="008002.html#int_in">int_in</a>[2]  = gr_winstate;
+   <a href="008002.html#int_in">int_in</a>[3]  = gr_woutstate;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = gr_wptree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(75) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">75    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">0</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_wobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_winstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">gr_woutstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">gr_wptree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_wwatchbox"></a>8.12.12 graf_wwatchbox</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics window watch Box« - selektiert ein Objekt in einem
+Fenster und überwacht die Mausbewegungen bezüglich dieses Objekts.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">62</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_wwatchbox ( <a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+int16_t gr_winstate, int16_t gr_woutstate, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion setzt den Objektstatus eines Objektes in einem
+Fenster in Abhängigkeit von der Position des Mauszeigers. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_wptree</td>
+<td valign="top">Adresse des Objektbaumes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_wpobject</td>
+<td valign="top">Nummer des Objektes</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_winstate</td>
+<td valign="top">Objektstatus, wenn sich der Mauszeiger innerhalb der Begrenzung
+befindet:<br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">NORMAL</td>
+  <td align="left" valign="top">(0x0000)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#SELECTED">SELECTED</a></td>
+  <td align="left" valign="top">(0x0001)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#CROSSED">CROSSED</a></td>
+  <td align="left" valign="top">(0x0002)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#CHECKED">CHECKED</a></td>
+  <td align="left" valign="top">(0x0004)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#DISABLED">DISABLED</a></td>
+  <td align="left" valign="top">(0x0008)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#OUTLINED">OUTLINED</a></td>
+  <td align="left" valign="top">(0x0010)</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#SHADOWED">SHADOWED</a></td>
+  <td align="left" valign="top">(0x0020)</td>
+</tr>
+</table>
+</div>
+
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_woutstate</td>
+<td valign="top">Objektstatus, wenn sich der Mauszeiger außerhalb der
+Begrenzung befindet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">whandle</td>
+<td valign="top">Kennung des Fensters
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Funktion bricht ab, wenn der Mausknopf
+losgelassen wird. Die Funktion entspricht im wesentlichen
+<a href="#graf_watchbox">graf_watchbox</a> mit dem Unterschied, dass hier die Rechteckliste eines
+Fensters beachtet wird.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Position des Mauszeigers beim
+Loslassen des Buttons (0 = außerhalb des Objektes, 1 = innerhalb des
+Objektes).</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Die Funktion steht in <a href="00b.html">MagiC</a> ab Version 5.10 zur Verfügung.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_wwatchbox">Binding</a> &nbsp; <a href="#graf_watchbox">graf_watchbox</a> &nbsp; <a href="008016.html#OBJECT">OBJECT</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_wwatchbox"></a>8.12.12.1 Bindings für graf_wwatchbox</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_wwatchbox">graf_wwatchbox</a> ( <a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+int16_t gr_winstate, int16_t gr_woutstate, int16_t whandle );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_wwatchbox">graf_wwatchbox</a> (<a href="008016.html#OBJECT">OBJECT</a> *gr_wptree, int16_t gr_wobject,
+                        int16_t gr_winstate, int16_t gr_woutstate,
+                        int16_t whandle)
+{
+   <a href="008002.html#int_in">int_in</a>[0]  = gr_wobject;
+   <a href="008002.html#int_in">int_in</a>[1]  = gr_winstate;
+   <a href="008002.html#int_in">int_in</a>[2]  = gr_woutstate;
+   <a href="008002.html#int_in">int_in</a>[3]  = whandle;
+
+   <a href="008002.html#addr_in">addr_in</a>[0] = gr_wptree;
+
+   return ( <a href="008002.html#crys_if">crys_if</a>(62) );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">62    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">4     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">1     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[0]</td>
+  <td align="left" valign="top">gr_wobject</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[1]</td>
+  <td align="left" valign="top">gr_winstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[2]</td>
+  <td align="left" valign="top">gr_woutstate</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_in">int_in</a>[3]</td>
+  <td align="left" valign="top">whandle</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a></td>
+  <td align="left" valign="top"><a href="008002.html#addr_in">addr_in</a>[0]</td>
+  <td align="left" valign="top">gr_wptree</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<h3><a name="graf_xhandle"></a>8.12.13 graf_xhandle</h3>
+<table>
+<tr><td nowrap="nowrap" valign="top">Name:</td>
+<td valign="top">»Graphics handle« - ermittelt den <a href="007.html">VDI</a>-Handle der
+Arbeitsstation.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="008.html">AES</a>-Nummer:</td>
+<td valign="top">77</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Deklaration:</td>
+<td valign="top">int16_t graf_xhandle ( int16_t *gr_hwchar, int16_t *gr_hhchar,
+int16_t *gr_hwbox, int16_t *gr_hhbox, int16_t *device );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Beschreibung:</td>
+<td valign="top">Die Funktion ermittelt die Kennung der Bildschirm-Workstation,
+auf der das AES ausgibt. Es gilt:<table>
+<tr><td nowrap="nowrap" valign="top">Parameter</td>
+<td valign="top">Bedeutung</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">&nbsp;</td>
+<td valign="top">&nbsp;</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hwchar</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hhchar</td>
+<td valign="top">Höhe eines Zeichens aus dem Systemzeichensatz in Punkten</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hwbox</td>
+<td valign="top">Breite</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">gr_hhbox</td>
+<td valign="top">Höhe einer Zelle, in die ein beliebiges Zeichen aus dem
+Systemzeichensatz komplett hinein paßt.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">device</td>
+<td valign="top">Gerätehandle des <a href="008.html">AES</a> (<a href="007003.html#vdi">vdi</a>_device)
+
+</td></tr>
+</table>
+
+<br><br>
+
+<b>Hinweis:</b> Die Information aus den Parametern
+<i>gr_hwbox</i> bzw. <i>gr_hhbox</i> wird vom AES für die
+Breite der einzelnen Fensterelemente verwendet.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Ergebnis:</td>
+<td valign="top">Die Funktion liefert die Kennung (handle) der geöffneten
+AES-Workstation.</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Verfügbar:</td>
+<td valign="top">Seit KAOS 1.4</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Gruppe:</td>
+<td valign="top"><a href="#Grafikfunktionen">Grafikfunktionen</a></td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Querverweis:</td>
+<td valign="top"><a href="#Bindings_20f_C3_BCr_20graf_xhandle">Binding</a> &nbsp; <a href="00700a.html#v_opnvwk">v_opnvwk</a> &nbsp; <a href="#graf_handle">graf_handle</a>
+
+</td></tr>
+</table>
+
+<h4><a name="Bindings_20f_C3_BCr_20graf_xhandle"></a>8.12.13.1 Bindings für graf_xhandle</h4>
+<table>
+<tr><td nowrap="nowrap" valign="top">C:</td>
+<td valign="top">int16_t <a href="#graf_xhandle">graf_xhandle</a> ( int16_t *gr_hwchar, int16_t *gr_hhchar,
+int16_t *gr_hwbox, int16_t *gr_hhbox, int16_t *device );</td></tr>
+
+<tr><td nowrap="nowrap" valign="top">Umsetzung:</td>
+<td valign="top"><pre>int16_t <a href="#graf_xhandle">graf_xhandle</a> (int16_t *gr_hwchar, int16_t *gr_hhchar,
+                      int16_t *gr_hwbox, int16_t *gr_hhbox,
+                      int16_t *device )
+{
+   <a href="008002.html#crys_if">crys_if</a> (77);
+
+   *gr_hwchar = <a href="008002.html#int_out">int_out</a>[1];
+   *gr_hhchar = <a href="008002.html#int_out">int_out</a>[2];
+   *gr_hwbox  = <a href="008002.html#int_out">int_out</a>[3];
+   *gr_hhbox  = <a href="008002.html#int_out">int_out</a>[4];
+   *device    = <a href="008002.html#int_out">int_out</a>[5];
+
+   return ( <a href="008002.html#int_out">int_out</a>[0] );
+}
+</pre>
+</td></tr>
+
+<tr><td nowrap="nowrap" valign="top"><a href="002002.html">GEM</a>-Arrays:</td>
+<td valign="top"><br><br>
+
+
+<div align="left">
+<table border="0">
+<tr>
+  <td align="left" valign="top">Adresse</td>
+  <td align="left" valign="top">Feldelement</td>
+  <td align="left" valign="top">Belegung</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a></td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[0]</td>
+  <td align="left" valign="top">77    # Opcode der Funktion</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[1]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#int_in">int_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[2]</td>
+  <td align="left" valign="top">6     # Einträge in <a href="008002.html#int_out">int_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[3]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_in">addr_in</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#control">control</a>[4]</td>
+  <td align="left" valign="top">0     # Einträge in <a href="008002.html#addr_out">addr_out</a></td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a></td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[0]</td>
+  <td align="left" valign="top"><a href="VT_52_terminal.html#Return">Return</a>-Wert</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+2</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[1]</td>
+  <td align="left" valign="top">gr_hwchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+4</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[2]</td>
+  <td align="left" valign="top">gr_hhchar</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+6</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[3]</td>
+  <td align="left" valign="top">gr_hwbox</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+8</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[4]</td>
+  <td align="left" valign="top">gr_hhbox</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>+10</td>
+  <td align="left" valign="top"><a href="008002.html#int_out">int_out</a>[5]</td>
+  <td align="left" valign="top">device</td>
+</tr>
+</table>
+</div>
+
+
+
+</td></tr>
+</table>
+
+<hr>
+
+<a id="UDO_nav_hm_FOOT" href="index.html"><img src="udo_hm.gif" alt="Home" title="Home" border="0" width="24" height="24"></a><a id="UDO_nav_up_FOOT" href="008.html"><img src="udo_up.gif" alt="AES" title="AES" border="0" width="24" height="24"></a><a id="UDO_nav_lf_FOOT" href="00800b.html"><img src="udo_lf.gif" alt="Formularfunktionen" title="Formularfunktionen" border="0" width="24" height="24"></a><a id="UDO_nav_rg_FOOT" href="00800d.html"><img src="udo_rg.gif" alt="Klemmbrett-Funktionen" title="Klemmbrett-Funktionen" border="0" width="24" height="24"></a></body>
+</html>
